@@ -1,27 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
+use App\Services\Admin\AgentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class AgentController extends Controller
 {
     protected $users;
+    protected AgentService $agentService;
 
-
-    public function __construct()
+    public function __construct(AgentService $agentService)
     {
         $this->middleware(function ($request, $next) {
             $this->users = Auth::user();
             return $next($request);
         });
+        $this->agentService =$agentService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.dashboard', array(
+        if ($request->ajax()) {
+            return $this->agentService->index($request);
+        }
+        return view('admin.agent', array(
             'judul' => "Dashboard Administrator | GeoRestate v.1.0",
             'menuUtama' => 'dashboard',
             'menuKedua' => 'dashboard',

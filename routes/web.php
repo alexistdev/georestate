@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{DashboardController as DashAdmin};
 use App\Http\Controllers\Admin\Master\AgentController as AgentAdmin;
+use App\Http\Controllers\Front\HomeController as FrontHome;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,9 @@ use App\Http\Controllers\Admin\Master\AgentController as AgentAdmin;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -35,6 +36,10 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/staff/dashboard', [DashAdmin::class, 'index'])->name('adm.dashboard');
         Route::get('/staff/agent', [AgentAdmin::class, 'index'])->name('adm.agent');
     });
+});
+
+Route::middleware('guest')->group(function () {
+    Route::get('/', [FrontHome::class, 'index'])->name('front.home');
 });
 
 require __DIR__.'/auth.php';

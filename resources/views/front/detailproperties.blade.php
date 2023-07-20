@@ -28,10 +28,10 @@
                             <div class="lightbox" data-plugin-options="{'delegate': 'a', 'type': 'image', 'gallery': {'enabled': true}}">
                                 <div class="owl-carousel owl-theme manual thumb-gallery-detail show-nav-hover" id="thumbGalleryDetail">
                                     <div class="border-radius overflow-hidden">
-                                        <a href="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-1.jpg">
+                                        <a href="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-1.jpg')}}">
 														<span class="thumb-info thumb-info-centered-info thumb-info-no-borders text-4">
 															<span class="thumb-info-wrapper text-4">
-																<img alt="Property Detail" src="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-1.jpg" class="img-fluid">
+																<img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-1.jpg')}}" class="img-fluid">
 																<span class="thumb-info-title text-4">
 																	<span class="thumb-info-inner text-4"><i class="icon-magnifier icons text-4"></i></span>
 																</span>
@@ -40,10 +40,10 @@
                                         </a>
                                     </div>
                                     <div class="border-radius overflow-hidden">
-                                        <a href="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-2.jpg">
+                                        <a href="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-2.jpg')}}">
 														<span class="thumb-info thumb-info-centered-info thumb-info-no-borders text-4">
 															<span class="thumb-info-wrapper text-4">
-																<img alt="Property Detail" src="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-2.jpg" class="img-fluid">
+																<img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-2.jpg')}}" class="img-fluid">
 																<span class="thumb-info-title text-4">
 																	<span class="thumb-info-inner text-4"><i class="icon-magnifier icons text-4"></i></span>
 																</span>
@@ -52,10 +52,10 @@
                                         </a>
                                     </div>
                                     <div class="border-radius overflow-hidden">
-                                        <a href="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-3.jpg">
+                                        <a href="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-3.jpg')}}">
 														<span class="thumb-info thumb-info-centered-info thumb-info-no-borders text-4">
 															<span class="thumb-info-wrapper text-4">
-																<img alt="Property Detail" src="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-3.jpg" class="img-fluid">
+																<img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-3.jpg')}}" class="img-fluid">
 																<span class="thumb-info-title text-4">
 																	<span class="thumb-info-inner text-4"><i class="icon-magnifier icons text-4"></i></span>
 																</span>
@@ -64,10 +64,10 @@
                                         </a>
                                     </div>
                                     <div class="border-radius overflow-hidden">
-                                        <a href="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-4.jpg">
+                                        <a href="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-4.jpg')}}">
 														<span class="thumb-info thumb-info-centered-info thumb-info-no-borders text-4">
 															<span class="thumb-info-wrapper text-4">
-																<img alt="Property Detail" src="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-4.jpg" class="img-fluid">
+																<img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-4.jpg')}}" class="img-fluid">
 																<span class="thumb-info-title text-4">
 																	<span class="thumb-info-inner text-4"><i class="icon-magnifier icons text-4"></i></span>
 																</span>
@@ -80,16 +80,16 @@
 
                             <div class="owl-carousel owl-theme manual thumb-gallery-thumbs mt" id="thumbGalleryThumbs">
                                 <div class="border-radius overflow-hidden">
-                                    <img alt="Property Detail" src="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-1-thumb.jpg" class="img-fluid cur-pointer">
+                                    <img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-1-thumb.jpg')}}" class="img-fluid cur-pointer">
                                 </div>
                                 <div class="border-radius overflow-hidden">
-                                    <img alt="Property Detail" src="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-2-thumb.jpg" class="img-fluid cur-pointer">
+                                    <img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-2-thumb.jpg')}}" class="img-fluid cur-pointer">
                                 </div>
                                 <div class="border-radius overflow-hidden">
-                                    <img alt="Property Detail" src="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-3-thumb.jpg" class="img-fluid cur-pointer">
+                                    <img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-3-thumb.jpg')}}" class="img-fluid cur-pointer">
                                 </div>
                                 <div class="border-radius overflow-hidden">
-                                    <img alt="Property Detail" src="{{asset('template/frontend/')}}img/demos/real-estate/listing/listing-detail-4-thumb.jpg" class="img-fluid cur-pointer">
+                                    <img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-4-thumb.jpg')}}" class="img-fluid cur-pointer">
                                 </div>
                             </div>
                         </div>
@@ -240,24 +240,24 @@
 
                                 <div class="owl-carousel owl-theme dots-light mb-0 pb-0" data-plugin-options="{'items': 1, 'autoplay': true, 'autoplayTimeout': 5000, 'margin': 10}">
                                     <div>
-                                        <a href="demo-real-estate-agents-detail.html" class="text-decoration-none">
-                                            <img alt="" class="img-fluid rounded-circle m-auto" src="img/team/team-5.jpg" style="max-width: 110px;">
+                                        <a href="#" class="text-decoration-none">
+                                            <img alt="" class="img-fluid rounded-circle m-auto" src="{{asset('template/frontend/img/team/team-5.jpg')}}" style="max-width: 110px;">
                                             <strong class="text-color-light font-weight-semibold text-4 line-height-5 d-block mt-3 mb-1 text-center">John Doe</strong>
                                         </a>
                                         <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3" href="tel:12345678">(800) 123-4567</a>
                                         <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3 pb-2" href="mailto:you@domain.com">you@domain.com</a>
                                     </div>
                                     <div>
-                                        <a href="demo-real-estate-agents-detail.html" class="text-decoration-none">
-                                            <img alt="" class="img-fluid rounded-circle m-auto" src="img/team/team-4.jpg" style="max-width: 110px;">
+                                        <a href="#" class="text-decoration-none">
+                                            <img alt="" class="img-fluid rounded-circle m-auto" src="{{asset('template/frontend/img/team/team-4.jpg')}}" style="max-width: 110px;">
                                             <strong class="text-color-light font-weight-semibold text-4 line-height-5 d-block mt-3 mb-1 text-center">Janice Doe</strong>
                                         </a>
                                         <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3" href="tel:12345678">(800) 123-4567</a>
                                         <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3 pb-2" href="mailto:you@domain.com">you@domain.com</a>
                                     </div>
                                     <div>
-                                        <a href="demo-real-estate-agents-detail.html" class="text-decoration-none">
-                                            <img alt="" class="img-fluid rounded-circle m-auto" src="img/team/team-2.jpg" style="max-width: 110px;">
+                                        <a href="#" class="text-decoration-none">
+                                            <img alt="" class="img-fluid rounded-circle m-auto" src="{{asset('template/frontend/img/team/team-2.jpg')}}" style="max-width: 110px;">
                                             <strong class="text-color-light font-weight-semibold text-4 line-height-5 d-block mt-3 mb-1 text-center">Lisa Doe</strong>
                                         </a>
                                         <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3" href="tel:12345678">(800) 123-4567</a>
@@ -277,7 +277,7 @@
                                         <a href="#" class="text-decoration-none">
                                             <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                             <span class="custom-card-info-img d-block">
-															<img src="img/demos/real-estate/listing/listing-1-thumb.jpg" class="img-fluid">
+															<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-1-thumb.jpg')}}" class="img-fluid">
 														</span>
                                             <span class="custom-card-info-header d-block p-relative">
 															<strong class="text-dark text-4">$ 1.250.000</strong>
@@ -306,7 +306,7 @@
                                         <a href="#" class="text-decoration-none">
                                             <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                             <span class="custom-card-info-img d-block">
-															<img src="img/demos/real-estate/listing/listing-1-thumb.jpg" class="img-fluid">
+															<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-1-thumb.jpg')}}" class="img-fluid">
 														</span>
                                             <span class="custom-card-info-header d-block p-relative">
 															<strong class="text-dark text-4">$ 1.250.000</strong>
@@ -335,7 +335,7 @@
                                         <a href="#" class="text-decoration-none">
                                             <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                             <span class="custom-card-info-img d-block">
-															<img src="img/demos/real-estate/listing/listing-1-thumb.jpg" class="img-fluid">
+															<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-1-thumb.jpg')}}" class="img-fluid">
 														</span>
                                             <span class="custom-card-info-header d-block p-relative">
 															<strong class="text-dark text-4">$ 1.250.000</strong>
@@ -370,7 +370,7 @@
                                     We help you choose your property and any other question.
                                 </p>
 
-                                <form class="contact-form form-style-3" action="php/contact-form.php" method="POST">
+                                <form class="contact-form form-style-3" action="" method="POST">
                                     <div class="contact-form-success alert alert-success d-none mt-4">
                                         <strong>Success!</strong> Your message has been sent to us.
                                     </div>
@@ -426,8 +426,8 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="d-grid gap-2">
-                        <a href="demo-real-estate-contact.html" class="btn btn-primary font-weight-semibold border-0 text-3 text-uppercase mt-4 btn-py-3">Contact Us
-                            <img width="27" height="27" src="img/demos/real-estate/icons/arrow-right.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light d-inline-block p-relative bottom-2 ms-2'}" />
+                        <a href="#" class="btn btn-primary font-weight-semibold border-0 text-3 text-uppercase mt-4 btn-py-3">Contact Us
+                            <img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light d-inline-block p-relative bottom-2 ms-2'}" />
                         </a>
                     </div>
                 </div>

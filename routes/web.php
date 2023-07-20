@@ -43,6 +43,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 Route::middleware('guest')->group(function () {
     Route::get('/', [FrontHome::class, 'index'])->name('front.home');
     Route::get('/properties', [FrontProp::class, 'index'])->name('front.properties');
+    Route::get('/properties/{id}/detail', [FrontProp::class, 'detail'])->name('front.properties.detail');
 });
 
 require __DIR__.'/auth.php';

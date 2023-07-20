@@ -152,7 +152,7 @@
                     <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
                         <div class="card custom-card-info custom-card-info-shadow border-0">
                             <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
+                                <a href="{{route('front.properties.detail',"MQ==")}}" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
 													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-1-thumb.jpg')}}" class="img-fluid">
@@ -182,7 +182,7 @@
                     <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
                         <div class="card custom-card-info custom-card-info-shadow border-0">
                             <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
+                                <a href="#" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
 													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-2-thumb.jpg')}}" class="img-fluid">
@@ -212,7 +212,7 @@
                     <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
                         <div class="card custom-card-info custom-card-info-shadow border-0">
                             <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
+                                <a href="# " class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
 													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-3-thumb.jpg')}}" class="img-fluid">
@@ -242,7 +242,7 @@
                     <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
                         <div class="card custom-card-info custom-card-info-shadow border-0">
                             <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
+                                <a href="#" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
 													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-4-thumb.jpg')}}" class="img-fluid">
@@ -272,7 +272,7 @@
                     <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
                         <div class="card custom-card-info custom-card-info-shadow border-0">
                             <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
+                                <a href="#" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
 													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-5-thumb.jpg')}}" class="img-fluid">
@@ -302,7 +302,7 @@
                     <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
                         <div class="card custom-card-info custom-card-info-shadow border-0">
                             <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
+                                <a href="#" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
 													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-6-thumb.jpg')}}" class="img-fluid">
@@ -332,7 +332,7 @@
                     <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
                         <div class="card custom-card-info custom-card-info-shadow border-0">
                             <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
+                                <a href="#" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
 													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-1-thumb.jpg')}}" class="img-fluid">
@@ -362,7 +362,7 @@
                     <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
                         <div class="card custom-card-info custom-card-info-shadow border-0">
                             <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
+                                <a href="#" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
 													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-2-thumb.jpg')}}" class="img-fluid">
@@ -418,8 +418,8 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="d-grid gap-2">
-                        <a href="demo-real-estate-contact.html" class="btn btn-primary font-weight-semibold border-0 text-3 text-uppercase mt-4 btn-py-3">Contact Us
-                            <img width="27" height="27" src="img/demos/real-estate/icons/arrow-right.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light d-inline-block p-relative bottom-2 ms-2'}" />
+                        <a href="#" class="btn btn-primary font-weight-semibold border-0 text-3 text-uppercase mt-4 btn-py-3">Contact Us
+                            <img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="arrow right" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light d-inline-block p-relative bottom-2 ms-2'}" />
                         </a>
                     </div>
                 </div>

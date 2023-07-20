@@ -15,4 +15,14 @@ class PropertiesController extends Controller
             'menuKedua' => 'properties',
         ));
     }
+
+    public function detail($id)
+    {
+        return view('front.detailproperties', array(
+            'judul' => "Halaman Properties | GeoRestate v.1.0",
+            'menuUtama' => 'properties',
+            'menuKedua' => 'properties',
+            'id' => $id,
+        ));
+    }
 }

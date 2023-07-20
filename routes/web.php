@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\Master\AgentController as AgentAdmin;
 use App\Http\Controllers\Front\{HomeController as FrontHome,
 PropertiesController as FrontProp,
     AgenController as FrontAgen,
+    AboutController as FrontAbout,
+    ContactController as FrontContact
 };
 
 /*
@@ -46,6 +48,8 @@ Route::middleware('guest')->group(function () {
     Route::get('/properties', [FrontProp::class, 'index'])->name('front.properties');
     Route::get('/properties/{id}/detail', [FrontProp::class, 'detail'])->name('front.properties.detail');
     Route::get('/agents', [FrontAgen::class, 'index'])->name('front.agents');
+    Route::get('/about', [FrontAbout::class, 'index'])->name('front.about');
+    Route::get('/contact', [FrontContact::class, 'index'])->name('front.contact');
 });
 
 require __DIR__.'/auth.php';

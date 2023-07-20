@@ -4,7 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{DashboardController as DashAdmin};
 use App\Http\Controllers\Admin\Master\AgentController as AgentAdmin;
-use App\Http\Controllers\Front\HomeController as FrontHome;
+use App\Http\Controllers\Front\{HomeController as FrontHome,
+PropertiesController as FrontProp
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 
 Route::middleware('guest')->group(function () {
     Route::get('/', [FrontHome::class, 'index'])->name('front.home');
+    Route::get('/properties', [FrontProp::class, 'index'])->name('front.properties');
 });
 
 require __DIR__.'/auth.php';

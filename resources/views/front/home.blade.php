@@ -1,10 +1,10 @@
-<x-front.front-end-template >
+<x-front.front-end-template :title="$judul" :main-label="$menuUtama" :secondary-label="$menuKedua">
     <div class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual dots-inside dots-horizontal-center show-dots-hover nav-inside nav-inside-plus nav-dark nav-md nav-font-size-md show-nav-hover mb-0" data-plugin-options="{'autoplayTimeout': 8000}" data-dynamic-height="['700px','700px','700px','700px','700px']" style="height: 700px;">
         <div class="owl-stage-outer">
             <div class="owl-stage">
 
                 <!-- Carousel Slide 1 -->
-                <div class="owl-item position-relative" style="background-image: url(img/demos/real-estate/slider/slide-1.jpg); background-color: #F4F4F4; background-size: cover; background-position: center;">
+                <div class="owl-item position-relative" style="background-image: url({{asset('template/frontend/img/demos/real-estate/slider/slide-1.jpg')}}); background-color: #F4F4F4; background-size: cover; background-position: center;">
                     <div class="container position-relative z-index-1 h-100">
                         <div class="d-flex flex-column justify-content-center h-100">
 
@@ -41,7 +41,7 @@
                 </div>
 
                 <!-- Carousel Slide 2 -->
-                <div class="owl-item position-relative" style="background-image: url(img/demos/real-estate/slider/slide-2.jpg); background-color: #F4F4F4; background-size: cover; background-position: center;">
+                <div class="owl-item position-relative" style="background-image: url({{asset('template/frontend/img/demos/real-estate/slider/slide-2.jpg')}}); background-color: #F4F4F4; background-size: cover; background-position: center;">
                     <div class="container position-relative z-index-1 h-100">
                         <div class="d-flex flex-column justify-content-center align-items-end h-100">
 
@@ -86,7 +86,6 @@
         <div class="owl-dots mb-5">
             <button role="button" class="owl-dot active"><span></span></button>
             <button role="button" class="owl-dot"><span></span></button>
-            <button role="button" class="owl-dot"><span></span></button>
         </div>
     </div>
 
@@ -102,11 +101,11 @@
                                 <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
-													<img src="img/demos/real-estate/listing/listing-1-thumb.jpg" class="img-fluid">
+													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-1-thumb.jpg')}}" class="img-fluid">
 												</span>
                                     <span class="custom-card-info-header d-block p-relative">
 													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="img/demos/real-estate/icons/arrow-right.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
+													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
 												</span>
                                     <span class="custom-card-info-content d-block">
 													<h4 class="text-dark mb-1 text-5">South Miami</h4>
@@ -132,11 +131,11 @@
                                 <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
-													<img src="img/demos/real-estate/listing/listing-2-thumb.jpg" class="img-fluid">
+													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-2-thumb.jpg')}}" class="img-fluid">
 												</span>
                                     <span class="custom-card-info-header d-block p-relative">
 													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="img/demos/real-estate/icons/arrow-right.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
+													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
 												</span>
                                     <span class="custom-card-info-content d-block">
 													<h4 class="text-dark mb-1 text-5">South Miami</h4>
@@ -162,11 +161,11 @@
                                 <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
-													<img src="img/demos/real-estate/listing/listing-3-thumb.jpg" class="img-fluid">
+													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-3-thumb.jpg')}}" class="img-fluid">
 												</span>
                                     <span class="custom-card-info-header d-block p-relative">
 													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="img/demos/real-estate/icons/arrow-right.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
+													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
 												</span>
                                     <span class="custom-card-info-content d-block">
 													<h4 class="text-dark mb-1 text-5">South Miami</h4>
@@ -192,11 +191,11 @@
                                 <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
-													<img src="img/demos/real-estate/listing/listing-4-thumb.jpg" class="img-fluid">
+													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-4-thumb.jpg')}}" class="img-fluid">
 												</span>
                                     <span class="custom-card-info-header d-block p-relative">
 													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="img/demos/real-estate/icons/arrow-right.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
+													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
 												</span>
                                     <span class="custom-card-info-content d-block">
 													<h4 class="text-dark mb-1 text-5">South Miami</h4>
@@ -222,11 +221,11 @@
                                 <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
-													<img src="img/demos/real-estate/listing/listing-5-thumb.jpg" class="img-fluid">
+													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-5-thumb.jpg')}}" class="img-fluid">
 												</span>
                                     <span class="custom-card-info-header d-block p-relative">
 													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="img/demos/real-estate/icons/arrow-right.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
+													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
 												</span>
                                     <span class="custom-card-info-content d-block">
 													<h4 class="text-dark mb-1 text-5">South Miami</h4>
@@ -252,11 +251,11 @@
                                 <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
                                     <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
                                     <span class="custom-card-info-img d-block">
-													<img src="img/demos/real-estate/listing/listing-6-thumb.jpg" class="img-fluid">
+													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-6-thumb.jpg')}}" class="img-fluid">
 												</span>
                                     <span class="custom-card-info-header d-block p-relative">
 													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="img/demos/real-estate/icons/arrow-right.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
+													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
 												</span>
                                     <span class="custom-card-info-content d-block">
 													<h4 class="text-dark mb-1 text-5">South Miami</h4>
@@ -297,7 +296,7 @@
                             <div class="card-body overflow-hidden overlay overlay-color-dark overlay-show overlay-op-7 p-relative z-index-1">
                                 <a href="#" class="text-decoration-none">
 												<span class="custom-card-info-img d-block">
-													<img src="img/demos/real-estate/backgrounds/bg-locations-1.jpg" class="img-fluid w-100">
+													<img src="{{asset('template/frontend/img/demos/real-estate/backgrounds/bg-locations-1.jpg')}}" class="img-fluid w-100">
 													<span class="custom-card-info-desc">
 														<strong class="text-color-light font-weight-semibold text-5 d-block mb-1 text-center">Palm Beach</strong>
 														<span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block">91 Properties</span>
@@ -312,7 +311,7 @@
                             <div class="card-body overflow-hidden overlay overlay-color-dark overlay-show overlay-op-7 p-relative z-index-1">
                                 <a href="#" class="text-decoration-none">
 												<span class="custom-card-info-img d-block">
-													<img src="img/demos/real-estate/backgrounds/bg-locations-2.jpg" class="img-fluid w-100">
+													<img src="{{asset('template/frontend/img/demos/real-estate/backgrounds/bg-locations-2.jpg')}}" class="img-fluid w-100">
 													<span class="custom-card-info-desc">
 														<strong class="text-color-light font-weight-semibold text-5 d-block mb-1 text-center">Fischer Island</strong>
 														<span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block">211 Properties</span>
@@ -327,7 +326,7 @@
                             <div class="card-body overflow-hidden overlay overlay-color-dark overlay-show overlay-op-7 p-relative z-index-1">
                                 <a href="#" class="text-decoration-none">
 												<span class="custom-card-info-img d-block">
-													<img src="img/demos/real-estate/backgrounds/bg-locations-3.jpg" class="img-fluid w-100">
+													<img src="{{asset('template/frontend/img/demos/real-estate/backgrounds/bg-locations-3.jpg')}}" class="img-fluid w-100">
 													<span class="custom-card-info-desc">
 														<strong class="text-color-light font-weight-semibold text-5 d-block mb-1 text-center">South Miami</strong>
 														<span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block">231 Properties</span>
@@ -348,7 +347,7 @@
                         <div class="card custom-card-info custom-card-info-shadow custom-card-info-special-offers border-0 mb-4">
                             <div class="card-body overflow-hidden overlay overlay-color-dark overlay-show overlay-op-8 p-relative z-index-1">
 											<span class="custom-card-info-img d-block">
-												<img src="img/demos/real-estate/backgrounds/bg-special-offers-1.jpg" class="img-fluid w-100">
+												<img src="{{asset('template/frontend/img/demos/real-estate/backgrounds/bg-special-offers-1.jpg')}}" class="img-fluid w-100">
 												<span class="custom-card-info-desc">
 													<h3 class="text-color-light font-weight-semibold text-5 d-block mb-1 text-center">Amazing Houses<br>Collection</h3>
 													<strong class="text-color-light font-weight-medium text-uppercase text-3 d-block mb-1 text-center">FROM $100.000</strong>
@@ -363,7 +362,7 @@
                         <div class="card custom-card-info custom-card-info-shadow custom-card-info-special-offers border-0 mb-4">
                             <div class="card-body overflow-hidden overlay overlay-color-dark overlay-show overlay-op-8 p-relative z-index-1">
 											<span class="custom-card-info-img d-block">
-												<img src="img/demos/real-estate/backgrounds/bg-special-offers-2.jpg" class="img-fluid w-100">
+												<img src="{{asset('template/frontend/img/demos/real-estate/backgrounds/bg-special-offers-2.jpg')}}" class="img-fluid w-100">
 												<div class="p-absolute top-10 left-10 p-4 z-index-2">
 													<h3 class="text-color-light font-weight-semibold text-5 d-block mb-1">Exclusive<br>Condominium</h3>
 													<strong class="text-color-light font-weight-medium text-uppercase text-3 d-block mb-1">Miami Beach</strong>
@@ -383,7 +382,7 @@
                                 <div class="owl-carousel owl-theme dots-light mb-0 pb-0" data-plugin-options="{'items': 1, 'autoplay': true, 'autoplayTimeout': 5000, 'margin': 10}">
                                     <div>
                                         <a href="demo-real-estate-agents-detail.html" class="text-decoration-none">
-                                            <img alt="" class="img-fluid rounded-circle m-auto" src="img/team/team-5.jpg" style="max-width: 110px;">
+                                            <img alt="" class="img-fluid rounded-circle m-auto" src="{{asset('template/frontend/')}}img/team/team-5.jpg" style="max-width: 110px;">
                                             <strong class="text-color-light font-weight-semibold text-4 line-height-5 d-block mt-3 mb-1 text-center">John Doe</strong>
                                         </a>
                                         <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3" href="tel:12345678">(800) 123-4567</a>
@@ -391,7 +390,7 @@
                                     </div>
                                     <div>
                                         <a href="demo-real-estate-agents-detail.html" class="text-decoration-none">
-                                            <img alt="" class="img-fluid rounded-circle m-auto" src="img/team/team-4.jpg" style="max-width: 110px;">
+                                            <img alt="" class="img-fluid rounded-circle m-auto" src="{{asset('template/frontend/')}}img/team/team-4.jpg" style="max-width: 110px;">
                                             <strong class="text-color-light font-weight-semibold text-4 line-height-5 d-block mt-3 mb-1 text-center">Janice Doe</strong>
                                         </a>
                                         <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3" href="tel:12345678">(800) 123-4567</a>
@@ -399,7 +398,7 @@
                                     </div>
                                     <div>
                                         <a href="demo-real-estate-agents-detail.html" class="text-decoration-none">
-                                            <img alt="" class="img-fluid rounded-circle m-auto" src="img/team/team-2.jpg" style="max-width: 110px;">
+                                            <img alt="" class="img-fluid rounded-circle m-auto" src="{{asset('template/frontend/')}}img/team/team-2.jpg" style="max-width: 110px;">
                                             <strong class="text-color-light font-weight-semibold text-4 line-height-5 d-block mt-3 mb-1 text-center">Lisa Doe</strong>
                                         </a>
                                         <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3" href="tel:12345678">(800) 123-4567</a>

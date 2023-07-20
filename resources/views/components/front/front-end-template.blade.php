@@ -6,11 +6,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Porto - Multipurpose Website Template</title>
+    <title>{{$title}}</title>
 
-    <meta name="keywords" content="WebSite Template" />
-    <meta name="description" content="Porto - Multipurpose Website Template">
-    <meta name="author" content="okler.net">
+    <meta name="keywords" content="GeoRestate v.1.0" />
+    <meta name="description" content="Aplikasi Agen Real Estate">
+    <meta name="author" content="alexistdev">
 
     <x-front.front-header-layout />
 
@@ -27,7 +27,7 @@
 
 <div class="body">
     <!-- Start: Menu -->
-    <x-front.front-top-menu-layout />
+    <x-front.front-top-menu-layout :main-label="$mainLabel"/>
     <!-- End: Footer -->
 
     <div role="main" class="main">

@@ -34,12 +34,12 @@
                             <div class="header-row">
                                 <ul class="list list-unstyled list-inline mb-0">
                                     <li class="list-inline-item me-4 mb-0">
-                                        <a href="blog-large-image-sidebar-right.html" class="text-default text-hover-secondary font-weight-semibold text-decoration-none text-1">
+                                        <a href="#" class="text-default text-hover-secondary font-weight-semibold text-decoration-none text-1">
                                             BLOG
                                         </a>
                                     </li>
                                     <li class="list-inline-item me-0 mb-0">
-                                        <a href="page-login.html" class="text-default text-hover-secondary font-weight-semibold text-decoration-none text-1">
+                                        <a href="{{route('login')}}" class="text-default text-hover-secondary font-weight-semibold text-decoration-none text-1">
                                             LOGIN/REGISTER
                                         </a>
                                     </li>
@@ -54,8 +54,8 @@
                     <div class="header-column">
                         <div class="header-row">
                             <div class="header-logo">
-                                <a href="demo-real-estate.html">
-                                    <img alt="Porto" width="123" height="48" data-sticky-width="123" data-sticky-height="48" src="img/demos/real-estate/logo.png">
+                                <a href="{{route('front.home')}}">
+                                    <img alt="Porto" width="123" height="48" data-sticky-width="123" data-sticky-height="48" src="{{asset('template/frontend/img/demos/real-estate/logo.png')}}">
                                 </a>
                             </div>
                         </div>
@@ -67,12 +67,12 @@
                                     <nav class="collapse">
                                         <ul class="nav nav-pills" id="mainNav">
                                             <li>
-                                                <a class="nav-link active" href="demo-real-estate.html">
+                                                <a class="nav-link @if($mainLabel == "home") active @endif" href="{{route('front.home')}}">
                                                     Home
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" href="demo-real-estate-properties.html">
+                                                <a class="nav-link @if($mainLabel == "properties") active @endif" href="{{route('front.properties')}}">
                                                     Properties
                                                 </a>
                                             </li>
@@ -81,17 +81,17 @@
                                                     About
                                                 </a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="demo-real-estate-agents.html">Agents</a></li>
-                                                    <li><a class="dropdown-item" href="demo-real-estate-who-we-are.html">Who We Are</a></li>
+                                                    <li><a class="dropdown-item" href="#">Agents</a></li>
+                                                    <li><a class="dropdown-item" href="#">Who We Are</a></li>
                                                 </ul>
                                             </li>
                                             <li>
-                                                <a class="nav-link" href="demo-real-estate-contact.html">
+                                                <a class="nav-link" href="#">
                                                     Contact
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" href="elements.html">
+                                                <a class="nav-link" href="#">
                                                     Elements
                                                 </a>
                                             </li>
@@ -102,18 +102,19 @@
                                                 <ul class="dropdown-menu custom-fullwidth-dropdown-menu ms-0">
                                                     <li>
                                                         <div class="dropdown-mega-content mt-3 mt-lg-0">
-                                                            <form class="form-style-3" id="propertiesFormHeader" action="demo-real-estate-properties.html" method="POST">
+                                                            <form class="form-style-3" id="propertiesFormHeader" action="#" method="POST">
                                                                 <div class="container p-0">
                                                                     <div class="row">
                                                                         <div class="col-lg-2 mb-2 mb-lg-0">
-                                                                            <select class="form-select form-control text-default box-shadow-none" name="propertiesPropertyType" data-msg-required="This field is required." id="propertiesPropertyType" required="">
+                                                                            <label for="propertiesPropertyType">PROPERTY</label><select class="form-select form-control text-default box-shadow-none" name="propertiesPropertyType" data-msg-required="This field is required." id="propertiesPropertyType" required="">
                                                                                 <option value="">Property Type</option>
                                                                                 <option value="1">Apartment</option>
                                                                                 <option value="2">House</option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="col-lg-2 mb-2 mb-lg-0">
-                                                                            <select class="form-select form-control text-default box-shadow-none" name="propertiesLocation" data-msg-required="This field is required." id="propertiesLocation" required="">
+                                                                            <label
+                                                                                for="propertiesLocation">LOCATION</label><select class="form-select form-control text-default box-shadow-none" name="propertiesLocation" data-msg-required="This field is required." id="propertiesLocation" required="">
                                                                                 <option value="">Location</option>
                                                                                 <option value="1">Miami</option>
                                                                                 <option value="2">New York</option>
@@ -122,7 +123,8 @@
                                                                             </select>
                                                                         </div>
                                                                         <div class="col-lg-2 mb-2 mb-lg-0">
-                                                                            <select class="form-select form-control text-default box-shadow-none" name="propertiesMinBeds" data-msg-required="This field is required." id="propertiesMinBeds" required="">
+                                                                            <label
+                                                                                for="propertiesMinBeds">MIN ROOMS</label><select class="form-select form-control text-default box-shadow-none" name="propertiesMinBeds" data-msg-required="This field is required." id="propertiesMinBeds" required="">
                                                                                 <option value="">Min Beds</option>
                                                                                 <option value="1">1</option>
                                                                                 <option value="2">2</option>
@@ -131,7 +133,8 @@
                                                                             </select>
                                                                         </div>
                                                                         <div class="col-lg-2 mb-2 mb-lg-0">
-                                                                            <select class="form-select form-control text-default box-shadow-none" name="propertiesMinPrice" data-msg-required="This field is required." id="propertiesMinPrice" required="">
+                                                                            <label
+                                                                                for="propertiesMinPrice">MIN PRICE</label><select class="form-select form-control text-default box-shadow-none" name="propertiesMinPrice" data-msg-required="This field is required." id="propertiesMinPrice" required="">
                                                                                 <option value="">Min Price</option>
                                                                                 <option value="150000">$150,000</option>
                                                                                 <option value="200000">$200,000</option>
@@ -175,7 +178,8 @@
                                                                             </select>
                                                                         </div>
                                                                         <div class="col-lg-2 mb-2 mb-lg-0">
-                                                                            <select class="form-select form-control text-default box-shadow-none" name="propertiesMaxPrice" data-msg-required="This field is required." id="propertiesMaxPrice" required="">
+                                                                            <label
+                                                                                for="propertiesMaxPrice">MAX PRICE</label><select class="form-select form-control text-default box-shadow-none" name="propertiesMaxPrice" data-msg-required="This field is required." id="propertiesMaxPrice" required="">
                                                                                 <option value="">Max Price</option>
                                                                                 <option value="150000">$150,000</option>
                                                                                 <option value="200000">$200,000</option>

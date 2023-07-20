@@ -10,9 +10,9 @@ class HomeController extends Controller
     public function index()
     {
         return view('front.home', array(
-            'judul' => "Dashboard Administrator | GeoRestate v.1.0",
-            'menuUtama' => 'dashboard',
-            'menuKedua' => 'dashboard',
+            'judul' => "Halaman Home | GeoRestate v.1.0",
+            'menuUtama' => 'home',
+            'menuKedua' => 'home',
         ));
     }
 }

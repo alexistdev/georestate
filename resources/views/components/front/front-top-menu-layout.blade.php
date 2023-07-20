@@ -76,6 +76,11 @@
                                                     Properties
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a class="nav-link @if($mainLabel == "agen") active @endif" href="{{route('front.agents')}}">
+                                                    Agents
+                                                </a>
+                                            </li>
                                             <li class="dropdown">
                                                 <a class="nav-link dropdown-toggle" href="#">
                                                     About

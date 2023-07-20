@@ -18,4 +18,13 @@ class DashboardController extends Controller
             return $next($request);
         });
     }
+
+    public function index()
+    {
+        return view('admin.dashboard', array(
+            'judul' => "Dashboard Administrator | GeoRestate v.1.0",
+            'menuUtama' => 'dashboard',
+            'menuKedua' => 'dashboard',
+        ));
+    }
 }

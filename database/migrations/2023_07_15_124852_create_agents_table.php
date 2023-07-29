@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('agents', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->string('member_identifier')->unique();
             $table->string('phone')->nullable();
             $table->integer('provinsi_id')->unsigned()->nullable();

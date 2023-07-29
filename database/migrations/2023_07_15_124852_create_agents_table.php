@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('agents', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('member_identifier')->unique();
             $table->string('phone')->nullable();
             $table->integer('provinsi_id')->unsigned()->nullable();
             $table->integer('kabupaten_id')->unsigned()->nullable();
             $table->integer('kecamatan_id')->unsigned()->nullable();
             $table->integer('kelurahan_id')->unsigned()->nullable();
-            $table->string('alamat');
-            $table->tinyInteger('isSuspend');
-            $table->tinyInteger('level');
+            $table->string('alamat')->nullable();
+            $table->boolean('isSuspend')->default(false);
+            $table->tinyInteger('level')->default(4);
             $table->timestamps();
         });
     }

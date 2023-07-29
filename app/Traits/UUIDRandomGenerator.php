@@ -5,7 +5,7 @@ namespace App\Traits;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Uid\Ulid;
 
-class UUIDRandomGenerator
+trait UUIDRandomGenerator
 {
     /**
          * Author: AlexistDev

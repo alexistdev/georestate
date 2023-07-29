@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Services\Admin\AgentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

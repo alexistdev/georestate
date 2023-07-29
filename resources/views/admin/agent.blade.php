@@ -6,7 +6,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Alternative Pagination</h5>
+                    <h5 class="card-title mb-0">Data Agen Property</h5>
                 </div>
                 <div class="card-body">
                     <table id="alternative-pagination"
@@ -15,11 +15,13 @@
                         <thead>
                         <tr>
                             <th class="text-center">No.</th>
+                            <th class="text-center">Agen ID</th>
                             <th class="text-center">Nama</th>
                             <th class="text-center">Email</th>
                             <th class="text-center">Jenis Akun</th>
                             <th class="text-center">Phone</th>
                             <th class="text-center">Alamat</th>
+                            <th class="text-center">Tanggal Bergabung</th>
                             <th class="text-center">Action</th>
                         </tr>
                         </thead>
@@ -59,12 +61,14 @@
                                 return meta.row + meta.settings._iDisplayStart + 1; //auto increment
                             }
                         },
+                        {data: 'agentID', class: 'text-center'},
                         {data: 'name', class: 'text-center'},
                         {data: 'email', class: 'text-center'},
                         {data: 'isPremium', class: 'text-center'},
                         {data: 'phone', class: 'text-center'},
-                        // {data: 'created_at', class: 'text-center'},
-                        // {data: 'action', class: 'text-center', orderable: false},
+                        {data: 'alamat', class: 'text-center'},
+                        {data: 'created_at', class: 'text-center'},
+                        {data: 'action', class: 'text-center', orderable: false},
                     ],
                     "bDestroy": true
 

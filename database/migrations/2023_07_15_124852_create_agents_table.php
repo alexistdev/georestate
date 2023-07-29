@@ -12,7 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('agents', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('member_identifier')->unique();
+            $table->string('phone')->nullable();
+            $table->integer('provinsi_id')->unsigned()->nullable();
+            $table->integer('kabupaten_id')->unsigned()->nullable();
+            $table->integer('kecamatan_id')->unsigned()->nullable();
+            $table->integer('kelurahan_id')->unsigned()->nullable();
+            $table->string('alamat')->nullable();
+            $table->boolean('isSuspend')->default(false);
+            $table->tinyInteger('level')->default(4);
             $table->timestamps();
         });
     }

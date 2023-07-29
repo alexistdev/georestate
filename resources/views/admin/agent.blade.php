@@ -62,6 +62,7 @@
                         {data: 'name', class: 'text-center'},
                         {data: 'email', class: 'text-center'},
                         {data: 'isPremium', class: 'text-center'},
+                        {data: 'phone', class: 'text-center'},
                         // {data: 'created_at', class: 'text-center'},
                         // {data: 'action', class: 'text-center', orderable: false},
                     ],

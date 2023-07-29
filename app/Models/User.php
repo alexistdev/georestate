@@ -37,6 +37,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function hasAgent(){
+        return $this->hasOne(Agent::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);

@@ -3,13 +3,13 @@
         <div class="container position-relative z-index-2">
             <div class="row text-center text-md-start py-5">
                 <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                    <h1 class="font-weight-bold text-color-light text-8 mb-0">1234 SW 63rd Ave</h1>
-                    <p class="text-color-light opacity-7 mb-0">South Miami</p>
+                    <h1 class="font-weight-bold text-color-light text-8 mb-0">Who We Are</h1>
+                    <p class="text-color-light opacity-7 mb-0">Sed consequat euismod diam, eu ultrices nulla ullamcorper ac</p>
                 </div>
                 <div class="col-md-4 order-1 order-md-2 align-self-center">
                     <ul class="breadcrumb breadcrumb-light d-block text-md-end text-4 mb-0">
                         <li><a href="#" class="text-decoration-none">Home</a></li>
-                        <li class="text-upeercase active">Properties</li>
+                        <li class="text-upeercase active">About</li>
                     </ul>
                 </div>
             </div>
@@ -21,215 +21,37 @@
         <div class="row">
             <div class="col-lg-9">
 
-                <div class="row">
-                    <div class="col-lg-7">
+                <p class="font-weight-medium text-4">Founded in 2001 by John Doe, gravida nibh vel. Aene <span class="highlight highlight-primary highlight-bg-opacity highlight-animated px-0" data-appear-animation="highlight-animated-start" data-appear-animation-delay="200" data-plugin-options="{'flagClassOnly': true}">nisi elit consequat ipsum</span> nec sagittis sem nibh id elit. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat. </p>
 
-                        <div class="thumb-gallery">
-                            <div class="lightbox" data-plugin-options="{'delegate': 'a', 'type': 'image', 'gallery': {'enabled': true}}">
-                                <div class="owl-carousel owl-theme manual thumb-gallery-detail show-nav-hover" id="thumbGalleryDetail">
-                                    <div class="border-radius overflow-hidden">
-                                        <a href="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-1.jpg')}}">
-														<span class="thumb-info thumb-info-centered-info thumb-info-no-borders text-4">
-															<span class="thumb-info-wrapper text-4">
-																<img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-1.jpg')}}" class="img-fluid">
-																<span class="thumb-info-title text-4">
-																	<span class="thumb-info-inner text-4"><i class="icon-magnifier icons text-4"></i></span>
-																</span>
-															</span>
-														</span>
-                                        </a>
-                                    </div>
-                                    <div class="border-radius overflow-hidden">
-                                        <a href="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-2.jpg')}}">
-														<span class="thumb-info thumb-info-centered-info thumb-info-no-borders text-4">
-															<span class="thumb-info-wrapper text-4">
-																<img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-2.jpg')}}" class="img-fluid">
-																<span class="thumb-info-title text-4">
-																	<span class="thumb-info-inner text-4"><i class="icon-magnifier icons text-4"></i></span>
-																</span>
-															</span>
-														</span>
-                                        </a>
-                                    </div>
-                                    <div class="border-radius overflow-hidden">
-                                        <a href="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-3.jpg')}}">
-														<span class="thumb-info thumb-info-centered-info thumb-info-no-borders text-4">
-															<span class="thumb-info-wrapper text-4">
-																<img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-3.jpg')}}" class="img-fluid">
-																<span class="thumb-info-title text-4">
-																	<span class="thumb-info-inner text-4"><i class="icon-magnifier icons text-4"></i></span>
-																</span>
-															</span>
-														</span>
-                                        </a>
-                                    </div>
-                                    <div class="border-radius overflow-hidden">
-                                        <a href="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-4.jpg')}}">
-														<span class="thumb-info thumb-info-centered-info thumb-info-no-borders text-4">
-															<span class="thumb-info-wrapper text-4">
-																<img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-4.jpg')}}" class="img-fluid">
-																<span class="thumb-info-title text-4">
-																	<span class="thumb-info-inner text-4"><i class="icon-magnifier icons text-4"></i></span>
-																</span>
-															</span>
-														</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                <p class="text-3-5 line-height-9 pb-2">Sed consequat euismod diam, eu ultrices nulla ullamcorper ac. Praesent hendrerit lorem nec gravida ultrices. Morbi vitae odio eu mauris dapibus posuere. Etiam congue est et enim scelerisque rhoncus vel vitae dui. Duis velit ipsum, mattis a mauris ultrices, rhoncus malesuada odio. Aliquam consectetur erat id ullamcorper aliquam. Curabitur condimentum, justo non commodo aliquet, sapien massa consectetur justo, a faucibus sapien felis non tellus.</p>
 
-                            <div class="owl-carousel owl-theme manual thumb-gallery-thumbs mt" id="thumbGalleryThumbs">
-                                <div class="border-radius overflow-hidden">
-                                    <img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-1-thumb.jpg')}}" class="img-fluid cur-pointer">
-                                </div>
-                                <div class="border-radius overflow-hidden">
-                                    <img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-2-thumb.jpg')}}" class="img-fluid cur-pointer">
-                                </div>
-                                <div class="border-radius overflow-hidden">
-                                    <img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-3-thumb.jpg')}}" class="img-fluid cur-pointer">
-                                </div>
-                                <div class="border-radius overflow-hidden">
-                                    <img alt="Property Detail" src="{{asset('template/frontend/img/demos/real-estate/listing/listing-detail-4-thumb.jpg')}}" class="img-fluid cur-pointer">
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-5">
-
-                        <div class="border-radius overflow-hidden">
-                            <table class="table table-striped">
-                                <colgroup>
-                                    <col width="35%">
-                                    <col width="65%">
-                                </colgroup>
-                                <tbody>
-                                <tr>
-                                    <td class="bg-color-secondary text-light align-middle font-weight-semibold">
-                                        Price
-                                    </td>
-                                    <td class="text-4 font-weight-bold align-middle bg-color-secondary text-light">
-                                        $3,595,000
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold">
-                                        Listing ID
-                                    </td>
-                                    <td>
-                                        #123456
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold">
-                                        Address
-                                    </td>
-                                    <td>
-                                        1234 SW 63rd Ave - South Miami - Florida<br><a href="#map" class="text-2" data-hash data-hash-offset="0" data-hash-offset-lg="100">(Map Location)</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold">
-                                        Neighborhood
-                                    </td>
-                                    <td>
-                                        Porto Village
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold">
-                                        Beds
-                                    </td>
-                                    <td>
-                                        7
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold">
-                                        Baths
-                                    </td>
-                                    <td>
-                                        8
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold">
-                                        Garages
-                                    </td>
-                                    <td>
-                                        2
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold">
-                                        Living Area
-                                    </td>
-                                    <td>
-                                        8,000
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold">
-                                        Lot Size
-                                    </td>
-                                    <td>
-                                        20,000
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold">
-                                        Year Built
-                                    </td>
-                                    <td>
-                                        1999
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
+                <div class="float-end border-radius overflow-hidden ms-4 mb-4 mb-lg-0 p-relative top-8">
+                    <img src="{{asset('template/frontend/img/demos/real-estate/generic/generic-1.jpg')}}" class="img-fluid w-100" style="max-width: 393px;" alt="" />
                 </div>
 
-                <div class="row">
-                    <div class="col">
+                <p class="text-3-5 line-height-9">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet libero id nisi euismod, sed porta est consectetur. Vestibulum auctor felis eget orci semper vestibulum.</p>
 
-                        <h3 class="mt-5 mb-3">Description</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque neque eget diam posuere porta. Quisque ut nulla at nunc <a href="#">vehicula</a> lacinia. Proin adipiscing porta tellus, ut feugiat nibh adipiscing sit amet. In eu justo a felis faucibus ornare vel id metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+                <ul class="list list-icons list-primary my-4">
+                    <li><i class="fas fa-check"></i> Fusce sit amet orci quis arcu vestibulum.</li>
+                    <li><i class="fas fa-check"></i> Fusce sit amet orci quis arcu vestibulum stibulum.</li>
+                    <li><i class="fas fa-check"></i> Fusce sit amet orci q vestibulum vestibulum.</li>
+                </ul>
 
-                        <p>Ctrices posuere cubilia Curae; In eu libero ligula. Fusce eget metus lorem, ac feugiat nibh adipiscing sit amet. In eu juiverra leo. Vestibulum ante ipsum primis in faucibus orci.</p>
+                <p class="text-3-5 line-height-9">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet libero id nisi euismod, sed porta est consectetur. Vestibulum auctor felis eget orci semper vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet libero id nisi euismod, sed porta est consectetur. Vestibulum auctor felis eget orci semper vestibulum.</p>
 
-                        <hr class="solid my-5">
+                <p class="text-3-5 line-height-9">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet libero id nisi euismod, sed porta est consectetur. Vestibulum auctor felis eget orci semper vestibulum.</p>
 
-                        <h3 class="mt-5 mb-3">Features</h3>
+                <h3 class="mt-5 mb-2">Our Mission</h3>
 
-                        <ul class="list list-icons list-secondary row m-0">
-                            <li class="col-sm-6 col-lg-4"><i class="fas fa-check"></i> Air conditioning <a href="#" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="top" title="+ Central Heating"><i class="fas fa-info-circle"></i></a></li>
-                            <li class="col-sm-6 col-lg-4"><i class="fas fa-check"></i> Home Theater</li>
-                            <li class="col-sm-6 col-lg-4"><i class="fas fa-check"></i> Central Heating</li>
-                            <li class="col-sm-6 col-lg-4"><i class="fas fa-check"></i> Laundry</li>
-                            <li class="col-sm-6 col-lg-4"><i class="fas fa-check"></i> Balcony</li>
-                            <li class="col-sm-6 col-lg-4 custom-list-item-disabled"><i class="fas fa-check"></i> Storage</li>
-                            <li class="col-sm-6 col-lg-4 custom-list-item-disabled"><i class="fas fa-check"></i> Garage</li>
-                            <li class="col-sm-6 col-lg-4 custom-list-item-disabled"><i class="fas fa-check"></i> Yard</li>
-                            <li class="col-sm-6 col-lg-4"><i class="fas fa-check"></i> Electric Water Heater</li>
-                            <li class="col-sm-6 col-lg-4"><i class="fas fa-check"></i> Deck</li>
-                            <li class="col-sm-6 col-lg-4"><i class="fas fa-check"></i> Gym</li>
-                            <li class="col-sm-6 col-lg-4"><i class="fas fa-check"></i> Ocean View</li>
-                        </ul>
+                <p class="text-3-5 line-height-9">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet libero id nisi euismod, sed porta est consectetur. Vestibulum auctor felis eget orci semper vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet libero id nisi euismod, sed porta est consectetur. Vestibulum auctor felis eget orci semper vestibulum.</p>
 
-                        <hr class="solid my-5">
+                <h3 class="mt-5 mb-2">Our Vision</h3>
 
-                        <div id="map">
-                            <h3 class="mt-5 mb-3">Map Location</h3>
-                            <div class="border-radius overflow-hidden mt-0 mb-4">
-                                <div id="googlemaps" class="google-map m-0"></div>
-                            </div>
-                        </div>
+                <p class="text-3-5 line-height-9">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet libero id nisi euismod, sed porta est consectetur. Vestibulum auctor felis eget orci semper vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet libero id nisi euismod, sed porta est consectetur. Vestibulum auctor felis eget orci semper vestibulum.</p>
 
-                    </div>
-                </div>
+                <h3 class="mt-5 mb-2">Our Values</h3>
 
+                <p class="text-3-5 line-height-9">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet libero id nisi euismod, sed porta est consectetur. Vestibulum auctor felis eget orci semper vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet libero id nisi euismod, sed porta est consectetur. Vestibulum auctor felis eget orci semper vestibulum.</p>
             </div>
             <div class="col-lg-3">
                 <div class="row">
@@ -267,9 +89,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-12 col-sm-6 col-lg-12">
-                        <h3 class="mt-2 mb-3 font-weight-semibold text-5">Related Properties</h3>
+                        <h3 class="mt-2 mb-3 font-weight-semibold text-5">Featured Properties</h3>
                         <div class="owl-carousel owl-theme mb-0 pb-4" data-plugin-options="{'items': 1, 'autoplay': true, 'autoplayTimeout': 5000, 'margin': 10}">
                             <div>
                                 <div class="card custom-card-info border-0">
@@ -360,7 +181,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-12">
                         <div class="card custom-card-info bg-color-quaternary border-0 mb-4">
                             <div class="card-body bg-transparent p-relative p-4 m-2 z-index-1">
@@ -370,7 +190,7 @@
                                     We help you choose your property and any other question.
                                 </p>
 
-                                <form class="contact-form form-style-3" action="" method="POST">
+                                <form class="contact-form form-style-3" action="#" method="POST">
                                     <div class="contact-form-success alert alert-success d-none mt-4">
                                         <strong>Success!</strong> Your message has been sent to us.
                                     </div>

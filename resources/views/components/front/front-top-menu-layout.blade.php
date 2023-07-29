@@ -76,23 +76,19 @@
                                                     Properties
                                                 </a>
                                             </li>
-                                            <li class="dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#">
+                                            <li>
+                                                <a class="nav-link @if($mainLabel == "agen") active @endif" href="{{route('front.agents')}}">
+                                                    Agents
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link @if($mainLabel == "about") active @endif" href="{{route('front.about')}}">
                                                     About
                                                 </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#">Agents</a></li>
-                                                    <li><a class="dropdown-item" href="#">Who We Are</a></li>
-                                                </ul>
                                             </li>
                                             <li>
-                                                <a class="nav-link" href="#">
+                                                <a class="nav-link @if($mainLabel == "contact") active @endif" href="{{route('front.contact')}}">
                                                     Contact
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="nav-link" href="#">
-                                                    Elements
                                                 </a>
                                             </li>
                                             <li class="dropdown dropdown-mega" id="headerSearchProperties">

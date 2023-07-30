@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('kecamatan_id')->unsigned()->nullable();
             $table->integer('kelurahan_id')->unsigned()->nullable();
             $table->string('alamat')->nullable();
+            $table->text('about')->nullable();
             $table->boolean('isSuspend')->default(false);
             $table->tinyInteger('level')->default(4);
             $table->softDeletes();

@@ -10,7 +10,7 @@ class AgentServiceImpl implements AgentService
 {
     public function index(Request $request)
     {
-        $agent = User::with('hasAgent')->where('role_id','3')->get();
+        $agent = User::with('hasAgent')->orderBy('isPremium', 'DESC')->where('role_id','3')->get();
         return DataTables::of($agent)
             ->addIndexColumn()
             ->editColumn('created_at', function ($request) {
@@ -27,15 +27,16 @@ class AgentServiceImpl implements AgentService
             })
             ->editColumn('isPremium', function ($request) {
                 $str = "<span class=\"badge rounded-pill text-bg-primary\">Premium</span>";
-                if($request->isPremium){
-                    $str = "<span class=\"badge rounded-pill text-bg-danger\">Free</span>";
+                if($request->isPremium != 1){
+                    $str = "<span class=\"badge rounded-pill text-bg-success\">Free</span>";
                 }
                 return $str;
             })
             ->addColumn('action', function ($row) {
 //                $url = route('adm.dosen.edit', $row->id);
-                $btn = "<a href=\"#\"><button class=\"btn btn-sm btn-primary m-1\" > Edit</button></a>";
-                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> Hapus</button>";
+
+                $btn = "<a href=\"#\"><button type=\"button\" class=\"btn btn-sm btn-primary m-1\" > <span class=\"icon-off\"><i class=\"mdi mdi-account-eye-outline align-middle m-1\"></i>Detail</span></button></a>";
+                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
                 return $btn;
             })
             ->rawColumns(['action','isPremium'])

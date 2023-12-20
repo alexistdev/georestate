@@ -3,7 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{DashboardController as DashAdmin};
-use App\Http\Controllers\Admin\Master\AgentController as AgentAdmin;
+use App\Http\Controllers\Admin\Master\{AgentController as AgentAdmin,
+    DisctricController as WilayahAdmin
+};
 use App\Http\Controllers\Front\{HomeController as FrontHome,
 PropertiesController as FrontProp,
     AgenController as FrontAgen,
@@ -40,6 +42,14 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'admin'], function () {
         Route::get('/staff/dashboard', [DashAdmin::class, 'index'])->name('adm.dashboard');
         Route::get('/staff/agent', [AgentAdmin::class, 'index'])->name('adm.agent');
+        Route::get('/staff/wilayah', [WilayahAdmin::class, 'index'])->name('adm.disctrict');
+        Route::post('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_store'])->name('adm.disctrict.provinsi.save');
+        Route::patch('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_update'])->name('adm.disctrict.provinsi.update');
+
+        /** ajax */
+        Route::middleware(['clean', 'ajax'])->group(function () {
+            Route::get('/staff/ajax/provinsi', [WilayahAdmin::class, 'get_provinsi'])->name('adm.ajax.provinsi');
+        });
     });
 });
 

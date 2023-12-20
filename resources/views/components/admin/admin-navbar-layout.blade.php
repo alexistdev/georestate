@@ -21,7 +21,7 @@
                                 <a href="{{route('adm.agent')}}" class="nav-link" data-key="t-calendar"> Agent </a>
                             </li>
                             <li class="nav-item">
-                                <a href="apps-chat.html" class="nav-link" data-key="t-chat"> Chat </a>
+                                <a href="{{route('adm.disctrict')}}" class="nav-link" data-key="t-chat"> Wilayah </a>
                             </li>
                         </ul>
                     </div>

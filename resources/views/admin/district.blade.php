@@ -1,6 +1,7 @@
 <x-admin.admin-template>
     @push('customCSS')
         <x-admin.datatable-c-s-s/>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
     @endpush
     <div class="row">
         @if ($message = Session::get('success'))
@@ -66,11 +67,16 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Data Kabupaten</h5>
+                    <h5 class="card-title mb-0 float-start">Data Kabupaten</h5>
+                    <button class="btn btn-sm btn-primary float-end" data-bs-toggle="modal"
+                            data-bs-target="#tambahKabupaten"><i
+                            class="mdi mdi-book-plus-multiple align-middle m-1"></i>
+                        Add
+                    </button>
                 </div>
                 <div class="card-body">
 
-                    <table id="alternative-pagination"
+                    <table id="tabelKabupaten"
                            class="table nowrap dt-responsive align-middle table-hover table-bordered"
                            style="width:100%">
                         <thead>
@@ -78,6 +84,7 @@
                             <th class="text-center">No.</th>
                             <th class="text-center">Code</th>
                             <th class="text-center">Nama</th>
+                            <th class="text-center">Provinsi</th>
                             <th class="text-center">Action</th>
                         </tr>
                         </thead>
@@ -239,6 +246,59 @@
     </div>
     <!-- END: Modal HAPUS TAMBAH-->
 
+    <!-- START: Modal TAMBAH KABUPATEN-->
+    <div class="modal fade" id="tambahKabupaten" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="{{route('adm.disctrict.kabupaten.save')}}" method="post">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Provinsi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label for="provinsiName" >PROVINSI</label>
+                                <select id="provinsiName" class="selectProvinsi form-control" name="provinsi_id">
+                                    @foreach($dataProvinsi as $prov)
+                                    <option value="{{base64_encode($prov->id)}}">{{$prov->name." [".$prov->code ."] "}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <label
+                                    for="provinsiCode" @class(["form-label"]) >CODE</label>
+                                <input type="text" name="code" maxlength="125" placeholder="Masukkan Kode Provinsi"
+                                       style="text-transform:uppercase"
+                                       @class(["form-control"]) value="{{old('code')}}"
+                                       id="provinsiCode" required>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <label
+                                    for="provinsiName" @class(["form-label"]) >NAME</label>
+                                <input type="text" name="name" maxlength="255"
+                                       @class(["form-control"]) style="text-transform:uppercase"
+                                       value="{{old('name')}}" placeholder="Masukkan Nama Provinsi"
+                                       id="provinsiName" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END: Modal EDIT KABUPATEN-->
+
     <!-- START: Modal EDIT KABUPATEN-->
     <div class="modal fade" id="editProvinsi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -258,10 +318,13 @@
         </div>
     </div>
     <!-- END: Modal EDIT KABUPATEN-->
+
     @push('customJS')
         <x-admin.datatable-j-s/>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
             let provinceURL = "{{route('adm.ajax.provinsi')}}";
+            let kabupatenURL = "{{route('adm.ajax.kabupaten')}}";
 
 
             /** saat tombol edit provinsi di klik */
@@ -282,6 +345,7 @@
                 let fid = $(this).data('id');
                 $('#hapusProvinsiId').val(fid);
             })
+
             document.addEventListener("DOMContentLoaded", function () {
                 new DataTable("#tabelProvince", {
                     pagingType: "full_numbers",
@@ -307,16 +371,47 @@
                         },
                         {data: 'code', class: 'text-center'},
                         {data: 'name', class: 'text-center'},
-                        // {data: 'email', class: 'text-center'},
-                        // {data: 'isPremium', class: 'text-center'},
-                        // {data: 'phone', class: 'text-center'},
-                        // {data: 'alamat', class: 'text-center'},
-                        // {data: 'created_at', class: 'text-center'},
                         {data: 'action', class: 'text-center', orderable: false},
                     ],
                     "bDestroy": true
-
                 })
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                new DataTable("#tabelKabupaten", {
+                    pagingType: "full_numbers",
+                    ajax: {
+                        type: 'GET',
+                        url: kabupatenURL,
+                        async: true,
+                    },
+                    language: {
+                        processing: "Loading",
+                    },
+                    columns: [
+                        {
+                            data: 'index',
+                            class: 'text-center',
+                            defaultContent: '',
+                            orderable: false,
+                            searchable: false,
+                            width: '5%',
+                            render: function (data, type, row, meta) {
+                                return meta.row + meta.settings._iDisplayStart + 1; //auto increment
+                            }
+                        },
+                        {data: 'code', class: 'text-center'},
+                        {data: 'name', class: 'text-center'},
+                        {data: 'provinsi', class: 'text-center'},
+                        {data: 'action', class: 'text-center', orderable: false},
+                    ],
+                    "bDestroy": true
+                })
+            });
+            $(document).ready(function () {
+                $('.selectProvinsi').select2({
+                    dropdownParent: $("#tambahKabupaten")
+                });
             });
         </script>
     @endpush

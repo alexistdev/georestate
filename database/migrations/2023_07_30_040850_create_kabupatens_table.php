@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('kabupatens', function (Blueprint $table) {
             $table->id();
             $table->foreignId('provinsi_id')
-                ->constrained('users')
+                ->constrained('provinsis')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->string('code');
             $table->string('name');
             $table->timestamps();
         });

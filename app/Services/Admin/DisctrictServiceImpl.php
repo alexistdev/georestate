@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use App\Models\Kabupaten;
 use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -48,6 +49,38 @@ class DisctrictServiceImpl implements DistrictService
     {
         $provinsi = Provinsi::findOrFail($id);
         $provinsi->delete();
+    }
+
+    public function get_data_kabupaten(Request $request)
+    {
+        $kabupaten = Kabupaten::with('provinsi')->orderBy('provinsi_id','DESC')->orderBy('name', 'ASC')->get();
+        return DataTables::of($kabupaten)
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($request) {
+                return $request->created_at->format('d-m-Y H:i:s') ?? "-";
+            })
+            ->editColumn('provinsi', function ($request) {
+                return $request->provinsi->name ?? "-";
+            })
+            ->addColumn('action', function ($row) {
+                $id = base64_encode($row->id);
+//                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-provinsi\" data-id=\"$id\" data-name=\"$row->name\" data-code=\"$row->code\" data-bs-toggle=\"modal\" data-bs-target=\"#editProvinsi\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i>Edit</span></button>";
+                $btn = "<button class=\"btn btn-sm btn-danger m-1 open-hapus-provinsi\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function save_kabupaten(Request $request)
+    {
+        $provinsi = Provinsi::findOrFail(base64_decode($request->provinsi_id));
+        $idProvinsi = $provinsi->id;
+        $kabupaten = new Kabupaten();
+        $kabupaten->provinsi_id = $idProvinsi;
+        $kabupaten->code = $request->code;
+        $kabupaten->name = $request->name;
+        $kabupaten->save();
     }
 
 

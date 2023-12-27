@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Provinsi extends Model
 {
@@ -13,6 +14,8 @@ class Provinsi extends Model
      * Phone: 082371408678
      * Github: https://github.com/alexistdev
      */
+
+    use SoftDeletes;
 
 
     protected $fillable = ['code', 'name'];

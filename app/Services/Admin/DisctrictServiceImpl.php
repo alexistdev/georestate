@@ -19,7 +19,7 @@ class DisctrictServiceImpl implements DistrictService
             ->addColumn('action', function ($row) {
                 $id = base64_encode($row->id);
                 $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-provinsi\" data-id=\"$id\" data-name=\"$row->name\" data-code=\"$row->code\" data-bs-toggle=\"modal\" data-bs-target=\"#editProvinsi\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i>Edit</span></button>";
-                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
+                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus-provinsi\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
                 return $btn;
             })
             ->rawColumns(['action'])
@@ -42,6 +42,12 @@ class DisctrictServiceImpl implements DistrictService
           'code' => $request->code,
           'name' => $request->name
         ]);
+    }
+
+    public function delete_provinsi(int $id)
+    {
+        $provinsi = Provinsi::findOrFail($id);
+        $provinsi->delete();
     }
 
 

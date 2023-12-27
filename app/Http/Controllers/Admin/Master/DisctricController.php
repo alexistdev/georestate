@@ -68,4 +68,19 @@ class DisctricController extends Controller
             return redirect(route('adm.disctrict'))->withErrors(['error' => $e->getMessage()]);
         }
     }
+
+    public function provinsi_destroy(ProvinsiRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try {
+            $id = base64_decode($request->provinsi_id);
+            $this->districtService->delete_provinsi($id);
+            DB::commit();
+            return redirect(route('adm.disctrict'))->with(['delete' => "Data Provinsi berhasil dihapus!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.disctrict'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
 }

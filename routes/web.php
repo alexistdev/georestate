@@ -45,6 +45,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/staff/wilayah', [WilayahAdmin::class, 'index'])->name('adm.disctrict');
         Route::post('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_store'])->name('adm.disctrict.provinsi.save');
         Route::patch('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_update'])->name('adm.disctrict.provinsi.update');
+        Route::delete('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_destroy'])->name('adm.disctrict.provinsi.delete');
 
         /** ajax */
         Route::middleware(['clean', 'ajax'])->group(function () {

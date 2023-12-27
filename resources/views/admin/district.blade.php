@@ -12,6 +12,15 @@
             </div>
         @endif
 
+        @if ($message = Session::get('delete'))
+            <div class="col-lg-12">
+                <div class="alert alert-danger  alert-dismissible alert-outline fade show" role="alert">
+                    <strong> Delete ! </strong> - {!! $message !!}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        @endif
+
 
         @if ($errors->any())
             <div class="col-lg-12">
@@ -120,7 +129,8 @@
                             <div class="col-md-12">
                                 <label
                                     for="provinsiCode" @class(["form-label"]) >CODE</label>
-                                <input type="text" name="code" maxlength="125" placeholder="Masukkan Kode Provinsi" style="text-transform:uppercase"
+                                <input type="text" name="code" maxlength="125" placeholder="Masukkan Kode Provinsi"
+                                       style="text-transform:uppercase"
                                        @class(["form-control"]) value="{{old('code')}}"
                                        id="provinsiCode" required>
                             </div>
@@ -198,6 +208,37 @@
     </div>
     <!-- END: Modal EDIT PROVINSI-->
 
+    <!-- START: Modal HAPUS PROVINSI-->
+    <div class="modal fade" id="modalHapus" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="{{route('adm.disctrict.provinsi.delete')}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Hapus Provinsi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <input type="hidden" name="provinsi_id" class="form-control"
+                                       value="{{old('provinsi_id')}}"
+                                       id="hapusProvinsiId">
+                                Apa anda ingin menghapus data Provinsi ini?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END: Modal HAPUS TAMBAH-->
+
     <!-- START: Modal EDIT KABUPATEN-->
     <div class="modal fade" id="editProvinsi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -223,7 +264,7 @@
             let provinceURL = "{{route('adm.ajax.provinsi')}}";
 
 
-            /** saat tombol edit di klik */
+            /** saat tombol edit provinsi di klik */
             $(document).on("click", ".open-edit-provinsi", function (e) {
                 e.preventDefault();
                 let fid = $(this).data('id');
@@ -233,6 +274,13 @@
                 $('#editProvinsiCode').val(fcode);
                 $('#editProvinsiId').val(fid);
                 $('#editProvinsiName').val(fname);
+            })
+
+            /** saat tombol hapus provinsi di klik */
+            $(document).on("click", ".open-hapus-provinsi", function (e) {
+                e.preventDefault();
+                let fid = $(this).data('id');
+                $('#hapusProvinsiId').val(fid);
             })
             document.addEventListener("DOMContentLoaded", function () {
                 new DataTable("#tabelProvince", {

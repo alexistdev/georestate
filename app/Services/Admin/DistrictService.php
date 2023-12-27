@@ -9,4 +9,5 @@ interface DistrictService
     public function get_data_provinsi(Request $request);
     public function save_provinsi(Request $request);
     public function update_provinsi(Request $request);
+    public function delete_provinsi(int $id);
 }

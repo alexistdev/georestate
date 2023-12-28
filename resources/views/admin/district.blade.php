@@ -244,10 +244,10 @@
             </div>
         </div>
     </div>
-    <!-- END: Modal HAPUS TAMBAH-->
+    <!-- END: Modal HAPUS PROVINSI-->
 
     <!-- START: Modal TAMBAH KABUPATEN-->
-    <div class="modal fade" id="tambahKabupaten" tabindex="-1" aria-hidden="true">
+    <div class="modal fade modalEditAll" id="tambahKabupaten" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="{{route('adm.disctrict.kabupaten.save')}}" method="post">
@@ -259,10 +259,11 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <label for="provinsiName" >PROVINSI</label>
-                                <select id="provinsiName" class="selectProvinsi form-control" name="provinsi_id">
+                                <label for="provinsiNamex">PROVINSI</label>
+                                <select id="provinsiNamex" class="form-control" name="provinsi_id">
                                     @foreach($dataProvinsi as $prov)
-                                    <option value="{{base64_encode($prov->id)}}">{{$prov->name." [".$prov->code ."] "}}</option>
+                                        <option
+                                            value="{{base64_encode($prov->id)}}">{{$prov->name." [".$prov->code ."] "}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -270,22 +271,83 @@
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <label
-                                    for="provinsiCode" @class(["form-label"]) >CODE</label>
-                                <input type="text" name="code" maxlength="125" placeholder="Masukkan Kode Provinsi"
+                                    for="kabupatenCode" @class(["form-label"]) >CODE</label>
+                                <input type="text" name="code" maxlength="125" placeholder="Masukkan Kode Kabupaten"
                                        style="text-transform:uppercase"
                                        @class(["form-control"]) value="{{old('code')}}"
-                                       id="provinsiCode" required>
+                                       id="kabupatenCode" required>
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <label
-                                    for="provinsiName" @class(["form-label"]) >NAME</label>
+                                    for="kabupatenName" @class(["form-label"]) >NAME</label>
                                 <input type="text" name="name" maxlength="255"
                                        @class(["form-control"]) style="text-transform:uppercase"
-                                       value="{{old('name')}}" placeholder="Masukkan Nama Provinsi"
-                                       id="provinsiName" required>
+                                       value="{{old('name')}}" placeholder="Masukkan Nama Kabupaten"
+                                       id="kabupatenName" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END: Modal TAMBAH KABUPATEN-->
+
+    <!-- START: Modal EDIT KABUPATEN-->
+    <div class="modal fade modalEditAll" id="editKabupaten" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="{{route('adm.disctrict.kabupaten.update')}}" method="post">
+                    @csrf
+                    @method('PATCH')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">EDIT DATA KABUPATEN</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input type="hidden" name="kabupaten_id" id="kabupaten_id"
+                                       value="{{old('kabupaten_id')}}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label for="provinsiNamey">PROVINSI</label>
+                                <select id="provinsiNamey" class="editSelectedProvinsi form-control" name="provinsi_id">
+                                    @foreach($dataProvinsi as $prov)
+                                        <option
+                                            value="{{base64_encode($prov->id)}}">{{$prov->name." [".$prov->code ."] "}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <label
+                                    for="kabupatenCodeEdit" @class(["form-label"]) >CODE</label>
+                                <input type="text" name="code" maxlength="125" placeholder="Masukkan Kode Kabupaten"
+                                       style="text-transform:uppercase"
+                                       @class(["form-control"]) value="{{old('code')}}"
+                                       id="kabupatenCodeEdit" required>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <label
+                                    for="kabupatenNameEdit" @class(["form-label"]) >NAME</label>
+                                <input type="text" name="name" maxlength="255"
+                                       @class(["form-control"]) style="text-transform:uppercase"
+                                       value="{{old('name')}}" placeholder="Masukkan Nama Kabupaten"
+                                       id="kabupatenNameEdit" required>
                             </div>
                         </div>
                     </div>
@@ -299,25 +361,37 @@
     </div>
     <!-- END: Modal EDIT KABUPATEN-->
 
-    <!-- START: Modal EDIT KABUPATEN-->
-    <div class="modal fade" id="editProvinsi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- START: Modal HAPUS KABUPATEN-->
+        <div class="modal fade" id="modalHapusKabupaten" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form action="{{route('adm.disctrict.kabupaten.delete')}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">HAPUS KABUPATEN</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <input type="hidden" name="kabupaten_id" class="form-control"
+                                           value="{{old('kabupaten_id')}}"
+                                           id="hapusKabupatenId">
+                                    Apa anda ingin menghapus data Kabupaten ini?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- END: Modal EDIT KABUPATEN-->
+        <!-- END: Modal HAPUS KABUPATEN-->
+
 
     @push('customJS')
         <x-admin.datatable-j-s/>
@@ -326,12 +400,10 @@
             let provinceURL = "{{route('adm.ajax.provinsi')}}";
             let kabupatenURL = "{{route('adm.ajax.kabupaten')}}";
 
-
             /** saat tombol edit provinsi di klik */
             $(document).on("click", ".open-edit-provinsi", function (e) {
                 e.preventDefault();
                 let fid = $(this).data('id');
-
                 let fcode = $(this).data('code');
                 let fname = $(this).data('name');
                 $('#editProvinsiCode').val(fcode);
@@ -345,6 +417,27 @@
                 let fid = $(this).data('id');
                 $('#hapusProvinsiId').val(fid);
             })
+
+            /** saat tombol edit kabupaten di klik */
+            $(document).on("click", ".open-edit-kabupaten", function (e) {
+                e.preventDefault();
+                let fid = $(this).data('id');
+                let fprov = $(this).data('provinsi');
+                let fcode = $(this).data('code');
+                let fname = $(this).data('name');
+                $('#provinsiNamey').val(fprov).change();
+                $('#kabupatenCodeEdit').val(fcode);
+                $('#kabupatenNameEdit').val(fname);
+                $('#kabupaten_id').val(fid);
+            })
+
+            /** saat tombol hapus provinsi di klik */
+            $(document).on("click", ".open-hapus-kabupaten", function (e) {
+                e.preventDefault();
+                let fid = $(this).data('id');
+                $('#hapusKabupatenId').val(fid);
+            })
+
 
             document.addEventListener("DOMContentLoaded", function () {
                 new DataTable("#tabelProvince", {
@@ -409,8 +502,11 @@
                 })
             });
             $(document).ready(function () {
-                $('.selectProvinsi').select2({
+                $('#provinsiNamex').select2({
                     dropdownParent: $("#tambahKabupaten")
+                });
+                $('#provinsiNamey').select2({
+                    dropdownParent: $("#editKabupaten")
                 });
             });
         </script>

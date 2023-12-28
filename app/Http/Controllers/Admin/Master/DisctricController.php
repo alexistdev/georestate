@@ -110,4 +110,33 @@ class DisctricController extends Controller
             return redirect(route('adm.disctrict'))->withErrors(['error' => $e->getMessage()]);
         }
     }
+
+    public function kabupaten_update(KabupatenRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try {
+            $this->districtService->update_kabupaten($request);
+            DB::commit();
+            return redirect(route('adm.disctrict'))->with(['success' => "Data Kabupaten berhasil diperbaharui!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.disctrict'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function kabupaten_destroy(KabupatenRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try {
+            $id = base64_decode($request->kabupaten_id);
+            $this->districtService->delete_kabupaten($id);
+            DB::commit();
+            return redirect(route('adm.disctrict'))->with(['delete' => "Data Kabupaten berhasil dihapus!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.disctrict'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
 }

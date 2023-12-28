@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Kabupaten extends Model
 {
-   protected $fillable = ['provinsi_id','code','name'];
-   protected $table ='kabupatens';
+    use SoftDeletes;
+
+    protected $fillable = ['provinsi_id', 'code', 'name'];
+    protected $table = 'kabupatens';
 
     protected function name(): Attribute
     {
@@ -18,7 +21,8 @@ class Kabupaten extends Model
         );
     }
 
-   public function provinsi(){
-       return $this->belongsTo(Provinsi::class);
-   }
+    public function provinsi()
+    {
+        return $this->belongsTo(Provinsi::class);
+    }
 }

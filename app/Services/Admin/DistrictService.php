@@ -19,4 +19,6 @@ interface DistrictService
      */
     public function get_data_kabupaten(Request $request);
     public function save_kabupaten(Request $request);
+    public function update_kabupaten(Request $request);
+    public function delete_kabupaten(int $id);
 }

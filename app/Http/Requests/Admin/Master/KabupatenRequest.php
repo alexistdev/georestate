@@ -32,6 +32,7 @@ class KabupatenRequest extends FormRequest
         }else if(in_array($this->method(), ['PATCH'])){
             $rules = [
                 'kabupaten_id' => 'required|max:255',
+                'provinsi_id' => 'required|max:255',
                 'code' => 'required|max:125',
                 'name' => 'required|max:255',
             ];

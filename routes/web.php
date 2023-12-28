@@ -48,6 +48,8 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::delete('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_destroy'])->name('adm.disctrict.provinsi.delete');
 
         Route::post('/staff/wilayah/kabupaten', [WilayahAdmin::class, 'kabupaten_store'])->name('adm.disctrict.kabupaten.save');
+        Route::patch('/staff/wilayah/kabupaten', [WilayahAdmin::class, 'kabupaten_update'])->name('adm.disctrict.kabupaten.update');
+        Route::delete('/staff/wilayah/kabupaten', [WilayahAdmin::class, 'kabupaten_destroy'])->name('adm.disctrict.kabupaten.delete');
 
         /** ajax */
         Route::middleware(['clean', 'ajax'])->group(function () {

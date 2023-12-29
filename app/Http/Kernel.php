@@ -4,6 +4,8 @@ namespace App\Http;
 
 use App\Http\Middleware\CekRole;
 use App\Http\Middleware\isFree;
+use App\Http\Middleware\OnlyAjax;
+use App\Http\Middleware\XssClean;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -68,5 +70,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'roles' => CekRole::class,
         'free' => isFree::class,
+        'clean' => XssClean::class,
+        'ajax' => OnlyAjax::class,
     ];
 }

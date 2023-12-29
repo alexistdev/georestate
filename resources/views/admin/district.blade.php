@@ -52,7 +52,6 @@
                         <thead>
                         <tr>
                             <th class="text-center">No.</th>
-                            <th class="text-center">Code</th>
                             <th class="text-center">Nama</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -135,17 +134,6 @@
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <label
-                                    for="provinsiCode" @class(["form-label"]) >CODE</label>
-                                <input type="text" name="code" maxlength="125" placeholder="Masukkan Kode Provinsi"
-                                       style="text-transform:uppercase"
-                                       @class(["form-control"]) value="{{old('code')}}"
-                                       id="provinsiCode" required>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                                <label
                                     for="provinsiName" @class(["form-label"]) >NAME</label>
                                 <input type="text" name="name" maxlength="255"
                                        @class(["form-control"]) style="text-transform:uppercase"
@@ -184,16 +172,6 @@
                                        id="editProvinsiId">
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                                <label
-                                    for="editProvinsiCode" @class(["form-label"]) >CODE</label>
-                                <input type="text" name="code" maxlength="125"
-                                       @class(["form-control"]) value="{{old('code')}}"
-                                       id="editProvinsiCode">
-                            </div>
-                        </div>
-
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <label
@@ -404,9 +382,7 @@
             $(document).on("click", ".open-edit-provinsi", function (e) {
                 e.preventDefault();
                 let fid = $(this).data('id');
-                let fcode = $(this).data('code');
                 let fname = $(this).data('name');
-                $('#editProvinsiCode').val(fcode);
                 $('#editProvinsiId').val(fid);
                 $('#editProvinsiName').val(fname);
             })
@@ -462,7 +438,6 @@
                                 return meta.row + meta.settings._iDisplayStart + 1; //auto increment
                             }
                         },
-                        {data: 'code', class: 'text-center'},
                         {data: 'name', class: 'text-center'},
                         {data: 'action', class: 'text-center', orderable: false},
                     ],

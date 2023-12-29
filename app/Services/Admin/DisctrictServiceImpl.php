@@ -19,7 +19,7 @@ class DisctrictServiceImpl implements DistrictService
             })
             ->addColumn('action', function ($row) {
                 $id = base64_encode($row->id);
-                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-provinsi\" data-id=\"$id\" data-name=\"$row->name\" data-code=\"$row->code\" data-bs-toggle=\"modal\" data-bs-target=\"#editProvinsi\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i>Edit</span></button>";
+                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-provinsi\" data-id=\"$id\" data-name=\"$row->name\" data-bs-toggle=\"modal\" data-bs-target=\"#editProvinsi\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i>Edit</span></button>";
                 $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus-provinsi\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
                 return $btn;
             })
@@ -30,7 +30,6 @@ class DisctrictServiceImpl implements DistrictService
     public function save_provinsi(Request $request)
     {
         $insert = new Provinsi();
-        $insert->code = $request->code;
         $insert->name = $request->name;
         $insert->save();
     }
@@ -40,7 +39,6 @@ class DisctrictServiceImpl implements DistrictService
     {
         $provinsi = Provinsi::findOrFail(base64_decode($request->provinsi_id));
         Provinsi::where('id',$provinsi->id)->update([
-          'code' => $request->code,
           'name' => $request->name
         ]);
     }

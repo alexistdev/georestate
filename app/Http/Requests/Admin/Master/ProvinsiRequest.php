@@ -34,12 +34,10 @@ class ProvinsiRequest extends FormRequest
         }else if(in_array($this->method(), ['PATCH'])){
             $rules = [
                 'provinsi_id' => 'required|max:255',
-                'code' => 'required|max:125',
                 'name' => 'required|max:255',
             ];
         }else{
             $rules = [
-                'code' => 'required|max:125',
                 'name' => 'required|max:255',
             ];
         }
@@ -57,15 +55,11 @@ class ProvinsiRequest extends FormRequest
             $message = [
                 'provinsi_id.required' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
                 'provinsi_id.max' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
-                'code.required' => "Code wajib diisi!",
-                'code.max' => "Panjang karakter maksimal yang diperbolehkan adalah 125 karakter!",
                 'name.required' => "Nama kelas wajib diisi!",
                 'name.max' => "Panjang karakter maksimal yang diperbolehkan adalah 255 karakter!",
             ];
         } else {
             $message = [
-                'code.required' => "Code wajib diisi!",
-                'code.max' => "Panjang karakter maksimal yang diperbolehkan adalah 125 karakter!",
                 'name.required' => "Nama kelas wajib diisi!",
                 'name.max' => "Panjang karakter maksimal yang diperbolehkan adalah 255 karakter!",
             ];

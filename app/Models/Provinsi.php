@@ -18,7 +18,7 @@ class Provinsi extends Model
     use SoftDeletes;
 
 
-    protected $fillable = ['code', 'name'];
+    protected $fillable = ['name'];
 
     protected function name(): Attribute
     {

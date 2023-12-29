@@ -55,12 +55,12 @@ class ProvinsiRequest extends FormRequest
             $message = [
                 'provinsi_id.required' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
                 'provinsi_id.max' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
-                'name.required' => "Nama kelas wajib diisi!",
+                'name.required' => "Nama Provinsi wajib diisi!",
                 'name.max' => "Panjang karakter maksimal yang diperbolehkan adalah 255 karakter!",
             ];
         } else {
             $message = [
-                'name.required' => "Nama kelas wajib diisi!",
+                'name.required' => "Nama Provinsi wajib diisi!",
                 'name.max' => "Panjang karakter maksimal yang diperbolehkan adalah 255 karakter!",
             ];
         }

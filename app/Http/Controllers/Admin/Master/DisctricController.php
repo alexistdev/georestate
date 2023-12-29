@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Master\KabupatenRequest;
+use App\Http\Requests\Admin\Master\KecamatanRequest;
 use App\Http\Requests\Admin\Master\ProvinsiRequest;
 use App\Models\Kabupaten;
 use App\Models\Provinsi;
@@ -30,11 +31,13 @@ class DisctricController extends Controller
     public function index()
     {
         $provinsi = Provinsi::orderBy('name','ASC')->get();
+        $kabupaten = Kabupaten::orderBy('name','ASC')->get();
         return view('admin.district', array(
             'judul' => "Dashboard Administrator | GeoRestate v.1.0",
             'menuUtama' => 'dashboard',
             'menuKedua' => 'dashboard',
-            'dataProvinsi' => $provinsi
+            'dataProvinsi' => $provinsi,
+            'dataKabupaten' => $kabupaten
         ));
     }
 
@@ -142,6 +145,49 @@ class DisctricController extends Controller
             $this->districtService->delete_kabupaten($id);
             DB::commit();
             return redirect(route('adm.disctrict'))->with(['delete' => "Data Kabupaten berhasil dihapus!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.disctrict'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function kecamatan_store(KecamatanRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try {
+            $this->districtService->save_kecamatan($request);
+            DB::commit();
+            return redirect(route('adm.disctrict'))->with(['success' => "Data Kecamatan berhasil disimpan!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.disctrict'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function kecamatan_update(KecamatanRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try {
+            $this->districtService->update_kecamatan($request);
+            DB::commit();
+            return redirect(route('adm.disctrict'))->with(['success' => "Data Kecamatan berhasil diperbaharui!"]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('adm.disctrict'))->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function kecamatan_destroy(KecamatanRequest $request)
+    {
+        $request->validated();
+        DB::beginTransaction();
+        try {
+            $id = base64_decode($request->kecamatan_id);
+            $this->districtService->delete_kecamatan($id);
+            DB::commit();
+            return redirect(route('adm.disctrict'))->with(['delete' => "Data Kecamatan berhasil dihapus!"]);
         } catch (Exception $e) {
             DB::rollback();
             return redirect(route('adm.disctrict'))->withErrors(['error' => $e->getMessage()]);

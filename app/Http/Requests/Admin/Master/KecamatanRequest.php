@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class KabupatenRequest extends FormRequest
+class KecamatanRequest extends FormRequest
 {
     /**
      * Author: AlexistDev
@@ -27,17 +27,17 @@ class KabupatenRequest extends FormRequest
     {
         if (in_array($this->method(), ['DELETE'])) {
             $rules = [
-                'kabupaten_id' => 'required|max:255',
+                'kecamatan_id' => 'required|max:255',
             ];
         }else if(in_array($this->method(), ['PATCH'])){
             $rules = [
+                'kecamatan_id' => 'required|max:255',
                 'kabupaten_id' => 'required|max:255',
-                'provinsi_id' => 'required|max:255',
                 'name' => 'required|max:255',
             ];
         }else{
             $rules = [
-                'provinsi_id' => 'required|max:255',
+                'kabupaten_id' => 'required|max:255',
                 'name' => 'required|max:255',
             ];
         }
@@ -48,23 +48,23 @@ class KabupatenRequest extends FormRequest
     {
         if (in_array($this->method(), ['DELETE'])) {
             $message = [
-                'kabupaten_id.required' => "ID tidak ditemukan silahkan refresh halaman!",
-                'kabupaten_id.max' => "ID tidak ditemukan silahkan refresh halaman!",
+                'kecamatan_id.required' => "ID tidak ditemukan silahkan refresh halaman!",
+                'kecamatan_id.max' => "ID tidak ditemukan silahkan refresh halaman!",
             ];
         }else if(in_array($this->method(), ['PATCH'])){
             $message = [
-                'kabupaten_id.required' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
-                'kabupaten_id.max' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
-                'provinsi_id.required' => "Silahkan pilih Provinsi terlebih dahulu!",
-                'provinsi_id.max' => "Silahkan pilih Provinsi terlebih dahulu!",
-                'name.required' => "Nama Kabupaten wajib diisi!",
+                'kecamatan_id.required' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
+                'kecamatan_id.max' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
+                'kabupaten_id.required' => "Silahkan pilih Kabupaten terlebih dahulu!",
+                'kabupaten_id.max' => "Silahkan pilih Kabupaten terlebih dahulu!",
+                'name.required' => "Nama Kecamatan wajib diisi!",
                 'name.max' => "Panjang karakter maksimal yang diperbolehkan adalah 255 karakter!",
             ];
         } else {
             $message = [
-                'provinsi_id.required' => "Silahkan pilih Provinsi terlebih dahulu!",
-                'provinsi_id.max' => "Silahkan pilih Provinsi terlebih dahulu!",
-                'name.required' => "Nama Kabupaten wajib diisi!",
+                'kabupaten_id.required' => "Silahkan pilih Kabupaten terlebih dahulu!",
+                'kabupaten_id.max' => "Silahkan pilih Kabupaten terlebih dahulu!",
+                'name.required' => "Nama Kecamatan wajib diisi!",
                 'name.max' => "Panjang karakter maksimal yang diperbolehkan adalah 255 karakter!",
             ];
         }

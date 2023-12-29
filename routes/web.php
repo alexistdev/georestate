@@ -51,6 +51,10 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::patch('/staff/wilayah/kabupaten', [WilayahAdmin::class, 'kabupaten_update'])->name('adm.disctrict.kabupaten.update');
         Route::delete('/staff/wilayah/kabupaten', [WilayahAdmin::class, 'kabupaten_destroy'])->name('adm.disctrict.kabupaten.delete');
 
+        Route::post('/staff/wilayah/kecamatan', [WilayahAdmin::class, 'kecamatan_store'])->name('adm.disctrict.kecamatan.save');
+        Route::patch('/staff/wilayah/kecamatan', [WilayahAdmin::class, 'kecamatan_update'])->name('adm.disctrict.kecamatan.update');
+        Route::delete('/staff/wilayah/kecamatan', [WilayahAdmin::class, 'kecamatan_destroy'])->name('adm.disctrict.kecamatan.delete');
+
         /** ajax */
         Route::middleware(['clean', 'ajax'])->group(function () {
             Route::get('/staff/ajax/provinsi', [WilayahAdmin::class, 'get_provinsi'])->name('adm.ajax.provinsi');

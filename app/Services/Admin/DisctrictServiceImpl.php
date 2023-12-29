@@ -112,12 +112,38 @@ class DisctrictServiceImpl implements DistrictService
             ->addColumn('action', function ($row) {
                 $id = base64_encode($row->id);
                 $kab_id = base64_encode($row->kabupaten_id);
-                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-kabupaten\" data-id=\"$id\" data-provinsi=\"$kab_id\" data-name=\"$row->name\" data-bs-toggle=\"modal\" data-bs-target=\"#editKabupaten\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i></span></button>";
-                $btn = $btn."<button class=\"btn btn-sm btn-danger m-1 open-hapus-kabupaten\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapusKabupaten\"> <i class=\"bx bx-trash align-middle m-1\"></i></span></button>";
+                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-kecamatan\" data-id=\"$id\" data-kabupaten=\"$kab_id\" data-name=\"$row->name\" data-bs-toggle=\"modal\" data-bs-target=\"#editKecamatan\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i></span></button>";
+                $btn = $btn."<button class=\"btn btn-sm btn-danger m-1 open-hapus-kecamatan\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapusKecamatan\"> <i class=\"bx bx-trash align-middle m-1\"></i></span></button>";
                 return $btn;
             })
             ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function save_kecamatan(Request $request)
+    {
+        $kabupaten = Kabupaten::findOrFail(base64_decode($request->kabupaten_id));
+        $idKabupaten = $kabupaten->id;
+        $kecamatan = new Kecamatan();
+        $kecamatan->kabupaten_id = $idKabupaten;
+        $kecamatan->name = $request->name;
+        $kecamatan->save();
+    }
+
+    public function update_kecamatan(Request $request)
+    {
+        $kecamatan = Kecamatan::findOrFail(base64_decode($request->kecamatan_id));
+        $kabupaten = Kabupaten::findOrFail(base64_decode($request->kabupaten_id));
+        Kecamatan::where('id',$kecamatan->id)->update([
+            'kabupaten_id' => $kabupaten->id,
+            'name' => $request->name
+        ]);
+    }
+
+    public function delete_kecamatan(int $id)
+    {
+        $kecamatan = Kecamatan::findOrFail($id);
+        $kecamatan->delete();
     }
 
 

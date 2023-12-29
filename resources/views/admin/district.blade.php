@@ -81,7 +81,6 @@
                         <thead>
                         <tr>
                             <th class="text-center">No.</th>
-                            <th class="text-center">Code</th>
                             <th class="text-center">Nama</th>
                             <th class="text-center">Provinsi</th>
                             <th class="text-center">Action</th>
@@ -175,7 +174,7 @@
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <label
-                                    for="editProvinsiName" @class(["form-label"]) >CODE</label>
+                                    for="editProvinsiName" @class(["form-label"]) >NAME</label>
                                 <input type="text" name="name" maxlength="125"
                                        @class(["form-control"]) style="text-transform:uppercase"
                                        value="{{old('name')}}"
@@ -241,22 +240,11 @@
                                 <select id="provinsiNamex" class="form-control" name="provinsi_id">
                                     @foreach($dataProvinsi as $prov)
                                         <option
-                                            value="{{base64_encode($prov->id)}}">{{$prov->name." [".$prov->code ."] "}}</option>
+                                            value="{{base64_encode($prov->id)}}">{{$prov->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                                <label
-                                    for="kabupatenCode" @class(["form-label"]) >CODE</label>
-                                <input type="text" name="code" maxlength="125" placeholder="Masukkan Kode Kabupaten"
-                                       style="text-transform:uppercase"
-                                       @class(["form-control"]) value="{{old('code')}}"
-                                       id="kabupatenCode" required>
-                            </div>
-                        </div>
-
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <label
@@ -302,19 +290,9 @@
                                 <select id="provinsiNamey" class="editSelectedProvinsi form-control" name="provinsi_id">
                                     @foreach($dataProvinsi as $prov)
                                         <option
-                                            value="{{base64_encode($prov->id)}}">{{$prov->name." [".$prov->code ."] "}}</option>
+                                            value="{{base64_encode($prov->id)}}">{{$prov->name}}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                                <label
-                                    for="kabupatenCodeEdit" @class(["form-label"]) >CODE</label>
-                                <input type="text" name="code" maxlength="125" placeholder="Masukkan Kode Kabupaten"
-                                       style="text-transform:uppercase"
-                                       @class(["form-control"]) value="{{old('code')}}"
-                                       id="kabupatenCodeEdit" required>
                             </div>
                         </div>
 
@@ -399,10 +377,8 @@
                 e.preventDefault();
                 let fid = $(this).data('id');
                 let fprov = $(this).data('provinsi');
-                let fcode = $(this).data('code');
                 let fname = $(this).data('name');
                 $('#provinsiNamey').val(fprov).change();
-                $('#kabupatenCodeEdit').val(fcode);
                 $('#kabupatenNameEdit').val(fname);
                 $('#kabupaten_id').val(fid);
             })
@@ -468,7 +444,6 @@
                                 return meta.row + meta.settings._iDisplayStart + 1; //auto increment
                             }
                         },
-                        {data: 'code', class: 'text-center'},
                         {data: 'name', class: 'text-center'},
                         {data: 'provinsi', class: 'text-center'},
                         {data: 'action', class: 'text-center', orderable: false},

@@ -63,7 +63,7 @@ class DisctrictServiceImpl implements DistrictService
             ->addColumn('action', function ($row) {
                 $id = base64_encode($row->id);
                 $prov_id = base64_encode($row->provinsi_id);
-                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-kabupaten\" data-id=\"$id\" data-provinsi=\"$prov_id\" data-name=\"$row->name\" data-code=\"$row->code\" data-bs-toggle=\"modal\" data-bs-target=\"#editKabupaten\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i>Edit</span></button>";
+                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-kabupaten\" data-id=\"$id\" data-provinsi=\"$prov_id\" data-name=\"$row->name\" data-bs-toggle=\"modal\" data-bs-target=\"#editKabupaten\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i>Edit</span></button>";
                 $btn = $btn."<button class=\"btn btn-sm btn-danger m-1 open-hapus-kabupaten\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapusKabupaten\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
                 return $btn;
             })
@@ -77,7 +77,6 @@ class DisctrictServiceImpl implements DistrictService
         $idProvinsi = $provinsi->id;
         $kabupaten = new Kabupaten();
         $kabupaten->provinsi_id = $idProvinsi;
-        $kabupaten->code = $request->code;
         $kabupaten->name = $request->name;
         $kabupaten->save();
     }
@@ -88,7 +87,6 @@ class DisctrictServiceImpl implements DistrictService
         $provinsi = Provinsi::findOrFail(base64_decode($request->provinsi_id));
         Kabupaten::where('id',$kabupaten->id)->update([
             'provinsi_id' => $provinsi->id,
-            'code' => $request->code,
             'name' => $request->name
         ]);
     }

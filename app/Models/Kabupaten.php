@@ -10,7 +10,7 @@ class Kabupaten extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['provinsi_id', 'code', 'name'];
+    protected $fillable = ['provinsi_id','name'];
     protected $table = 'kabupatens';
 
     protected function name(): Attribute

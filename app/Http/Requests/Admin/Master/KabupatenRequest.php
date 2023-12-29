@@ -33,13 +33,11 @@ class KabupatenRequest extends FormRequest
             $rules = [
                 'kabupaten_id' => 'required|max:255',
                 'provinsi_id' => 'required|max:255',
-                'code' => 'required|max:125',
                 'name' => 'required|max:255',
             ];
         }else{
             $rules = [
                 'provinsi_id' => 'required|max:255',
-                'code' => 'required|max:125',
                 'name' => 'required|max:255',
             ];
         }
@@ -59,8 +57,6 @@ class KabupatenRequest extends FormRequest
                 'kabupaten_id.max' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
                 'provinsi_id.required' => "Silahkan pilih Provinsi terlebih dahulu!",
                 'provinsi_id.max' => "Silahkan pilih Provinsi terlebih dahulu!",
-                'code.required' => "Code wajib diisi!",
-                'code.max' => "Panjang karakter maksimal yang diperbolehkan adalah 125 karakter!",
                 'name.required' => "Nama kelas wajib diisi!",
                 'name.max' => "Panjang karakter maksimal yang diperbolehkan adalah 255 karakter!",
             ];
@@ -68,8 +64,6 @@ class KabupatenRequest extends FormRequest
             $message = [
                 'provinsi_id.required' => "Silahkan pilih Provinsi terlebih dahulu!",
                 'provinsi_id.max' => "Silahkan pilih Provinsi terlebih dahulu!",
-                'code.required' => "Code wajib diisi!",
-                'code.max' => "Panjang karakter maksimal yang diperbolehkan adalah 125 karakter!",
                 'name.required' => "Nama kelas wajib diisi!",
                 'name.max' => "Panjang karakter maksimal yang diperbolehkan adalah 255 karakter!",
             ];

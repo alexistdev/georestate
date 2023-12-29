@@ -17,7 +17,6 @@ return new class extends Migration
                 ->constrained('provinsis')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('code');
             $table->string('name');
             $table->softDeletes();
             $table->timestamps();

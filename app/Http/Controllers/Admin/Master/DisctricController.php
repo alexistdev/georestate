@@ -54,6 +54,14 @@ class DisctricController extends Controller
         return null;
     }
 
+    public function get_kecamatan(Request $request)
+    {
+        if ($request->ajax()) {
+            return $this->districtService->get_data_kecamatan($request);
+        }
+        return null;
+    }
+
     public function provinsi_store(ProvinsiRequest $request)
     {
         $request->validated();

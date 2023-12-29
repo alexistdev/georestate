@@ -36,7 +36,7 @@
     </div>
     <div class="row">
 
-        <div class="col-lg-4">
+        <div class="col-lg-4 d-flex align-items-stretch">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title mb-0 float-start">Data Provinsi</h5>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="card-body">
                     <table id="tabelProvince"
-                           class="table nowrap dt-responsive align-middle table-hover table-bordered"
+                           class="table table-sm nowrap dt-responsive align-middle table-hover table-bordered"
                            style="width:100%">
                         <thead>
                         <tr>
@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-4 d-flex align-items-stretch">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title mb-0 float-start">Data Kabupaten</h5>
@@ -76,7 +76,7 @@
                 <div class="card-body">
 
                     <table id="tabelKabupaten"
-                           class="table nowrap dt-responsive align-middle table-hover table-bordered"
+                           class="table table-sm nowrap dt-responsive align-middle table-hover table-bordered"
                            style="width:100%">
                         <thead>
                         <tr>
@@ -93,30 +93,30 @@
                 </div>
             </div>
         </div>
-        {{--        <div class="col-lg-4">--}}
-        {{--            <div class="card">--}}
-        {{--                <div class="card-header">--}}
-        {{--                    <h5 class="card-title mb-0">Data Kecamatan</h5>--}}
-        {{--                </div>--}}
-        {{--                <div class="card-body">--}}
-        {{--                    <table id="alternative-pagination"--}}
-        {{--                           class="table nowrap dt-responsive align-middle table-hover table-bordered"--}}
-        {{--                           style="width:100%">--}}
-        {{--                        <thead>--}}
-        {{--                        <tr>--}}
-        {{--                            <th class="text-center">No.</th>--}}
-        {{--                            <th class="text-center">Code</th>--}}
-        {{--                            <th class="text-center">Nama</th>--}}
-        {{--                            <th class="text-center">Action</th>--}}
-        {{--                        </tr>--}}
-        {{--                        </thead>--}}
-        {{--                        <tbody>--}}
+        <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Data Kecamatan</h5>
+                </div>
+                <div class="card-body">
+                    <table id="tabelKecamatan"
+                           class="table nowrap dt-responsive align-middle table-hover table-bordered"
+                           style="width:100%">
+                        <thead>
+                        <tr>
+                            <th class="text-center">No.</th>
+                            <th class="text-center">Nama</th>
+                            <th class="text-center">Kabupaten</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-        {{--                        </tbody>--}}
-        {{--                    </table>--}}
-        {{--                </div>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- START: Modal TAMBAH PROVINSI-->
@@ -317,36 +317,36 @@
     </div>
     <!-- END: Modal EDIT KABUPATEN-->
 
-        <!-- START: Modal HAPUS KABUPATEN-->
-        <div class="modal fade" id="modalHapusKabupaten" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <form action="{{route('adm.disctrict.kabupaten.delete')}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">HAPUS KABUPATEN</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row mt-2">
-                                <div class="col-md-12">
-                                    <input type="hidden" name="kabupaten_id" class="form-control"
-                                           value="{{old('kabupaten_id')}}"
-                                           id="hapusKabupatenId">
-                                    Apa anda ingin menghapus data Kabupaten ini?
-                                </div>
+    <!-- START: Modal HAPUS KABUPATEN-->
+    <div class="modal fade" id="modalHapusKabupaten" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="{{route('adm.disctrict.kabupaten.delete')}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">HAPUS KABUPATEN</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <input type="hidden" name="kabupaten_id" class="form-control"
+                                       value="{{old('kabupaten_id')}}"
+                                       id="hapusKabupatenId">
+                                Apa anda ingin menghapus data Kabupaten ini?
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Hapus</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <!-- END: Modal HAPUS KABUPATEN-->
+    </div>
+    <!-- END: Modal HAPUS KABUPATEN-->
 
 
     @push('customJS')
@@ -355,6 +355,7 @@
         <script>
             let provinceURL = "{{route('adm.ajax.provinsi')}}";
             let kabupatenURL = "{{route('adm.ajax.kabupaten')}}";
+            let kecamatanURL = "{{route('adm.ajax.kecamatan')}}";
 
             /** saat tombol edit provinsi di klik */
             $(document).on("click", ".open-edit-provinsi", function (e) {
@@ -451,6 +452,38 @@
                     "bDestroy": true
                 })
             });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                new DataTable("#tabelKecamatan", {
+                    pagingType: "full_numbers",
+                    ajax: {
+                        type: 'GET',
+                        url: kecamatanURL,
+                        async: true,
+                    },
+                    language: {
+                        processing: "Loading",
+                    },
+                    columns: [
+                        {
+                            data: 'index',
+                            class: 'text-center',
+                            defaultContent: '',
+                            orderable: false,
+                            searchable: false,
+                            width: '5%',
+                            render: function (data, type, row, meta) {
+                                return meta.row + meta.settings._iDisplayStart + 1; //auto increment
+                            }
+                        },
+                        {data: 'name', class: 'text-center'},
+                        {data: 'kabupaten', class: 'text-center'},
+                        {data: 'action', class: 'text-center', orderable: false},
+                    ],
+                    "bDestroy": true
+                })
+            });
+
             $(document).ready(function () {
                 $('#provinsiNamex').select2({
                     dropdownParent: $("#tambahKabupaten")

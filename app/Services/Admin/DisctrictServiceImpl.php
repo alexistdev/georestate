@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Models\Kabupaten;
+use App\Models\Kecamatan;
 use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -19,8 +20,8 @@ class DisctrictServiceImpl implements DistrictService
             })
             ->addColumn('action', function ($row) {
                 $id = base64_encode($row->id);
-                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-provinsi\" data-id=\"$id\" data-name=\"$row->name\" data-bs-toggle=\"modal\" data-bs-target=\"#editProvinsi\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i>Edit</span></button>";
-                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus-provinsi\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
+                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-provinsi\" data-id=\"$id\" data-name=\"$row->name\" data-bs-toggle=\"modal\" data-bs-target=\"#editProvinsi\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i></span></button>";
+                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus-provinsi\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"bx bx-trash align-middle m-1\"></i></span></button>";
                 return $btn;
             })
             ->rawColumns(['action'])
@@ -63,8 +64,8 @@ class DisctrictServiceImpl implements DistrictService
             ->addColumn('action', function ($row) {
                 $id = base64_encode($row->id);
                 $prov_id = base64_encode($row->provinsi_id);
-                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-kabupaten\" data-id=\"$id\" data-provinsi=\"$prov_id\" data-name=\"$row->name\" data-bs-toggle=\"modal\" data-bs-target=\"#editKabupaten\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i>Edit</span></button>";
-                $btn = $btn."<button class=\"btn btn-sm btn-danger m-1 open-hapus-kabupaten\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapusKabupaten\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
+                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-kabupaten\" data-id=\"$id\" data-provinsi=\"$prov_id\" data-name=\"$row->name\" data-bs-toggle=\"modal\" data-bs-target=\"#editKabupaten\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i></span></button>";
+                $btn = $btn."<button class=\"btn btn-sm btn-danger m-1 open-hapus-kabupaten\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapusKabupaten\"> <i class=\"bx bx-trash align-middle m-1\"></i></span></button>";
                 return $btn;
             })
             ->rawColumns(['action'])
@@ -95,6 +96,28 @@ class DisctrictServiceImpl implements DistrictService
     {
         $kabupaten = Kabupaten::findOrFail($id);
         $kabupaten->delete();
+    }
+
+    public function get_data_kecamatan(Request $request)
+    {
+        $kecamatan = Kecamatan::with('kabupaten')->orderBy('kabupaten_id','DESC')->orderBy('name', 'ASC')->get();
+        return DataTables::of($kecamatan)
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($request) {
+                return $request->created_at->format('d-m-Y H:i:s') ?? "-";
+            })
+            ->editColumn('kabupaten', function ($request) {
+                return $request->kabupaten->name ?? "-";
+            })
+            ->addColumn('action', function ($row) {
+                $id = base64_encode($row->id);
+                $kab_id = base64_encode($row->kabupaten_id);
+                $btn = "<button type=\"button\" class=\"btn btn-sm btn-primary m-1 open-edit-kabupaten\" data-id=\"$id\" data-provinsi=\"$kab_id\" data-name=\"$row->name\" data-bs-toggle=\"modal\" data-bs-target=\"#editKabupaten\"> <span class=\"icon-off\"><i class=\"mdi mdi-file-document-edit-outline align-middle m-1\" ></i></span></button>";
+                $btn = $btn."<button class=\"btn btn-sm btn-danger m-1 open-hapus-kabupaten\" data-id=\"$id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapusKabupaten\"> <i class=\"bx bx-trash align-middle m-1\"></i></span></button>";
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
 

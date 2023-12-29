@@ -55,6 +55,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::middleware(['clean', 'ajax'])->group(function () {
             Route::get('/staff/ajax/provinsi', [WilayahAdmin::class, 'get_provinsi'])->name('adm.ajax.provinsi');
             Route::get('/staff/ajax/kabupaten', [WilayahAdmin::class, 'get_kabupaten'])->name('adm.ajax.kabupaten');
+            Route::get('/staff/ajax/kecamatan', [WilayahAdmin::class, 'get_kecamatan'])->name('adm.ajax.kecamatan');
         });
     });
 });

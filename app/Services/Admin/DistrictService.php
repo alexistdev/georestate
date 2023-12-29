@@ -21,4 +21,9 @@ interface DistrictService
     public function save_kabupaten(Request $request);
     public function update_kabupaten(Request $request);
     public function delete_kabupaten(int $id);
+
+    /**
+     * Kecamatan
+     */
+    public function get_data_kecamatan(Request $request);
 }

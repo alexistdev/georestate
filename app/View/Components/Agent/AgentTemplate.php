@@ -15,10 +15,14 @@ class AgentTemplate extends Component
      * Github: https://github.com/alexistdev
      */
     public $title;
+    public $menuUtama;
+    public $menuKedua;
 
-    public function __construct($title)
+    public function __construct($title,$menuUtama,$menuKedua)
     {
        $this->title = $title;
+       $this->menuUtama = $menuUtama;
+       $this->menuKedua = $menuKedua;
     }
 
     public function render(): View|Closure|string

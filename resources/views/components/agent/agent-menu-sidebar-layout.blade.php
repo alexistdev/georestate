@@ -7,13 +7,13 @@
             </a>
         </li> <!-- end Dashboard Menu -->
         <li class="nav-item">
-            <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+            <a class="nav-link menu-link  @if($menuUtama == "dataku") active @endif collapse" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                 <i class="bx bx-layer"></i> <span data-key="t-apps">Dataku</span>
             </a>
-            <div class="collapse menu-dropdown" id="sidebarApps">
+            <div class="menu-dropdown navbar-expand @if($menuKedua != "listing") collapse @endif" id="sidebarApps">
                 <ul class="nav nav-sm flex-column">
                     <li class="nav-item">
-                        <a href="#" class="nav-link" data-key="t-calendar"> Listing </a>
+                        <a href="{{route('agn.lists')}}" class="nav-link @if($menuKedua == "listing") active @endif" data-key="t-calendar"> Listing </a>
                     </li>
                 </ul>
             </div>

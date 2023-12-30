@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\Master\{AgentController as AgentAdmin,
     DisctricController as WilayahAdmin
 };
 
-use App\Http\Controllers\Agen\{DashboardController as DashAgen};
+use App\Http\Controllers\Agen\{DashboardController as DashAgen,ListingController as ListAgen};
 
 use App\Http\Controllers\Front\{HomeController as FrontHome,
 PropertiesController as FrontProp,
@@ -68,6 +68,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 
     Route::group(['roles' => 'agen'], function () {
         Route::get('/agent/dashboard', [DashAgen::class, 'index'])->name('agn.dashboard');
+        Route::get('/agent/lists', [ListAgen::class, 'index'])->name('agn.lists');
     });
 });
 

@@ -1,4 +1,4 @@
-<x-agent.agent-template :title="$title">
+<x-agent.agent-template :title="$title" :menu-utama="$menuUtama" :menu-kedua="$menuKedua">
     <!-- start page title -->
     <div class="row">
         <div class="col-12">

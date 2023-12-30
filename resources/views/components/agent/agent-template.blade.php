@@ -12,6 +12,7 @@
     <!-- Start: Agent Layout -->
     <x-agent.agent-header-layout />
     <!-- End: Agent Layout -->
+    @stack('customCSS')
 </head>
 
 <body>
@@ -54,7 +55,7 @@
 
                 <div id="two-column-menu"></div>
                 <!-- Start: Sidebar  -->
-                <x-agent.agent-menu-sidebar-layout />
+                <x-agent.agent-menu-sidebar-layout :menu-utama="$menuUtama" :menu-kedua="$menuKedua"/>
                 <!-- End: Sidebar  -->
             </div>
         </div>
@@ -128,5 +129,6 @@
 </div>
 
 <x-agent.agent-js-layout />
+@stack('customJS')
 </body>
 </html>

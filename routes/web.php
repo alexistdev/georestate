@@ -69,6 +69,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'agen'], function () {
         Route::get('/agent/dashboard', [DashAgen::class, 'index'])->name('agn.dashboard');
         Route::get('/agent/lists', [ListAgen::class, 'index'])->name('agn.lists');
+        Route::get('/agent/lists/add', [ListAgen::class, 'create'])->name('agn.lists.add');
     });
 });
 

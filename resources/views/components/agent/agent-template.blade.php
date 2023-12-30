@@ -129,6 +129,8 @@
 </div>
 
 <x-agent.agent-js-layout />
+<script src="{{asset('template/admin/assets/libs/dropzone/dropzone-min.js')}}"></script>
+<script src="{{asset('template/admin/assets/js/pages/ecommerce-product-create.init.js')}}"></script>
 @stack('customJS')
 </body>
 </html>

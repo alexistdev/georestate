@@ -26,4 +26,13 @@ class ListingController extends Controller
             'menuKedua' => 'listing',
         ));
     }
+
+    public function create()
+    {
+        return view('agen.addlisting', array(
+            'title' => "Dashboard Agency | GeoRestate v.1.0",
+            'menuUtama' => 'dataku',
+            'menuKedua' => 'listing',
+        ));
+    }
 }

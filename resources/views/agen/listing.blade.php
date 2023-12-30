@@ -26,726 +26,171 @@
     </div>
     <!-- end page title -->
 
-    <div class="row">
-        <div class="col-xxl-5">
-            <div class="d-flex flex-column h-100">
-                <div class="row h-100">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body p-0">
-                                <div class="alert alert-warning border-0 rounded-0 m-0 d-flex align-items-center" role="alert">
-                                    <i data-feather="alert-triangle" class="text-warning me-2 icon-sm"></i>
-                                    <div class="flex-grow-1 text-truncate">
-                                        Your free trial expired in <b>17</b> days.
-                                    </div>
-                                    <div class="flex-shrink-0">
-                                        <a href="#" class="text-reset text-decoration-underline"><b>Upgrade</b></a>
-                                    </div>
-                                </div>
-
-                                <div class="row align-items-end">
-                                    <div class="col-sm-8">
-                                        <div class="p-3">
-                                            <p class="fs-16 lh-base">Upgrade your plan from a <span class="fw-semibold">Free
-                                                                    trial</span>, to ‘Premium Plan’ <i class="mdi mdi-arrow-right"></i></p>
-                                            <div class="mt-3">
-                                                <a href="#" class="btn btn-success">Upgrade
-                                                    Account!</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="px-3">
-                                            <img src="{{asset('template/admin/assets/images/user-illustarator-2.png')}}" class="img-fluid" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- end card-body-->
-                        </div>
-                    </div> <!-- end col-->
-                </div> <!-- end row-->
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <p class="fw-medium text-muted mb-0">Users</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="28.05">0</span>k</h2>
-                                        <p class="mb-0 text-muted"><span class="badge bg-light text-success mb-0">
-                                                                <i class="ri-arrow-up-line align-middle"></i> 16.24 %
-                                                            </span> vs. previous month</p>
-                                    </div>
-                                    <div>
-                                        <div class="avatar-sm flex-shrink-0">
-                                                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
-                                                                <i data-feather="users" class="text-info"></i>
-                                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                        </div> <!-- end card-->
-                    </div> <!-- end col-->
-
-                    <div class="col-md-6">
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <p class="fw-medium text-muted mb-0">Sessions</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="97.66">0</span>k</h2>
-                                        <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0">
-                                                                <i class="ri-arrow-down-line align-middle"></i> 3.96 %
-                                                            </span> vs. previous month</p>
-                                    </div>
-                                    <div>
-                                        <div class="avatar-sm flex-shrink-0">
-                                                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
-                                                                <i data-feather="activity" class="text-info"></i>
-                                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                        </div> <!-- end card-->
-                    </div> <!-- end col-->
-                </div> <!-- end row-->
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <p class="fw-medium text-muted mb-0">Avg. Visit Duration</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="3">0</span>m
-                                            <span class="counter-value" data-target="40">0</span>sec
-                                        </h2>
-                                        <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0">
-                                                                <i class="ri-arrow-down-line align-middle"></i> 0.24 %
-                                                            </span> vs. previous month</p>
-                                    </div>
-                                    <div>
-                                        <div class="avatar-sm flex-shrink-0">
-                                                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
-                                                                <i data-feather="clock" class="text-info"></i>
-                                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                        </div> <!-- end card-->
-                    </div> <!-- end col-->
-
-                    <div class="col-md-6">
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <p class="fw-medium text-muted mb-0">Bounce Rate</p>
-                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="33.48">0</span>%</h2>
-                                        <p class="mb-0 text-muted"><span class="badge bg-light text-success mb-0">
-                                                                <i class="ri-arrow-up-line align-middle"></i> 7.05 %
-                                                            </span> vs. previous month</p>
-                                    </div>
-                                    <div>
-                                        <div class="avatar-sm flex-shrink-0">
-                                                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
-                                                                <i data-feather="external-link" class="text-info"></i>
-                                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                        </div> <!-- end card-->
-                    </div> <!-- end col-->
-                </div> <!-- end row-->
-            </div>
-        </div> <!-- end col-->
-
-        <div class="col-xxl-7">
-            <div class="row h-100">
-                <div class="col-xl-6">
-                    <div class="card card-height-100">
-                        <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Live Users By Country</h4>
-                            <div class="flex-shrink-0">
-                                <button type="button" class="btn btn-soft-primary btn-sm">
-                                    Export Report
-                                </button>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center flex-wrap gap-2">
+                            <div class="flex-grow-1">
+                                <a href="{{route('agn.lists.add')}}"><button class="btn btn-info add-btn"><i class="ri-add-fill me-1 align-bottom"></i> Add Property</button></a>
                             </div>
-                        </div><!-- end card header -->
-
-                        <!-- card body -->
-                        <div class="card-body">
-
-                            <div id="users-by-country" data-colors='["--vz-light"]' class="text-center" style="height: 252px"></div>
-
-                            <div class="table-responsive table-card mt-3">
-                                <table class="table table-borderless table-sm table-centered align-middle table-nowrap mb-1">
-                                    <thead class="text-muted border-dashed border border-start-0 border-end-0 bg-soft-light">
+                            <div class="flex-shrink-0">
+                                <div class="hstack text-nowrap gap-2">
+                                    <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addmembers"><i class="ri-filter-2-line me-1 align-bottom"></i> Filters</button>
+                                    <button class="btn btn-soft-success">Import</button>
+                                    <button type="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-soft-info"><i class="ri-more-2-fill"></i></button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
+                                        <li><a class="dropdown-item" href="#">All</a></li>
+                                        <li><a class="dropdown-item" href="#">Last Week</a></li>
+                                        <li><a class="dropdown-item" href="#">Last Month</a></li>
+                                        <li><a class="dropdown-item" href="#">Last Year</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end col-->
+            <div class="col-xxl-12">
+                <div class="card" id="companyList">
+                    <div class="card-header">
+                        <div class="row g-2">
+                            <div class="col-md-3">
+                                <div class="search-box">
+                                    <input type="text" class="form-control search" placeholder="Search for company...">
+                                    <i class="ri-search-line search-icon"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-auto ms-auto">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="text-muted">Sort by: </span>
+                                    <select class="form-control mb-0" data-choices data-choices-search-false id="choices-single-default">
+                                        <option value="Owner">Owner</option>
+                                        <option value="Company">Company</option>
+                                        <option value="location">Location</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div class="table-responsive table-card mb-3">
+                                <table class="table align-middle table-nowrap mb-0" id="customerTable">
+                                    <thead class="table-light">
                                     <tr>
-                                        <th>Duration (Secs)</th>
-                                        <th style="width: 30%;">Sessions</th>
-                                        <th style="width: 30%;">Views</th>
+                                        <th scope="col" style="width: 50px;">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                                            </div>
+                                        </th>
+                                        <th class="sort" data-sort="name" scope="col">Nama Property</th>
+                                        <th class="sort" data-sort="owner" scope="col">Harga Sewa / Bulan</th>
+                                        <th class="sort" data-sort="industry_type" scope="col">Kategori</th>
+                                        <th class="sort" data-sort="star_value" scope="col">Rating</th>
+                                        <th class="sort" data-sort="location" scope="col">Lokasi</th>
+                                        <th class="sort" data-sort="location" scope="col">Premium</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody class="border-0">
+                                    <tbody class="list form-check-all">
                                     <tr>
-                                        <td>0-30</td>
-                                        <td>2,250</td>
-                                        <td>4,250</td>
+                                        <th scope="row">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                            </div>
+                                        </th>
+                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ001</a>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1 ms-2 name">Nesta Technologies
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td >100.000.000</td>
+                                        <td class="industry_type">Computer Industry</td>
+                                        <td><span class="star_value">4.5</span> <i class="ri-star-fill text-warning align-bottom"></i></td>
+                                        <td class="location">Los Angeles, USA</td>
+                                        <td>
+                                            <ul class="list-inline hstack gap-2 mb-0">
+                                                <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Call">
+                                                    <a href="javascript:void(0);" class="text-muted d-inline-block">
+                                                        <i class="ri-phone-line fs-16"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Message">
+                                                    <a href="javascript:void(0);" class="text-muted d-inline-block">
+                                                        <i class="ri-question-answer-line fs-16"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                                    <a href="javascript:void(0);" class="view-item-btn"><i class="ri-eye-fill align-bottom text-muted"></i></a>
+                                                </li>
+                                                <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">
+                                                    <a class="edit-item-btn" href="#showModal" data-bs-toggle="modal"><i class="ri-pencil-fill align-bottom text-muted"></i></a>
+                                                </li>
+                                                <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Delete">
+                                                    <a class="remove-item-btn" data-bs-toggle="modal" href="#deleteRecordModal">
+                                                        <i class="ri-delete-bin-fill align-bottom text-muted"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>31-60</td>
-                                        <td>1,501</td>
-                                        <td>2,050</td>
-                                    </tr>
-                                    <tr>
-                                        <td>61-120</td>
-                                        <td>750</td>
-                                        <td>1,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>121-240</td>
-                                        <td>540</td>
-                                        <td>1,040</td>
-                                    </tr>
+
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <!-- end card body -->
-                    </div><!-- end card -->
-                </div><!-- end col -->
-
-                <div class="col-xl-6">
-                    <div class="card card-height-100">
-                        <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Sessions by Countries</h4>
-                            <div>
-                                <button type="button" class="btn btn-soft-secondary btn-sm">
-                                    ALL
-                                </button>
-                                <button type="button" class="btn btn-soft-primary btn-sm">
-                                    1M
-                                </button>
-                                <button type="button" class="btn btn-soft-secondary btn-sm">
-                                    6M
-                                </button>
+                            <div class="d-flex justify-content-end mt-3">
+                                <div class="pagination-wrap hstack gap-2">
+                                    <a class="page-item pagination-prev disabled" href="#">
+                                        Previous
+                                    </a>
+                                    <ul class="pagination listjs-pagination mb-0"></ul>
+                                    <a class="page-item pagination-next" href="#">
+                                        Next
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body p-0">
-                            <div>
-                                <div id="countries_charts" data-colors='["--vz-info", "--vz-info", "--vz-info", "--vz-info", "--vz-danger", "--vz-info", "--vz-info", "--vz-info", "--vz-info", "--vz-info"]' class="apex-charts" dir="ltr"></div>
+                        <!--end add modal-->
+
+                        <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" id="deleteRecord-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+                                    </div>
+                                    <div class="modal-body p-5 text-center">
+                                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#405189,secondary:#f06548" style="width:90px;height:90px"></lord-icon>
+                                        <div class="mt-4 text-center">
+                                            <h4 class="fs-semibold">You are about to delete a company ?</h4>
+                                            <p class="text-muted fs-14 mb-4 pt-1">Deleting your company will
+                                                remove all of your information from our database.</p>
+                                            <div class="hstack gap-2 justify-content-center remove">
+                                                <button class="btn btn-link link-success fw-medium text-decoration-none" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i>
+                                                    Close</button>
+                                                <button class="btn btn-danger" id="delete-record">Yes,
+                                                    Delete It!!</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div><!-- end card body -->
-                    </div><!-- end card -->
-                </div> <!-- end col-->
+                        </div>
+                        <!--end delete modal -->
 
-            </div> <!-- end row-->
-        </div><!-- end col -->
-    </div> <!-- end row-->
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">My Listing Properties</h5>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
-                        <thead>
-                        <tr>
-                            <th scope="col" style="width: 10px;">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" id="checkAll" value="option">
-                                </div>
-                            </th>
-                            <th>SR No.</th>
-                            <th>ID</th>
-                            <th>Purchase ID</th>
-                            <th>Title</th>
-                            <th>User</th>
-                            <th>Assigned To</th>
-                            <th>Created By</th>
-                            <th>Create Date</th>
-                            <th>Status</th>
-                            <th>Priority</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>01</td>
-                            <td>VLZ-452</td>
-                            <td>VLZ1400087402</td>
-                            <td><a href="#!">Post launch reminder/ post list</a></td>
-                            <td>Joseph Parker</td>
-                            <td>Alexis Clarke</td>
-                            <td>Joseph Parker</td>
-                            <td>03 Oct, 2021</td>
-                            <td><span class="badge badge-soft-info">Re-open</span></td>
-                            <td><span class="badge bg-danger">High</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>02</td>
-                            <td>VLZ-453</td>
-                            <td>VLZ1400087425</td>
-                            <td><a href="#!">Additional Calendar</a></td>
-                            <td>Diana Kohler</td>
-                            <td>Admin</td>
-                            <td>Mary Rucker</td>
-                            <td>05 Oct, 2021</td>
-                            <td><span class="badge badge-soft-secondary">On-Hold</span></td>
-                            <td><span class="badge bg-info">Medium</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>03</td>
-                            <td>VLZ-454</td>
-                            <td>VLZ1400087438</td>
-                            <td><a href="#!">Make a creating an account profile</a></td>
-                            <td>Tonya Noble</td>
-                            <td>Admin</td>
-                            <td>Tonya Noble</td>
-                            <td>27 April, 2022</td>
-                            <td><span class="badge badge-soft-danger">Closed</span></td>
-                            <td><span class="badge bg-success">Low</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>04</td>
-                            <td>VLZ-455</td>
-                            <td>VLZ1400087748</td>
-                            <td><a href="#!">Apologize for shopping Error!</a></td>
-                            <td>Joseph Parker</td>
-                            <td>Alexis Clarke</td>
-                            <td>Joseph Parker</td>
-                            <td>14 June, 2021</td>
-                            <td><span class="badge badge-soft-warning">Inprogress</span></td>
-                            <td><span class="badge bg-info">Medium</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>05</td>
-                            <td>VLZ-456</td>
-                            <td>VLZ1400087547</td>
-                            <td><a href="#!">Support for theme</a></td>
-                            <td>Donald Palmer</td>
-                            <td>Admin</td>
-                            <td>Donald Palmer</td>
-                            <td>25 June, 2021</td>
-                            <td><span class="badge badge-soft-danger">Closed</span></td>
-                            <td><span class="badge bg-success">Low</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>06</td>
-                            <td>VLZ-457</td>
-                            <td>VLZ1400087245</td>
-                            <td><a href="#!">Benner design for FB & Twitter</a></td>
-                            <td>Mary Rucker</td>
-                            <td>Jennifer Carter</td>
-                            <td>Mary Rucker</td>
-                            <td>14 Aug, 2021</td>
-                            <td><span class="badge badge-soft-warning">Inprogress</span></td>
-                            <td><span class="badge bg-info">Medium</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>07</td>
-                            <td>VLZ-458</td>
-                            <td>VLZ1400087785</td>
-                            <td><a href="#!">Change email option process</a></td>
-                            <td>James Morris</td>
-                            <td>Admin</td>
-                            <td>James Morris</td>
-                            <td>12 March, 2022</td>
-                            <td><span class="badge badge-soft-primary">Open</span></td>
-                            <td><span class="badge bg-danger">High</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>08</td>
-                            <td>VLZ-460</td>
-                            <td>VLZ1400087745</td>
-                            <td><a href="#!">Support for theme</a></td>
-                            <td>Nathan Cole</td>
-                            <td>Nancy Martino</td>
-                            <td>Nathan Cole</td>
-                            <td>28 Feb, 2022</td>
-                            <td><span class="badge badge-soft-secondary">On-Hold</span></td>
-                            <td><span class="badge bg-success">Low</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>09</td>
-                            <td>VLZ-461</td>
-                            <td>VLZ1400087179</td>
-                            <td><a href="#!">Form submit issue</a></td>
-                            <td>Grace Coles</td>
-                            <td>Admin</td>
-                            <td>Grace Coles</td>
-                            <td>07 Jan, 2022</td>
-                            <td><span class="badge badge-soft-success">New</span></td>
-                            <td><span class="badge bg-danger">High</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>10</td>
-                            <td>VLZ-462</td>
-                            <td>VLZ140008856</td>
-                            <td><a href="#!">Edit customer testimonial</a></td>
-                            <td>Freda</td>
-                            <td>Alexis Clarke</td>
-                            <td>Freda</td>
-                            <td>16 Aug, 2021</td>
-                            <td><span class="badge badge-soft-danger">Closed</span></td>
-                            <td><span class="badge bg-info">Medium</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>11</td>
-                            <td>VLZ-463</td>
-                            <td>VLZ1400078031</td>
-                            <td><a href="#!">Ca i have an e-copy invoice</a></td>
-                            <td>Williams</td>
-                            <td>Admin</td>
-                            <td>Williams</td>
-                            <td>24 Feb, 2022</td>
-                            <td><span class="badge badge-soft-primary">Open</span></td>
-                            <td><span class="badge bg-success">Low</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>12</td>
-                            <td>VLZ-464</td>
-                            <td>VLZ1400087416</td>
-                            <td><a href="#!">Brand logo design</a></td>
-                            <td>Richard V.</td>
-                            <td>Admin</td>
-                            <td>Richard V.</td>
-                            <td>16 March, 2021</td>
-                            <td><span class="badge badge-soft-warning">Inprogress</span></td>
-                            <td><span class="badge bg-danger">High</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>13</td>
-                            <td>VLZ-466</td>
-                            <td>VLZ1400089015</td>
-                            <td><a href="#!">Issue with finding information about order ?</a></td>
-                            <td>Olive Gunther</td>
-                            <td>Alexis Clarke</td>
-                            <td>Schaefer</td>
-                            <td>32 March, 2022</td>
-                            <td><span class="badge badge-soft-success">New</span></td>
-                            <td><span class="badge bg-danger">High</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="form-check">
-                                    <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
-                                </div>
-                            </th>
-                            <td>14</td>
-                            <td>VLZ-467</td>
-                            <td>VLZ1400090324</td>
-                            <td><a href="#!">Make a creating an account profile</a></td>
-                            <td>Edwin</td>
-                            <td>Admin</td>
-                            <td>Edwin</td>
-                            <td>05 April, 2022</td>
-                            <td><span class="badge badge-soft-warning">Inprogress</span></td>
-                            <td><span class="badge bg-success">Low</span></td>
-                            <td>
-                                <div class="dropdown d-inline-block">
-                                    <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ri-more-fill align-middle"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a href="#!" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                                        <li><a class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                        <li>
-                                            <a class="dropdown-item remove-item-btn">
-                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <!--end card-->
             </div>
+            <!--end col-->
+
+            <!--end col-->
         </div>
-    </div>
 
     @push('customJS')
             <!--datatable js-->

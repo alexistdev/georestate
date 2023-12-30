@@ -18,6 +18,10 @@ return new class extends Migration
                 ->constrained('kecamatans')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('kategori_id')
+                ->constrained('kategoris')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->string('address')->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('beds')->default(0);

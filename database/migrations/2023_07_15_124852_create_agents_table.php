@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('member_identifier')->unique();
             $table->string('phone')->nullable();
             $table->string('alamat')->nullable();
+            $table->string('gambar')->nullable();
             $table->text('about')->nullable();
             $table->boolean('isSuspend')->default(false);
             $table->tinyInteger('level')->default(4);

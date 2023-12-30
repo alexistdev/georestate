@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\{DashboardController as DashAdmin};
 use App\Http\Controllers\Admin\Master\{AgentController as AgentAdmin,
     DisctricController as WilayahAdmin
 };
+
+use App\Http\Controllers\Agen\{DashboardController as DashAgen,ListingController as ListAgen};
+
 use App\Http\Controllers\Front\{HomeController as FrontHome,
 PropertiesController as FrontProp,
     AgenController as FrontAgen,
@@ -61,6 +64,12 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
             Route::get('/staff/ajax/kabupaten', [WilayahAdmin::class, 'get_kabupaten'])->name('adm.ajax.kabupaten');
             Route::get('/staff/ajax/kecamatan', [WilayahAdmin::class, 'get_kecamatan'])->name('adm.ajax.kecamatan');
         });
+    });
+
+    Route::group(['roles' => 'agen'], function () {
+        Route::get('/agent/dashboard', [DashAgen::class, 'index'])->name('agn.dashboard');
+        Route::get('/agent/lists', [ListAgen::class, 'index'])->name('agn.lists');
+        Route::get('/agent/lists/add', [ListAgen::class, 'create'])->name('agn.lists.add');
     });
 });
 

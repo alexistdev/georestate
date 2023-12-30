@@ -20,9 +20,10 @@ class CekRole
     {
         $roles = $this->CekRoute($request->route());
         if ($request->user()->hasRole($roles) || !$roles) {
-            if($this->checkIsPremium()){
-                return $next($request);
-            }
+//            if($this->checkIsPremium()){
+//                return $next($request);
+//            }
+            return $next($request);
         }
         return abort(401, 'NOT AUTH');
     }

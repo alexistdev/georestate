@@ -380,30 +380,16 @@
                                 <h3 class="text-color-light font-weight-semibold text-5 d-block mb-4">Our Agents</h3>
 
                                 <div class="owl-carousel owl-theme dots-light mb-0 pb-0" data-plugin-options="{'items': 1, 'autoplay': true, 'autoplayTimeout': 5000, 'margin': 10}">
+                                    @foreach($dataAgents as $agent)
                                     <div>
                                         <a href="#" class="text-decoration-none">
-                                            <img alt="" class="img-fluid rounded-circle m-auto" src="{{asset('template/frontend/img/team/team-5.jpg')}}" style="max-width: 110px;">
-                                            <strong class="text-color-light font-weight-semibold text-4 line-height-5 d-block mt-3 mb-1 text-center">John Doe</strong>
+                                            <img alt="" class="img-fluid rounded-circle m-auto" src="@if($agent->gambar != null) {{asset('images/agents/'.$agent->gambar)}} @else {{asset('images/agents/man.png')}} @endif" style="max-width: 110px;">
+                                            <strong class="text-color-light font-weight-semibold text-4 line-height-5 d-block mt-3 mb-1 text-center">{{$agent->hasuser->name ??"NN"}}</strong>
                                         </a>
-                                        <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3" href="tel:12345678">(800) 123-4567</a>
-                                        <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3 pb-2" href="mailto:you@domain.com">you@domain.com</a>
+                                        <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3" href="tel:12345678">{{$agent->phone ??"-"}}</a>
+                                        <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3 pb-2" href="{{$agent->hasuser->email ??"-"}}">{{$agent->hasuser->email ??"-"}}</a>
                                     </div>
-                                    <div>
-                                        <a href="#" class="text-decoration-none">
-                                            <img alt="" class="img-fluid rounded-circle m-auto" src="{{asset('template/frontend/img/team/team-4.jpg')}}" style="max-width: 110px;">
-                                            <strong class="text-color-light font-weight-semibold text-4 line-height-5 d-block mt-3 mb-1 text-center">Janice Doe</strong>
-                                        </a>
-                                        <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3" href="tel:12345678">(800) 123-4567</a>
-                                        <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3 pb-2" href="mailto:you@domain.com">you@domain.com</a>
-                                    </div>
-                                    <div>
-                                        <a href="#" class="text-decoration-none">
-                                            <img alt="" class="img-fluid rounded-circle m-auto" src="{{asset('template/frontend/img/team/team-2.jpg')}}" style="max-width: 110px;">
-                                            <strong class="text-color-light font-weight-semibold text-4 line-height-5 d-block mt-3 mb-1 text-center">Lisa Doe</strong>
-                                        </a>
-                                        <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3" href="tel:12345678">(800) 123-4567</a>
-                                        <a class="opacity-7 text-color-light d-block text-center line-height-5 text-3 pb-2" href="mailto:you@domain.com">you@domain.com</a>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

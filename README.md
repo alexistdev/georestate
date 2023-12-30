@@ -1,5 +1,9 @@
 ## GeoRestate v.1.0
-Aplikasi berbasis web untuk iklan realestate
+Aplikasi berbasis web untuk manajemen real estate, seperti : kontrakan, kos-kos an atau apartemen. Aplikasi ini memiliki 3 role: administrator system, agent, dan user. Agent berfungsi sebagai pemasang listing/daftar property yang disewakan dan user adalah pengguna yang akan mencari atau menyewa property.
+
+## System
+- Framework Laravel 10.15.0
+- Database MySQL
 
 ## Panduan Installasi
 - Clone Repository

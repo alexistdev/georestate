@@ -21,6 +21,7 @@
                             <th class="text-center">Jenis Akun</th>
                             <th class="text-center">Phone</th>
                             <th class="text-center">Alamat</th>
+                            <th class="text-center">Kecamatan</th>
                             <th class="text-center">Tanggal Bergabung</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -33,11 +34,53 @@
             </div>
         </div>
     </div>
+        <!-- START: Modal DETAIL KECAMATAN-->
+        <div class="modal fade" id="modalKecamatan" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
 
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">DETAIL KECAMATAN <span class="text-success" id="kecx"></span></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td>KABUPATEN</td>
+                                            <td> : </td>
+                                            <td><span id="kabx"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PROVINSI</td>
+                                            <td> : </td>
+                                            <td><span id="provx"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Modal DETAIL KECAMATAN-->
     @push('customJS')
         <x-admin.datatable-j-s />
         <script>
             let base_url = "{{route('adm.agent')}}";
+
+            /** saat tombol kecamatan di klik */
+            $(document).on("click", ".open-kecamatan", function (e) {
+                e.preventDefault();
+                let fkab = $(this).data('kabupaten');
+                let fprov = $(this).data('provinsi');
+                let fkec = $(this).data('kecamatan');
+                $('#kabx').text(fkab);
+                $('#provx').text(fprov);
+                $('#kecx').text(fkec);
+            })
+
             document.addEventListener("DOMContentLoaded", function() {
                 new DataTable("#alternative-pagination", {
                     pagingType: "full_numbers",
@@ -67,6 +110,7 @@
                         {data: 'isPremium', class: 'text-center'},
                         {data: 'phone', class: 'text-center'},
                         {data: 'alamat', class: 'text-center'},
+                        {data: 'kecamatan', class: 'text-center'},
                         {data: 'created_at', class: 'text-center'},
                         {data: 'action', class: 'text-center', orderable: false},
                     ],

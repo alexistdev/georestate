@@ -24,6 +24,7 @@ class AgentController extends Controller
 
     public function index(Request $request)
     {
+
         if ($request->ajax()) {
             return $this->agentService->index($request);
         }

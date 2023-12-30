@@ -19,7 +19,6 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('member_identifier')->unique();
             $table->string('phone')->nullable();
-            $table->integer('kelurahan_id')->unsigned()->nullable();
             $table->string('alamat')->nullable();
             $table->text('about')->nullable();
             $table->boolean('isSuspend')->default(false);

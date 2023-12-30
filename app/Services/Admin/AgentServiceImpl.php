@@ -19,6 +19,13 @@ class AgentServiceImpl implements AgentService
             ->editColumn('phone', function ($request) {
                 return $request->hasAgent->phone ?? "-";
             })
+            ->editColumn('kecamatan', function ($request) {
+                $kecamatan = $request->hasAgent->kecamatan->name ?? "-";
+                $kabupaten = $request->hasAgent->kecamatan->kabupaten->name ?? "-";
+                $provinsi = $request->hasAgent->kecamatan->kabupaten->provinsi->name ?? "-";
+                $btn = "<a href=\"#\" class=\"open-kecamatan\" data-bs-toggle=\"modal\" data-kecamatan=\"$kecamatan\" data-kabupaten=\"$kabupaten\" data-provinsi=\"$provinsi\" data-bs-target=\"#modalKecamatan\">$kecamatan</a>";
+                return $btn;
+            })
             ->editColumn('agentID', function ($request) {
                 return $request->hasAgent->member_identifier ?? "-";
             })
@@ -39,7 +46,7 @@ class AgentServiceImpl implements AgentService
                 $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
                 return $btn;
             })
-            ->rawColumns(['action','isPremium'])
+            ->rawColumns(['action','isPremium','kecamatan'])
             ->make(true);
     }
 }

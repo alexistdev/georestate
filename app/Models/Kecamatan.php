@@ -14,6 +14,6 @@ class Kecamatan extends Model
 
     public function kabupaten()
     {
-        return $this->belongsTo(Kabupaten::class);
+        return $this->belongsTo(Kabupaten::class)->with('provinsi');
     }
 }

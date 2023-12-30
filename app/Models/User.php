@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,7 +38,7 @@ class User extends Authenticatable
     ];
 
     public function hasAgent(){
-        return $this->hasOne(Agent::class);
+        return $this->hasOne(Agent::class)->with('kecamatan');
     }
 
     public function role()

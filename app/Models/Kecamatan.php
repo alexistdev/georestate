@@ -20,6 +20,14 @@ class Kecamatan extends Model
         );
     }
 
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn(string $value) => strtoupper($value),
+            set: fn(string $value) => strtolower($value),
+        );
+    }
+
     public function kabupaten()
     {
         return $this->belongsTo(Kabupaten::class)->with('provinsi');

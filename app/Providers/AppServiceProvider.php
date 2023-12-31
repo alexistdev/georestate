@@ -6,6 +6,8 @@ use App\Services\Admin\AgentService;
 use App\Services\Admin\AgentServiceImpl;
 use App\Services\Admin\DisctrictServiceImpl;
 use App\Services\Admin\DistrictService;
+use App\Services\Agen\PropertyService;
+use App\Services\Agen\PropertyServiceImpl;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,7 +22,8 @@ class AppServiceProvider extends ServiceProvider
 
     public $bindings = [
         AgentService::class =>AgentServiceImpl::class,
-        DistrictService::class => DisctrictServiceImpl::class
+        DistrictService::class => DisctrictServiceImpl::class,
+        PropertyService::class => PropertyServiceImpl::class,
     ];
 
     public function register(): void

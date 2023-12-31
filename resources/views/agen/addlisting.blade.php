@@ -1,5 +1,8 @@
 <x-agent.agent-template :title="$title" :menu-utama="$menuUtama" :menu-kedua="$menuKedua">
-
+    @push('customCSS')
+        <x-admin.datatable-c-s-s/>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    @endpush
     <!-- start page title -->
     <div class="row">
         <div class="col-12">
@@ -83,7 +86,8 @@
                                 <div class="row">
                                     <div class="col-lg-3 col-sm-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="stocks-input">Luas Tanah /Panjang Ruangan</label>
+                                            <label class="form-label" for="stocks-input">Luas Tanah /Panjang
+                                                Ruangan</label>
                                             <input type="text" class="form-control" id="stocks-input"
                                                    placeholder="Stocks" required>
                                             <div class="invalid-feedback">Please Enter a product stocks.</div>
@@ -91,7 +95,8 @@
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="product-price-input">Luas Bangunan / Lebar Ruangan</label>
+                                            <label class="form-label" for="product-price-input">Luas Bangunan / Lebar
+                                                Ruangan</label>
                                             <input type="text" class="form-control" id="stocks-input"
                                                    placeholder="Stocks" required>
 
@@ -99,7 +104,8 @@
                                     </div>
                                     <div class="col-lg-3 col-sm-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="product-discount-input">Harga Sewa / Bulan</label>
+                                            <label class="form-label" for="product-discount-input">Harga Sewa /
+                                                Bulan</label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="product-discount-addon">Rp</span>
                                                 <input type="text" class="form-control" id="product-discount-input"
@@ -171,24 +177,27 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <label for="provinsi_id" class="form-label">Provinsi</label>
-                                <select class="form-select" id="provinsi_id" name="provinsi">
+                                <label for="provinsiX" class="form-label">Provinsi</label>
+                                <select class="form-select" id="provinsiX" name="provinsi">
+                                    <option value="">=Pilih=</option>
+                                    @foreach($dataProvinsi as $provinsi)
+                                        <option value="{{base64_encode($provinsi->id)}}">{{$provinsi->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-lg-12">
+                                <label for="kabupatenX" class="form-label">Kabupaten</label>
+                                <select class="form-select" id="kabupatenX" name="kabupaten">
                                     <option value="">=Pilih=</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-lg-12">
-                                <label for="kabupaten_id" class="form-label">Kabupaten</label>
-                                <select class="form-select" id="kabupaten_id" name="kabupaten">
-                                    <option value="">=Pilih=</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-lg-12">
-                                <label for="kecamatan_id" class="form-label">Kecamatan</label>
-                                <select class="form-select" id="kecamatan_id" name="kecamatan">
+                                <label for="kecamatanX" class="form-label">Kecamatan</label>
+                                <select class="form-select" id="kecamatanX" name="kecamatan">
                                     <option value="">=Pilih=</option>
                                 </select>
                             </div>
@@ -238,13 +247,84 @@
 
     @push('customJS')
         <!-- ckeditor -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/ckeditor.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
-            ClassicEditor
-                .create( document.querySelector( '#editor' ) )
-                .catch( error => {
-                    console.error( error );
-                } );
+            // ClassicEditor
+            //     .create(document.querySelector('#editor'))
+            //     .catch(error => {
+            //         console.error(error);
+            //     });
+            let provinsi = $('#provinsiX');
+            let kabupaten = $('#kabupatenX');
+            let kecamatan = $('#kecamatanX');
+            provinsi.select2();
+            kabupaten.select2();
+            kecamatan.select2();
+
+            provinsi.change(function () {
+                let idProvinsi = $(this).val();
+                let kab = '{{route('agn.lists.kabupaten','id')}}';
+                let urlGetKabupaten = kab.replace('id', idProvinsi);
+                kabupaten.find('option').not(':first').remove();
+                $.ajax({
+                    url: urlGetKabupaten,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (response) {
+                        let len = 0;
+                        if (response != null) {
+                            len = response.length;
+                        }
+                        if (len > 0) {
+                            for (let i = 0; i < len; i++) {
+                                let id = response[i].id;
+                                let name = response[i].name;
+                                let option = "<option value='" + id + "'>" + name + "</option>";
+                                kabupaten.append(option);
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+
+                });
+            });
+
+            kabupaten.change(function () {
+                let idKabupaten = $(this).val();
+                let kec = '{{route('agn.lists.kecamatan','id')}}';
+                let urlGetKecamatan = kec.replace('id', idKabupaten);
+                kecamatan.find('option').not(':first').remove();
+                $.ajax({
+                    url: urlGetKecamatan,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (response) {
+                        let len = 0;
+                        if (response != null) {
+                            len = response.length;
+                        }
+                        if (len > 0) {
+                            for (let i = 0; i < len; i++) {
+                                let id = response[i].id;
+                                let name = response[i].name;
+                                let option = "<option value='" + id + "'>" + name + "</option>";
+                                kecamatan.append(option);
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+
+                });
+            });
         </script>
     @endpush
 </x-agent.agent-template>

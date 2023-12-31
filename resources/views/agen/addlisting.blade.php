@@ -269,6 +269,7 @@
                 let kab = '{{route('agn.lists.kabupaten','id')}}';
                 let urlGetKabupaten = kab.replace('id', idProvinsi);
                 kabupaten.find('option').not(':first').remove();
+                kecamatan.find('option').not(':first').remove();
                 $.ajax({
                     url: urlGetKabupaten,
                     type: 'get',

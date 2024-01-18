@@ -69,7 +69,10 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'agen'], function () {
         Route::get('/agent/dashboard', [DashAgen::class, 'index'])->name('agn.dashboard');
         Route::get('/agent/lists', [ListAgen::class, 'index'])->name('agn.lists');
+        Route::post('/agent/lists', [ListAgen::class, 'store'])->name('agn.lists.save');
         Route::get('/agent/lists/add', [ListAgen::class, 'create'])->name('agn.lists.add');
+        Route::get('/agent/lists/kabupaten/{id}', [ListAgen::class, 'getKabupaten'])->name('agn.lists.kabupaten');
+        Route::get('/agent/lists/kecamatan/{id}', [ListAgen::class, 'getKecamatan'])->name('agn.lists.kecamatan');
     });
 });
 

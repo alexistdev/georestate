@@ -21,6 +21,13 @@ class Kabupaten extends Model
         );
     }
 
+    protected function id():Attribute
+    {
+        return Attribute::make(
+            get: fn(string $value) => base64_encode($value),
+        );
+    }
+
     public function provinsi()
     {
         return $this->belongsTo(Provinsi::class);

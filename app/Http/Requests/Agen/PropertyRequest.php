@@ -28,7 +28,7 @@ class PropertyRequest extends FormRequest
     {
         if (in_array($this->method(), ['DELETE'])) {
             $rules = [
-                'kabupaten_id' => 'required|max:255',
+                'property_id' => 'required|max:255',
             ];
         }else if(in_array($this->method(), ['PATCH'])){
             $rules = [
@@ -36,6 +36,8 @@ class PropertyRequest extends FormRequest
                 'description' => 'nullable|max:1000',
                 'lt' => 'required|numeric',
                 'lb' => 'required|numeric',
+                'kamar_tidur' => 'nullable|numeric',
+                'kamar_mandi' => 'nullable|numeric',
                 'price' => 'required|numeric',
                 'kategori' => 'required|max:255',
                 'feature1' => 'nullable|max:255',
@@ -49,6 +51,8 @@ class PropertyRequest extends FormRequest
                 'description' => 'nullable|max:1000',
                 'lt' => 'required|numeric',
                 'lb' => 'required|numeric',
+                'kamar_tidur' => 'nullable|numeric',
+                'kamar_mandi' => 'nullable|numeric',
                 'price' => 'required|numeric',
                 'kategori' => 'required|max:255',
                 'feature1' => 'nullable|max:255',
@@ -68,8 +72,8 @@ class PropertyRequest extends FormRequest
     {
         if (in_array($this->method(), ['DELETE'])) {
             $message = [
-                'provinsi_id.required' => "ID tidak ditemukan silahkan refresh halaman!",
-                'provinsi_id.numeric' => "ID tidak ditemukan silahkan refresh halaman!",
+                'property_id.required' => "ID tidak ditemukan silahkan refresh halaman!",
+                'property_id.numeric' => "ID tidak ditemukan silahkan refresh halaman!",
             ];
         }else if(in_array($this->method(), ['PATCH'])){
             $message = [
@@ -80,6 +84,8 @@ class PropertyRequest extends FormRequest
                 'lt.numeric' => "Harus berupa angka !",
                 'lb.required' => "Wajib diisi!",
                 'lb.numeric' => "Harus berupa angka !",
+                'kamar_tidur.numeric' => "Harus berupa angka !",
+                'kamar_mandi.numeric' => "Harus berupa angka !",
                 'price.required' => "Wajib diisi!",
                 'price.numeric' => "Harus berupa angka !",
                 'kategori.required' => "Wajib dipilih!",
@@ -98,6 +104,8 @@ class PropertyRequest extends FormRequest
                 'lt.numeric' => "Harus berupa angka !",
                 'lb.required' => "Wajib diisi!",
                 'lb.numeric' => "Harus berupa angka !",
+                'kamar_tidur.numeric' => "Harus berupa angka !",
+                'kamar_mandi.numeric' => "Harus berupa angka !",
                 'price.required' => "Wajib diisi!",
                 'price.numeric' => "Harus berupa angka !",
                 'kategori.required' => "Wajib dipilih!",

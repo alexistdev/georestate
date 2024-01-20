@@ -11,11 +11,14 @@ class PropertyServiceImpl implements PropertyService
     {
         $property = new Property();
         $property->name = $request->name;
-        $property->kecamatan_id = base64_decode($request->kecamatan);
+        $property->kecamatan_id = 1;
         $property->address = $request->address;
         $property->description = $request->description;
         $property->lt = $request->lt;
         $property->lb = $request->lb;
+        $property->kategori_id = 1;
+        $property->beds = $request->kamar_tidur;
+        $property->baths = $request->kamar_mandi;
         $property->price = $request->price;
         $property->save();
     }

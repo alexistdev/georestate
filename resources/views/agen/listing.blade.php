@@ -63,7 +63,7 @@
         </div>
         <!--end col-->
         <div class="col-xxl-12">
-            <div class="card" id="myListing" >
+            <div class="card" id="myListing">
                 <div class="card-header">
                     <div class="row g-2">
                         <div class="col-md-3">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive table-card mt-3 mb-1">
+                    <div class="table-responsive mt-3 mb-1">
                         <table class="table align-middle table-nowrap">
                             <thead class="table-light">
                             <tr>
@@ -95,122 +95,102 @@
                                         <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                     </div>
                                 </th>
-                                <th class="sort" data-sort="name" scope="col">Nama Property</th>
-                                <th class="sort" data-sort="owner" scope="col">Harga Sewa / Bulan</th>
-                                <th class="sort" data-sort="industry_type" scope="col">Kategori</th>
-                                <th class="sort" data-sort="star_value" scope="col">Rating</th>
-                                <th class="sort" data-sort="location" scope="col">Lokasi</th>
-                                <th class="sort" data-sort="location" scope="col">Premium</th>
-                                <th scope="col">Action</th>
+                                <th class="sort text-center" data-sort="name" scope="col">Nama Property</th>
+                                <th class="sort text-center" data-sort="owner" scope="col">Harga Sewa / Bulan</th>
+                                <th class="sort text-center" data-sort="industry_type" scope="col">Kategori</th>
+                                <th class="sort text-center" data-sort="star_value" scope="col">Rating</th>
+                                <th class="sort text-center" data-sort="location" scope="col">Lokasi</th>
+                                <th class="sort text-center" data-sort="location" scope="col">Premium</th>
+                                <th class="text-center" scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody class="list form-check-all">
                             @foreach($dataList as $list)
-                            <tr>
-                                <th scope="row">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="chk_child"
-                                               value="option1">
-                                    </div>
-                                </th>
-                                <td class="id" style="display:none;"><a href="javascript:void(0);"
-                                                                        class="fw-medium link-primary">#VZ001</a>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-grow-1 ms-2 name">{{$list->name}}
+                                <tr>
+                                    <th scope="row">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="chk_child"
+                                                   value="option1">
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="price">{{$list->price}}</td>
-                                <td class="category">{{$list->kategori->name ?? ""}}</td>
-                                <td><span class="star_value">4.5</span> <i
-                                        class="ri-star-fill text-warning align-bottom"></i></td>
-                                <td class="location">{{$list->kecamatan->name ?? ""}}, {{$list->kecamatan->kabupaten->provinsi->name ?? ""}}</td>
-                                <td>
-                                    <ul class="list-inline hstack gap-2 mb-0">
-                                        <li class="list-inline-item edit" data-bs-toggle="tooltip"
-                                            data-bs-trigger="hover" data-bs-placement="top" title="Call">
+                                    </th>
+                                    <td class="id" style="display:none;"><a href="javascript:void(0);"
+                                                                            class="fw-medium link-primary">#VZ001</a>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1 ms-2 name">{{$list->name ?? ""}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="price">{{$list->price ?? 0}}</td>
+                                    <td class="category">{{$list->kategori->name ?? ""}}</td>
+                                    <td class="text-center"><span class="text-center">4.5</span> <i
+                                            class="ri-star-fill text-warning align-bottom"></i></td>
+
+                                    <td class="location">{{$list->kecamatan->name ?? ""}}
+                                        , {{$list->kecamatan->kabupaten->provinsi->name ?? ""}}</td>
+                                    <td>
+                                        @if($list->isPremium)
+                                            <span class="badge bg-success">Premium </span>
+                                        @else
+                                            <span class="badge bg-dark">Free </span>
+                                        @endif
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="list-inline hstack gap-2 justify-content-center">
                                             <a href="javascript:void(0);" class="text-muted d-inline-block">
                                                 <i class="ri-phone-line fs-16"></i>
                                             </a>
-                                        </li>
-                                        <li class="list-inline-item edit" data-bs-toggle="tooltip"
-                                            data-bs-trigger="hover" data-bs-placement="top" title="Message">
                                             <a href="javascript:void(0);" class="text-muted d-inline-block">
                                                 <i class="ri-question-answer-line fs-16"></i>
                                             </a>
-                                        </li>
-                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover"
-                                            data-bs-placement="top" title="View">
                                             <a href="javascript:void(0);" class="view-item-btn"><i
                                                     class="ri-eye-fill align-bottom text-muted"></i></a>
-                                        </li>
-                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover"
-                                            data-bs-placement="top" title="Edit">
                                             <a class="edit-item-btn" href="#showModal" data-bs-toggle="modal"><i
                                                     class="ri-pencil-fill align-bottom text-muted"></i></a>
-                                        </li>
-                                        <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover"
-                                            data-bs-placement="top" title="Delete">
                                             <a class="remove-item-btn" data-bs-toggle="modal" href="#deleteRecordModal">
                                                 <i class="ri-delete-bin-fill align-bottom text-muted"></i>
                                             </a>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
-
-                        <div class="d-flex justify-content-end mt-3">
-                            <div class="pagination-wrap hstack gap-2">
-                                <a class="page-item pagination-prev disabled" href="#">
-                                    Previous
-                                </a>
-                                <ul class="pagination listjs-pagination mb-0"></ul>
-                                <a class="page-item pagination-next" href="#">
-                                    Next
-                                </a>
-                            </div>
-                        </div>
                     </div>
                     <!--end add modal-->
 
-                    <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1"
-                         aria-labelledby="deleteRecordLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="btn-close" id="deleteRecord-close"
-                                            data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
-                                </div>
-                                <div class="modal-body p-5 text-center">
-                                    <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
-                                               colors="primary:#405189,secondary:#f06548"
-                                               style="width:90px;height:90px"></lord-icon>
-                                    <div class="mt-4 text-center">
-                                        <h4 class="fs-semibold">You are about to delete a company ?</h4>
-                                        <p class="text-muted fs-14 mb-4 pt-1">Deleting your company will
-                                            remove all of your information from our database.</p>
-                                        <div class="hstack gap-2 justify-content-center remove">
-                                            <button class="btn btn-link link-success fw-medium text-decoration-none"
-                                                    data-bs-dismiss="modal"><i
-                                                    class="ri-close-line me-1 align-middle"></i>
-                                                Close
-                                            </button>
-                                            <button class="btn btn-danger" id="delete-record">Yes,
-                                                Delete It!!
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                    <div class="mt-3">
+                        <div class="agination-wrap hstack gap-2 d-flex justify-content-start">
+                            Total data : {{$dataList->count()}} / {{$dataList->total()}}
+                        </div>
+                        <div class="pagination-wrap hstack gap-2 d-flex justify-content-end">
+                            @if($dataList->onFirstPage())
+                                <a class="page-item pagination-prev disabled"
+                                   href="#">
+                                    Previous
+                                </a>
+                            @else
+                                <a class="page-item pagination-prev"
+                                   href="{{$dataList->previousPageUrl()}}">
+                                    Previous
+                                </a>
+                            @endif
+                            <ul class="pagination listjs-pagination mb-0">{{$dataList->links()}}</ul>
+                            @if($dataList->hasMorePages() == "1")
+                                <a class="page-item pagination-next" href="{{$dataList->nextPageUrl()}}">
+                                    Next
+                                </a>
+                            @else
+                                <a class="page-item pagination-next disabled" href="#">
+                                    Next
+                                </a>
+                            @endif
                         </div>
                     </div>
-                    <!--end delete modal -->
                 </div>
+
             </div>
             <!--end card-->
         </div>
@@ -224,7 +204,7 @@
         <script src="{{asset('template/admin/assets/libs/list.pagination.js/list.pagination.min.js')}}"></script>
         <script>
             var options = {
-                valueNames: ['name','price','category','location']
+                valueNames: ['name', 'price', 'category', 'location']
             };
             var userList = new List('myListing', options);
 

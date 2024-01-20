@@ -12,6 +12,10 @@ class Property extends Model
     protected $fillable = ['name','kecamatan_id','address','description','beds','baths','lb','lt','price','isPremium','isPremium_expired'];
     protected $table = 'properties';
 
+    protected $casts = [
+      'isPremium' => 'bool'
+    ];
+
    public function kecamatan(){
        return $this->belongsTo(Kecamatan::class,'kecamatan_id','id')->select('id','kabupaten_id','name')->with('kabupaten');
    }

@@ -8,17 +8,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Property extends Model
 {
-
+    use SoftDeletes;
     protected $fillable = ['name','kecamatan_id','address','description','beds','baths','lb','lt','price','isPremium','isPremium_expired'];
     protected $table = 'properties';
 
-    protected function kecamatanId():Attribute
+   public function kecamatan(){
+       return $this->belongsTo(Kecamatan::class,'kecamatan_id','id')->select('id','kabupaten_id','name')->with('kabupaten');
+   }
+
+   public function kategori(){
+       return $this->belongsTo(Kategori::class,'kategori_id','id');
+   }
+
+    protected function price(): Attribute
     {
         return Attribute::make(
-            get: fn(string $value) => base64_encode($value),
+            get: fn(string $value) =>  number_format($value,0,',','.')
         );
     }
-   public function kecamatan(){
-       return $this->belongsTo(Kecamatan::class,'kecamatan_id')->select('id','name');
-   }
+
+
 }

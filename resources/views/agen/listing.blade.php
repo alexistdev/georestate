@@ -123,10 +123,10 @@
                                     </div>
                                 </td>
                                 <td class="price">{{$list->price}}</td>
-                                <td class="category">Computer Industry</td>
+                                <td class="category">{{$list->kategori->name ?? ""}}</td>
                                 <td><span class="star_value">4.5</span> <i
                                         class="ri-star-fill text-warning align-bottom"></i></td>
-                                <td class="location">Los Angeles, USA</td>
+                                <td class="location">{{$list->kecamatan->name ?? ""}}, {{$list->kecamatan->kabupaten->provinsi->name ?? ""}}</td>
                                 <td>
                                     <ul class="list-inline hstack gap-2 mb-0">
                                         <li class="list-inline-item edit" data-bs-toggle="tooltip"
@@ -224,7 +224,7 @@
         <script src="{{asset('template/admin/assets/libs/list.pagination.js/list.pagination.min.js')}}"></script>
         <script>
             var options = {
-                valueNames: ['name','price']
+                valueNames: ['name','price','category','location']
             };
             var userList = new List('myListing', options);
 

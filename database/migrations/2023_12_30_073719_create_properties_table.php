@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('properties', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->foreignId('kecamatan_id')
                 ->constrained('kecamatans')
@@ -31,6 +31,7 @@ return new class extends Migration
             $table->tinyInteger('isPremium')->default(0);
             $table->tinyInteger('isStatus')->default(1);
             $table->date('isPremium_expired')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

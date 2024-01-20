@@ -157,9 +157,16 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div class="noresult" style="display: none">
+                            <div class="text-center">
+                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px">
+                                </lord-icon>
+                                <h5 class="mt-2">Maaf! Data tidak ditemukan!</h5>
+                                <p class="text-muted mb-0">.</p>
+                            </div>
+                        </div>
                     </div>
                     <!--end add modal-->
-
 
                     <div class="mt-3">
                         <div class="agination-wrap hstack gap-2 d-flex justify-content-start">
@@ -169,22 +176,22 @@
                             @if($dataList->onFirstPage())
                                 <a class="page-item pagination-prev disabled"
                                    href="#">
-                                    Previous
+                                    First
                                 </a>
                             @else
                                 <a class="page-item pagination-prev"
-                                   href="{{$dataList->previousPageUrl()}}">
-                                    Previous
+                                   href="{{$dataList->url("1")}}">
+                                    First
                                 </a>
                             @endif
-                            <ul class="pagination listjs-pagination mb-0">{{$dataList->links()}}</ul>
+                            <ul class="pagination listjs-pagination mb-0">{{$dataList->appends(Request::except('page'))->links()}}</ul>
                             @if($dataList->hasMorePages() == "1")
-                                <a class="page-item pagination-next" href="{{$dataList->nextPageUrl()}}">
-                                    Next
+                                <a class="page-item pagination-next" href="{{$dataList->url($dataList->lastPage())}}">
+                                    Last
                                 </a>
                             @else
                                 <a class="page-item pagination-next disabled" href="#">
-                                    Next
+                                    Last
                                 </a>
                             @endif
                         </div>
@@ -201,13 +208,19 @@
 
     @push('customJS')
         <script src="{{asset('template/admin/assets/libs/list.js/list.min.js')}}"></script>
-        <script src="{{asset('template/admin/assets/libs/list.pagination.js/list.pagination.min.js')}}"></script>
         <script>
-            var options = {
+            let options = {
                 valueNames: ['name', 'price', 'category', 'location']
             };
-            var userList = new List('myListing', options);
 
+            let userList = new List('myListing', options);
+
+            document.getElementById("myListing") && (customerList = new List("myListing", options).on("updated", function(e) {
+                0 === e.matchingItems.length ? document.getElementsByClassName("noresult")[0].style.display = "block" : document.getElementsByClassName("noresult")[0].style.display = "none";
+                let t = 1 === e.i,
+                    a = e.i > e.matchingItems.length - e.page;
+                document.querySelector(".pagination-prev.disabled") && document.querySelector(".pagination-prev.disabled").classList.remove("disabled"), document.querySelector(".pagination-next.disabled") && document.querySelector(".pagination-next.disabled").classList.remove("disabled"), t && document.querySelector(".pagination-prev").classList.add("disabled"), a && document.querySelector(".pagination-next").classList.add("disabled"), e.matchingItems.length <= perPage ? document.querySelector(".pagination-wrap").style.display = "none" : document.querySelector(".pagination-wrap").style.display = "flex", e.matchingItems.length === perPage && document.querySelector(".pagination.listjs-pagination").firstElementChild.children[0].click(), 0 < e.matchingItems.length ? document.getElementsByClassName("noresult")[0].style.display = "none" : document.getElementsByClassName("noresult")[0].style.display = "block"
+            }));
         </script>
     @endpush
 </x-agent.agent-template>

@@ -20,11 +20,27 @@ class Provinsi extends Model
 
     protected $fillable = ['name'];
 
+    public static function boot ()
+    {
+        parent::boot();
+
+        self::deleting(function (Provinsi $parent) {
+
+            foreach ($parent->kabupaten as $child) $child->delete();
+
+        });
+    }
+
     protected function name(): Attribute
     {
         return Attribute::make(
             get: fn(string $value) => strtoupper($value),
             set: fn(string $value) => strtolower($value),
         );
+    }
+
+    public function kabupaten()
+    {
+        return $this->hasMany(Kabupaten::class);
     }
 }

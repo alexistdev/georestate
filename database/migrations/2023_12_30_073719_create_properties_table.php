@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('properties', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->foreignId('kecamatan_id')
                 ->constrained('kecamatans')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+                ->nullable();
             $table->foreignId('kategori_id')
                 ->constrained('kategoris')
                 ->onUpdate('cascade')

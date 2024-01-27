@@ -13,6 +13,17 @@ class Kabupaten extends Model
     protected $fillable = ['provinsi_id','name'];
     protected $table = 'kabupatens';
 
+    public static function boot ()
+    {
+        parent::boot();
+
+        self::deleting(function (Kabupaten $parent) {
+
+            foreach ($parent->kecamatan as $child) $child->delete();
+
+        });
+    }
+
     protected function name(): Attribute
     {
         return Attribute::make(
@@ -21,15 +32,13 @@ class Kabupaten extends Model
         );
     }
 
-    protected function id():Attribute
-    {
-        return Attribute::make(
-            get: fn(string $value) => base64_encode($value),
-        );
-    }
-
     public function provinsi()
     {
-        return $this->belongsTo(Provinsi::class);
+        return $this->belongsTo(Provinsi::class)->select('id','name');
+    }
+
+    public function kecamatan()
+    {
+        return $this->hasMany(Kecamatan::class);
     }
 }

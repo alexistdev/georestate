@@ -7,6 +7,7 @@ use App\Http\Requests\Agen\PropertyRequest;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
 use App\Models\Kecamatan;
+use App\Models\Property;
 use App\Models\Provinsi;
 use App\Services\Agen\PropertyService;
 use Exception;
@@ -30,10 +31,14 @@ class ListingController extends Controller
 
     public function index()
     {
+
+        $listProperties = Property::select('id','name','kecamatan_id','kategori_id','address','description','beds','baths','lb','lt','price','isPremium','isStatus','isPremium_expired')
+                            ->with('kecamatan','kategori')->paginate(2);
         return view('agen.listing', array(
             'title' => "Dashboard Agency | GeoRestate v.1.0",
             'menuUtama' => 'dataku',
             'menuKedua' => 'listing',
+            'dataList' => $listProperties
         ));
     }
 
@@ -82,7 +87,8 @@ class ListingController extends Controller
             return redirect(route('agn.lists'))->with(['success' => "Data Property berhasil ditambahkan!"]);
         } catch (Exception $e) {
             DB::rollback();
-            return redirect(route('agn.lists'))->withErrors(['error' => $e->getMessage()]);
+            echo $e->getMessage();
+//            return redirect(route('agn.lists'))->withErrors(['error' => $e->getMessage()]);
         }
     }
 }

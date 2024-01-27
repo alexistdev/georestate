@@ -8,6 +8,7 @@ use App\Services\Admin\DisctrictServiceImpl;
 use App\Services\Admin\DistrictService;
 use App\Services\Agen\PropertyService;
 use App\Services\Agen\PropertyServiceImpl;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,6 +34,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        //
+        Paginator::useBootstrap();
     }
 }

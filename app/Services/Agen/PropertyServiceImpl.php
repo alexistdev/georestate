@@ -19,7 +19,7 @@ class PropertyServiceImpl implements PropertyService
         $property->description = $request->description;
         $property->lt = $request->lt;
         $property->lb = $request->lb;
-        $property->kategori_id = base64_decode($request->kategori);
+        $property->kategori_id = $request->kategori;
         $property->beds = $request->kamar_tidur;
         $property->baths = $request->kamar_mandi;
         $property->price = $request->price;

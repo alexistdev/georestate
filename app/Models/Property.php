@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Property extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['name','kecamatan_id','address','description','beds','baths','lb','lt','price','isPremium','isPremium_expired','isStatus'];
+    protected $fillable = ['name','kecamatan_id','agent_id','address','description','beds','baths','lb','lt','price','isPremium','isPremium_expired','isStatus'];
     protected $table = 'properties';
 
     protected $casts = [
@@ -29,6 +29,11 @@ class Property extends Model
         return Attribute::make(
             get: fn(string $value) =>  number_format($value,0,',','.')
         );
+    }
+
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class);
     }
 
 

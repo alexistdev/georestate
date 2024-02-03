@@ -9,12 +9,13 @@ use Ramsey\Uuid\Uuid;
 
 class PropertyServiceImpl implements PropertyService
 {
-    public function save(Request $request)
+    public function save(Request $request, string $agentId)
     {
         $property = new Property();
         $property->id = Str::uuid()->toString();
         $property->name = $request->name;
         $property->kecamatan_id = $request->kecamatan;
+        $property->agent_id = $agentId;
         $property->address = $request->address;
         $property->description = $request->description;
         $property->lt = $request->lt;

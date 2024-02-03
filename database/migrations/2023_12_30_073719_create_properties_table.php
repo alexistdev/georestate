@@ -21,6 +21,10 @@ return new class extends Migration
                 ->constrained('kategoris')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignUuid('agent_id')
+                ->constrained('agents')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->string('address')->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('beds')->default(0);

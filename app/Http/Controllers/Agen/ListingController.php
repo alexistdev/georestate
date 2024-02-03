@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Agen;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Agen\PropertyRequest;
+use App\Models\Agent;
 use App\Models\Kabupaten;
 use App\Models\Kategori;
 use App\Models\Kecamatan;
@@ -18,12 +19,14 @@ use Illuminate\Support\Facades\DB;
 class ListingController extends Controller
 {
     protected $users;
+    protected $agentId;
     protected PropertyService $propertyService;
 
     public function __construct(PropertyService $propertyService)
     {
         $this->middleware(function ($request, $next) {
             $this->users = Auth::user();
+            $this->agentId = Agent::where('user_id',$this->users->id)->first()->id ?? null;
             return $next($request);
         });
         $this->propertyService = $propertyService;
@@ -33,7 +36,7 @@ class ListingController extends Controller
     {
 
         $listProperties = Property::select('id','name','kecamatan_id','kategori_id','address','description','beds','baths','lb','lt','price','isPremium','isStatus','isPremium_expired','created_at')
-                            ->with('kecamatan','kategori')->orderBy('isStatus','ASC')->paginate(2);
+                            ->with('kecamatan','kategori')->orderBy('isStatus','ASC')->where('agent_id',$this->agentId)->paginate(2);
         return view('agen.listing', array(
             'title' => "Dashboard Agency | GeoRestate v.1.0",
             'menuUtama' => 'dataku',
@@ -82,7 +85,7 @@ class ListingController extends Controller
         $request->validated();
         DB::beginTransaction();
         try {
-            $this->propertyService->save($request);
+            $this->propertyService->save($request,$this->agentId);
             DB::commit();
             return redirect(route('agn.lists'))->with(['success' => "Data Property berhasil ditambahkan!"]);
         } catch (Exception $e) {

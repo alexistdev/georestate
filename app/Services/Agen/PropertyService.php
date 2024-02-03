@@ -6,5 +6,5 @@ use Illuminate\Http\Request;
 
 interface PropertyService
 {
-    public function save(Request $request);
+    public function save(Request $request, string $agentId);
 }

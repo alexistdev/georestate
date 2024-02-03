@@ -131,7 +131,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="kamar_tidur">Jumlah Kamar Tidur</label>
                                             <input type="number" name="kamar_tidur" class="form-control @error('kamar_tidur') is-invalid @enderror" id="kamar_tidur"
-                                                   placeholder="0" value="{{old('kamar_tidur')}}">
+                                                   placeholder="0" min="1" max="99" value="{{old('kamar_tidur')}}">
                                             @error('kamar_tidur')
                                             <div class="text-sm text-danger mt-1 errorMessage">{{ $message }}</div>
                                             @enderror
@@ -144,7 +144,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="kamar_mandi">Jumlah Kamar Mandi</label>
                                             <input type="number" name="kamar_mandi" class="form-control @error('kamar_mandi') is-invalid @enderror" id="kamar_mandi"
-                                                   placeholder="0" value="{{old('kamar_tidur')}}">
+                                                   placeholder="0" min="1" max="99" value="{{old('kamar_tidur')}}">
                                             @error('kamar_mandi')
                                             <div class="text-sm text-danger mt-1 errorMessage">{{ $message }}</div>
                                             @enderror
@@ -306,6 +306,7 @@
                 let kabupaten = $('#kabupatenX');
                 let kecamatan = $('#kecamatanX');
                 let formInput = $("form#formProperty :input");
+
 
                 provinsi.select2();
                 kabupaten.select2();

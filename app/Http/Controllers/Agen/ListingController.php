@@ -60,7 +60,8 @@ class ListingController extends Controller
         if ($provinsi_id != null) {
             $provId = base64_decode($provinsi_id);
             $provinsi = Provinsi::findOrFail($provId);
-            $result = Kabupaten::where('provinsi_id', $provinsi->id)->orderBy('name', 'ASC')->get();
+            $result = Kabupaten::where('provinsi_id', $provinsi->id)->orderBy('name', 'ASC')
+                ->get();
             return response()->json($result);
         }
         abort('404', 'NOT FOUND');
@@ -69,9 +70,8 @@ class ListingController extends Controller
     public function getKecamatan($kabupaten_id = null)
     {
         if ($kabupaten_id != null) {
-            $kabId = base64_decode($kabupaten_id);
-            $kabupaten = Kabupaten::findOrFail($kabId);
-            $result = Kecamatan::where('kabupaten_id', base64_decode($kabupaten->id))->orderBy('name', 'ASC')->get();
+            $kabupaten = Kabupaten::findOrFail($kabupaten_id);
+            $result = Kecamatan::where('kabupaten_id', $kabupaten->id)->orderBy('name', 'ASC')->get();
             return response()->json($result);
         }
         abort('404', 'NOT FOUND');

@@ -101,6 +101,8 @@
                                 <th class="sort text-center" data-sort="star_value" scope="col">Rating</th>
                                 <th class="sort text-center" data-sort="location" scope="col">Lokasi</th>
                                 <th class="sort text-center" data-sort="location" scope="col">Premium</th>
+                                <th class="sort text-center" data-sort="location" scope="col">Status</th>
+                                <th class="sort text-center" data-sort="location" scope="col">Created</th>
                                 <th class="text-center" scope="col">Action</th>
                             </tr>
                             </thead>
@@ -135,6 +137,20 @@
                                         @else
                                             <span class="badge bg-dark">Free </span>
                                         @endif
+                                    </td>
+                                    <td>
+                                        @if($list->isStatus == 0)
+                                            <span class="badge bg-warning">Pending Review </span>
+                                        @elseif($list->isStatus == 1)
+                                            <span class="badge bg-success">Active </span>
+                                        @elseif($list->isStatus == 2)
+                                            <span class="badge bg-primary">Non Active </span>
+                                        @else
+                                            <span class="badge bg-danger">Void </span>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        {{date("d-m-Y H:i:s", strtotime($list->created_at))}}
                                     </td>
                                     <td class="text-end">
                                         <div class="list-inline hstack gap-2 justify-content-center">

@@ -32,8 +32,8 @@ class ListingController extends Controller
     public function index()
     {
 
-        $listProperties = Property::select('id','name','kecamatan_id','kategori_id','address','description','beds','baths','lb','lt','price','isPremium','isStatus','isPremium_expired')
-                            ->with('kecamatan','kategori')->paginate(2);
+        $listProperties = Property::select('id','name','kecamatan_id','kategori_id','address','description','beds','baths','lb','lt','price','isPremium','isStatus','isPremium_expired','created_at')
+                            ->with('kecamatan','kategori')->orderBy('isStatus','ASC')->paginate(2);
         return view('agen.listing', array(
             'title' => "Dashboard Agency | GeoRestate v.1.0",
             'menuUtama' => 'dataku',

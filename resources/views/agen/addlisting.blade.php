@@ -144,7 +144,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="kamar_mandi">Jumlah Kamar Mandi</label>
                                             <input type="number" name="kamar_mandi" class="form-control @error('kamar_mandi') is-invalid @enderror" id="kamar_mandi"
-                                                   placeholder="0" min="1" max="99" value="{{old('kamar_tidur')}}">
+                                                   placeholder="0"  value="{{old('kamar_mandi')}}">
                                             @error('kamar_mandi')
                                             <div class="text-sm text-danger mt-1 errorMessage">{{ $message }}</div>
                                             @enderror
@@ -300,6 +300,17 @@
             //         console.error(error);
             //     });
 
+            checkKeypress(document.getElementById("kamar_tidur"));
+            checkKeypress(document.getElementById("kamar_mandi"));
+
+            function checkKeypress(inputType){
+                inputType.addEventListener("keypress",() => {
+                    if(inputType.value.length > 1){
+                        inputType.disabled = true;
+                    }
+                    inputType.disabled = false;
+                });
+            }
 
             $(document).ready(function() {
                 let provinsi = $('#provinsiX');
@@ -312,8 +323,8 @@
                 kabupaten.select2();
                 kecamatan.select2();
 
-                if(provinsi.val() != null){
-                    getKabupaten(provinsi.val(),kabupaten,kecamatan)
+                if(provinsi.val() !== ""){
+                     getKabupaten(provinsi.val(),kabupaten,kecamatan)
                 }
 
                 formInput.on('keypress',function(){

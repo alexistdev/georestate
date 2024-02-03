@@ -23,6 +23,7 @@ class PropertyServiceImpl implements PropertyService
         $property->beds = $request->kamar_tidur;
         $property->baths = $request->kamar_mandi;
         $property->price = $request->price;
+        $property->isStatus = 0;
         $property->save();
     }
 

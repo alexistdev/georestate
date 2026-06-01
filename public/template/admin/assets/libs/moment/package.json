@@ -67,7 +67,7 @@
         "rollup": "~2.80.0",
         "spacejam": "latest",
         "typescript": "^1.8.10",
-        "uglify-js": "latest"
+        "uglify-js": ">=2.4.24"
     },
     "ender": "./ender.js",
     "dojoBuild": "package.js",

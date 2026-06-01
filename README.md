@@ -1,24 +1,26 @@
 ## GeoRestate v.1.0
-Aplikasi berbasis web untuk manajemen real estate, seperti : kontrakan, kos-kos an atau apartemen. Aplikasi ini memiliki 3 role: administrator system, agent, dan user. Agent berfungsi sebagai pemasang listing/daftar property yang disewakan dan user adalah pengguna yang akan mencari atau menyewa property.
+
+A web-based application for real estate management, such as boarding houses, rental rooms, or apartments. The application has 3 roles: system administrator, agent, and user. Agents are responsible for posting property listings available for rent, while users are those who search for or rent properties.
 
 ## System
-- Framework Laravel 10.15.0
-- Database MySQL
+- Framework: Laravel 12
+- Database: MySQL
 
-## Panduan Installasi
-- Clone Repository
-- Buka Terminal dan ketik composer install
-- Buat database kosong dengan nama: georestate
-- Copy env.example dan rename dengan nama .env
-- ketik terminal: php artisan key:generate
-- ketik terminal: php artisan migrate:fresh --seed
-- ketik terminal: php artisan serve
+## Installation Guide
+- Clone the repository
+- Open terminal and run `composer install`
+- Create an empty database named: `georestate`
+- Copy `.env.example` and rename it to `.env`
+- Run: `php artisan key:generate`
+- Run: `php artisan migrate:fresh --seed`
+- Run: `php artisan serve`
 
-## Info Login:
-#### Administrator:
-    - Username: admin@gmail.com
-    - Password: 1234
-#### Agent: 
-    - Username: agent@gmail.com
-    - Password: 1234
+## Login Info
 
+#### Administrator
+- Username: admin@gmail.com
+- Password: 1234
+
+#### Agent
+- Username: agent@gmail.com
+- Password: 1234

@@ -9,11 +9,10 @@ use Illuminate\Support\ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public const HOME  = '/dashboard';
-    public const SUPER = '/archilles/dashboard';
-    public const ADMIN = '/staff/dashboard';
-    public const AGENT = '/agent/dashboard';
-    public const USER  = '/user/dashboard';
+    /**
+     * Route /dashboard mengarahkan user ke halaman utama sesuai role (lihat App\Enums\Role).
+     */
+    public const HOME = '/dashboard';
 
     public function boot(): void
     {

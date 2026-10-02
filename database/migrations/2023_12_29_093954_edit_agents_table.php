@@ -8,14 +8,16 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * kecamatan_id nullable: agen yang mendaftar sendiri melengkapi wilayah di profil.
      */
     public function up(): void
     {
         Schema::table('agents', function (Blueprint $table) {
             $table->foreignId('kecamatan_id')
+                ->nullable()
                 ->constrained('kecamatans')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
         });
     }
 
@@ -25,10 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('agents', function (Blueprint $table) {
-            $table->foreignId('kecamatan_id')
-                ->constrained('kecamatans')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->dropConstrainedForeignId('kecamatan_id');
         });
     }
 };

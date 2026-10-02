@@ -4,15 +4,12 @@ namespace App\Services\Agen;
 
 use App\Models\Property;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Ramsey\Uuid\Uuid;
 
 class PropertyServiceImpl implements PropertyService
 {
     public function save(Request $request)
     {
         $property = new Property();
-        $property->id = Str::uuid()->toString();
         $property->name = $request->name;
         $property->kecamatan_id = $request->kecamatan;
         $property->address = $request->address;

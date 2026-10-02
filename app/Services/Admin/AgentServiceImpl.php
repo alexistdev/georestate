@@ -20,9 +20,9 @@ class AgentServiceImpl implements AgentService
                 return $request->hasAgent->phone ?? "-";
             })
             ->editColumn('kecamatan', function ($request) {
-                $kecamatan = $request->hasAgent->kecamatan->name ?? "-";
-                $kabupaten = $request->hasAgent->kecamatan->kabupaten->name ?? "-";
-                $provinsi = $request->hasAgent->kecamatan->kabupaten->provinsi->name ?? "-";
+                $kecamatan = e($request->hasAgent->kecamatan->name ?? "-");
+                $kabupaten = e($request->hasAgent->kecamatan->kabupaten->name ?? "-");
+                $provinsi = e($request->hasAgent->kecamatan->kabupaten->provinsi->name ?? "-");
                 $btn = "<a href=\"#\" class=\"open-kecamatan\" data-bs-toggle=\"modal\" data-kecamatan=\"$kecamatan\" data-kabupaten=\"$kabupaten\" data-provinsi=\"$provinsi\" data-bs-target=\"#modalKecamatan\">$kecamatan</a>";
                 return $btn;
             })
@@ -43,7 +43,7 @@ class AgentServiceImpl implements AgentService
 //                $url = route('adm.dosen.edit', $row->id);
 
                 $btn = "<a href=\"#\"><button type=\"button\" class=\"btn btn-sm btn-primary m-1\" > <span class=\"icon-off\"><i class=\"mdi mdi-account-eye-outline align-middle m-1\"></i>Detail</span></button></a>";
-                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"$row->id\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
+                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"".e($row->id)."\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
                 return $btn;
             })
             ->rawColumns(['action','isPremium','kecamatan'])

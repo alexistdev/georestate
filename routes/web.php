@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Super\DashboardController as DashSuper;
 use App\Http\Controllers\Admin\{DashboardController as DashAdmin};
 use App\Http\Controllers\Admin\Master\{AgentController as AgentAdmin,
     DisctricController as WilayahAdmin
@@ -31,9 +32,10 @@ PropertiesController as FrontProp,
 //    return view('welcome');
 //});
 
+/** Arahkan ke dashboard sesuai role user */
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return redirect(auth()->user()->homeUrl());
+})->middleware('auth')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -42,6 +44,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
+    Route::group(['roles' => 'super'], function () {
+        Route::get('/super/dashboard', [DashSuper::class, 'index'])->name('sup.dashboard');
+    });
+
     Route::group(['roles' => 'admin'], function () {
         Route::get('/staff/dashboard', [DashAdmin::class, 'index'])->name('adm.dashboard');
         Route::get('/staff/agent', [AgentAdmin::class, 'index'])->name('adm.agent');
@@ -76,7 +82,8 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     });
 });
 
-Route::middleware('guest')->group(function () {
+/** Halaman publik: bisa diakses tamu maupun user yang sudah login */
+Route::group([], function () {
     Route::get('/', [FrontHome::class, 'index'])->name('front.home');
     Route::get('/properties', [FrontProp::class, 'index'])->name('front.properties');
     Route::get('/properties/{id}/detail', [FrontProp::class, 'detail'])->name('front.properties.detail');

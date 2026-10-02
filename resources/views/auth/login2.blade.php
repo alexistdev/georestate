@@ -85,13 +85,13 @@
                                         @csrf
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+                                                <input name="email" type="email" class="form-control" id="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
                                                 <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
                                             </div>
 
                                             <div class="mb-3">
                                                 <div class="float-end">
-                                                    <a href="#" class="text-muted">Forgot password?</a>
+                                                    <a href="{{ route('password.request') }}" class="text-muted">Forgot password?</a>
                                                 </div>
                                                 <label class="form-label" for="password-input">Password</label>
                                                 <div class="position-relative auth-pass-inputgroup mb-3">
@@ -101,7 +101,7 @@
                                             </div>
 
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
+                                                <input class="form-check-input" type="checkbox" name="remember" id="auth-remember-check">
                                                 <label class="form-check-label" for="auth-remember-check">Remember me</label>
                                             </div>
 
@@ -113,7 +113,7 @@
                                     </div>
 
                                     <div class="mt-5 text-center">
-                                        <p class="mb-0">Don't have an account ? <a href="#" class="fw-semibold text-primary text-decoration-underline"> Signup</a> </p>
+                                        <p class="mb-0">Don't have an account ? <a href="{{ route('register') }}" class="fw-semibold text-primary text-decoration-underline"> Signup</a> </p>
                                     </div>
                                 </div>
                             </div>

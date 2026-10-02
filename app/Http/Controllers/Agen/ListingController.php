@@ -33,7 +33,7 @@ class ListingController extends Controller
     {
 
         $listProperties = Property::select('id','name','kecamatan_id','kategori_id','address','description','beds','baths','lb','lt','price','isPremium','isStatus','isPremium_expired')
-                            ->with('kecamatan','kategori')->paginate(2);
+                            ->with('kecamatan','kategori')->paginate(10);
         return view('agen.listing', array(
             'title' => "Dashboard Agency | GeoRestate v.1.0",
             'menuUtama' => 'dataku',
@@ -87,8 +87,9 @@ class ListingController extends Controller
             return redirect(route('agn.lists'))->with(['success' => "Data Property berhasil ditambahkan!"]);
         } catch (Exception $e) {
             DB::rollback();
-            echo $e->getMessage();
-//            return redirect(route('agn.lists'))->withErrors(['error' => $e->getMessage()]);
+            report($e);
+            return redirect(route('agn.lists.add'))->withInput()
+                ->withErrors(['error' => "Data Property gagal disimpan, silahkan coba lagi."]);
         }
     }
 }

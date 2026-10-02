@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Role as RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,15 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    /**
-         * Author: AlexistDev
-         * Email: Alexistdev@gmail.com
-         * Phone: 082371408678
-         * Github: https://github.com/alexistdev
-         */
-
-    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
-
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -37,7 +30,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function hasAgent(){
+    public function hasAgent()
+    {
         return $this->hasOne(Agent::class)->with('kecamatan');
     }
 
@@ -46,28 +40,38 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function hasRole($roles)
+    /**
+     * Role user sebagai enum, atau null jika role tidak dikenal.
+     */
+    public function roleEnum(): ?RoleEnum
     {
-        $this->have_role = $this->getUserRole();
-        if(is_array($roles)){
-            foreach($roles as $need_role){
-                if($this->cekUserRole($need_role)){
-                    return true;
-                }
+        return RoleEnum::tryFrom(strtolower((string) $this->role?->name));
+    }
+
+    /**
+     * @param  string|RoleEnum|array<int, string|RoleEnum>  $roles
+     */
+    public function hasRole($roles): bool
+    {
+        $current = $this->roleEnum();
+        if ($current === null) {
+            return false;
+        }
+
+        foreach ((array) $roles as $role) {
+            $role = $role instanceof RoleEnum ? $role : RoleEnum::tryFrom(strtolower($role));
+            if ($role === $current) {
+                return true;
             }
-        } else {
-            return $this->cekUserRole($roles);
         }
         return false;
     }
 
-    private function getUserRole()
+    /**
+     * URL halaman utama user setelah login sesuai role.
+     */
+    public function homeUrl(): string
     {
-        return $this->role()->getResults();
-    }
-
-    private function cekUserRole($role)
-    {
-        return (strtolower($role)==strtolower($this->have_role->name)) ? true : false;
+        return route($this->roleEnum()?->homeRoute() ?? 'front.home');
     }
 }

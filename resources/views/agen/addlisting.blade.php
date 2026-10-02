@@ -21,6 +21,10 @@
     </div>
     <!-- end page title -->
 
+    @error('error')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+
     <form  action="{{route('agn.lists.save')}}"  id="formProperty" method="post">
         @csrf
         <div class="row">
@@ -144,7 +148,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="kamar_mandi">Jumlah Kamar Mandi</label>
                                             <input type="number" name="kamar_mandi" class="form-control @error('kamar_mandi') is-invalid @enderror" id="kamar_mandi"
-                                                   placeholder="0" min="1" max="99" value="{{old('kamar_tidur')}}">
+                                                   placeholder="0" min="1" max="99" value="{{old('kamar_mandi')}}">
                                             @error('kamar_mandi')
                                             <div class="text-sm text-danger mt-1 errorMessage">{{ $message }}</div>
                                             @enderror
@@ -312,8 +316,11 @@
                 kabupaten.select2();
                 kecamatan.select2();
 
-                if(provinsi.val() != null){
-                    getKabupaten(provinsi.val(),kabupaten,kecamatan)
+                let oldKabupaten = @json(old('kabupaten'));
+                let oldKecamatan = @json(old('kecamatan'));
+
+                if(provinsi.val()){
+                    getKabupaten(provinsi.val(),kabupaten,kecamatan,oldKabupaten)
                 }
 
                 formInput.on('keypress',function(){
@@ -330,27 +337,22 @@
                     });
                 }
 
-                function getKabupaten(idProvinsi,kabupaten,kecamatan){
-                    let kab = '{{route('agn.lists.kabupaten','id')}}';
-                    let urlGetKabupaten = kab.replace('id', idProvinsi);
+                function getKabupaten(idProvinsi,kabupaten,kecamatan,selectedKabupaten = null){
+                    let kab = '{{route('agn.lists.kabupaten','__ID__')}}';
+                    let urlGetKabupaten = kab.replace('__ID__', idProvinsi);
                     kabupaten.find('option').not(':first').remove();
                     kecamatan.find('option').not(':first').remove();
+                    if(!idProvinsi){
+                        return;
+                    }
                     $.ajax({
                         url: urlGetKabupaten,
                         type: 'get',
                         dataType: 'json',
                         success: function (response) {
-                            let len = 0;
-                            if (response != null) {
-                                len = response.length;
-                            }
-                            if (len > 0) {
-                                for (let i = 0; i < len; i++) {
-                                    let id = response[i].id;
-                                    let name = response[i].name;
-                                    let option = "<option value='" + id + "'>" + name + "</option>";
-                                    kabupaten.append(option);
-                                }
+                            fillOptions(kabupaten, response, selectedKabupaten);
+                            if (selectedKabupaten) {
+                                getKecamatan(selectedKabupaten, kecamatan, oldKecamatan);
                             }
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
@@ -359,6 +361,37 @@
                         }
                     });
                 }
+
+                function getKecamatan(idKabupaten,kecamatan,selectedKecamatan = null){
+                    let kec = '{{route('agn.lists.kecamatan','__ID__')}}';
+                    let urlGetKecamatan = kec.replace('__ID__', idKabupaten);
+                    kecamatan.find('option').not(':first').remove();
+                    if(!idKabupaten){
+                        return;
+                    }
+                    $.ajax({
+                        url: urlGetKecamatan,
+                        type: 'get',
+                        dataType: 'json',
+                        success: function (response) {
+                            fillOptions(kecamatan, response, selectedKecamatan);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.log(xhr.status);
+                            console.log(thrownError);
+                        }
+                    });
+                }
+
+                /** Isi <select> dengan data {id, name}; pakai new Option agar teks tidak dianggap HTML */
+                function fillOptions(select, response, selectedId = null){
+                    (response || []).forEach(function (item) {
+                        let isSelected = selectedId !== null && String(item.id) === String(selectedId);
+                        select.append(new Option(item.name, item.id, isSelected, isSelected));
+                    });
+                    select.trigger('change.select2');
+                }
+
                 provinsi.change(function () {
                     let idProvinsi = $(this).val();
                     getKabupaten(idProvinsi,kabupaten,kecamatan);
@@ -366,33 +399,7 @@
                 });
 
                 kabupaten.change(function () {
-                    let idKabupaten = $(this).val();
-                    let kec = '{{route('agn.lists.kecamatan','id')}}';
-                    let urlGetKecamatan = kec.replace('id', idKabupaten);
-                    kecamatan.find('option').not(':first').remove();
-                    $.ajax({
-                        url: urlGetKecamatan,
-                        type: 'get',
-                        dataType: 'json',
-                        success: function (response) {
-                            let len = 0;
-                            if (response != null) {
-                                len = response.length;
-                            }
-                            if (len > 0) {
-                                for (let i = 0; i < len; i++) {
-                                    let id = response[i].id;
-                                    let name = response[i].name;
-                                    let option = "<option value='" + id + "'>" + name + "</option>";
-                                    kecamatan.append(option);
-                                }
-                            }
-                        },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            console.log(xhr.status);
-                            console.log(thrownError);
-                        }
-                    });
+                    getKecamatan($(this).val(), kecamatan);
                 });
             });
         </script>

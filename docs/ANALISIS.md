@@ -1,6 +1,6 @@
 # Analisis & Roadmap — GeoRestate
 
-_Terakhir diperbarui: 3 Oktober 2026 (Fase 0 & Fase 1 selesai)._
+_Terakhir diperbarui: 3 Oktober 2026 (Fase 0, 1, dan 2 selesai)._
 
 ## 1. Ringkasan
 
@@ -30,8 +30,10 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 | Admin: dashboard, kategori, fasilitas, moderasi listing, user | ❌ (listing baru tertahan `pending` sampai ada halaman moderasi) |
 | Agen: CRUD listing (milik sendiri), harga per periode, fasilitas, foto, status | ✅ |
 | Agen: dashboard, profil | ❌ |
-| User: favorit, kirim pesan ke agen | ❌ |
-| Frontend publik (home, properties, detail, agents, about, contact) | ❌ Statis (kecuali carousel agen di home) |
+| User: favorit, kirim pesan ke agen | ❌ (sementara pengunjung menghubungi agen via WhatsApp/telepon) |
+| Frontend publik (home, cari & filter properti, detail, agen, tentang, kontak) | ✅ Hanya listing `approved` dari agen yang tidak disuspend |
+| Peta lokasi | ⚠️ Kerangka saja (kolom koordinat + placeholder), dikerjakan di akhir project |
+| Pesan form Kontak | ✅ Tersimpan di `contact_messages`; halaman baca untuk admin di Fase 3 |
 | Test | ✅ Fondasi siap (SQLite in-memory, factory, test role & wilayah) |
 
 ## 4. Roadmap
@@ -59,12 +61,17 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 
 Catatan implementasi: kolom `price` dan tabel `features` dihapus; foto di disk `public` (`storage/app/public/properties/{id}`, butuh `php artisan storage:link`); edit listing selalu mengembalikan status ke `pending`; maksimal 10 foto @ 2 MB (JPG/PNG/WebP); daftar fasilitas awal di `FasilitasSeeder`.
 
-### Fase 2 — Frontend publik dinamis (hanya listing `approved`)
-1. Home: properti terbaru, kategori, statistik.
-2. `/properties`: filter kategori, wilayah, periode & rentang harga, kamar; sort; paginate.
-3. `/properties/{slug}`: galeri, fasilitas, info agen, form contact, properti serupa.
-4. `/agents`, `/agents/{id}`.
-5. Halaman contact (tersimpan/terkirim).
+### Fase 2 — Frontend publik dinamis ✅ SELESAI
+1. Home: form pencarian cepat, listing terbaru, kategori + jumlah listing, carousel agen.
+2. `/properties`: filter kata kunci, kategori, provinsi/kabupaten/kecamatan (AJAX `front.wilayah.*`), periode, rentang harga, kamar; urut terbaru/termurah/termahal; paginate. Harga di kartu mengikuti periode yang difilter.
+3. `/properties/{slug}`: galeri, harga per periode, fasilitas, kerangka peta, kartu agen (telepon + WhatsApp `wa.me/62…` dengan pesan otomatis), properti serupa.
+4. `/agents`, `/agents/{uuid}` (profil + listing agen).
+5. Kontak: form tersimpan ke `contact_messages` (throttle 5/menit + honeypot `website`). Tentang: teks umum (sesuaikan).
+6. Info situs (nama, alamat, telepon, email) di `config/georestate.php` / `.env` (`GEORESTATE_*`).
+7. `DemoListingSeeder`: 3 agen tambahan (`agen2..4@gmail.com`, password `1234`) + 12 listing disetujui + 1 pending + 1 ditolak, foto dibuat dengan GD. Hanya jalan di `APP_ENV=local`.
+8. Test: `tests/Feature/Front/*`, `tests/Unit/AgentPhoneTest.php`.
+
+Kerangka peta (dikerjakan setelah project selesai): kolom `properties.latitude/longitude` (nullable) + partial `front/partials/peta-lokasi.blade.php` berisi TODO. Langkah lanjut: input titik di form agen, muat Leaflet/OSM, render marker.
 
 ### Fase 3 — Admin & Super
 1. Dashboard statistik.
@@ -90,6 +97,8 @@ Foto, telepon, alamat, wilayah (kecamatan), about. Ganti halaman profil Breeze/T
 4. Ganti ID base64 di form wilayah dengan ID asli + otorisasi.
 5. Halaman 404/403/500 bertema, SEO dasar, CI (`pint --test` + `php artisan test`).
 6. Bersihkan aset `public/template` (±242 MB) yang tidak dipakai.
+7. Ganti logo Porto (`template/frontend/img/demos/real-estate/logo.png`) dan favicon dengan logo GeoRestate.
+8. Aktifkan peta lokasi (lihat kerangka di Fase 2).
 
 ## 5. Utang teknis yang diketahui
 
@@ -100,3 +109,4 @@ Foto, telepon, alamat, wilayah (kecamatan), about. Ganti halaman profil Breeze/T
 - Middleware `isFree`, `PreventBackHistory`, dan `app/Exceptions/Handler.php` tidak dipakai.
 - `config/app.php` timezone masih `UTC`, sehingga waktu tampil 7 jam lebih awal dari WIB. Pertimbangkan `Asia/Jakarta`.
 - Kolom `properties.isStatus` tidak jelas fungsinya dan tidak dipakai (digantikan `status`).
+- Gambar demo template Porto (`template/frontend/img/demos/real-estate/**`: slider, background, listing, generic) ternyata PNG kosong/transparan, jadi tidak dipakai lagi di halaman publik.

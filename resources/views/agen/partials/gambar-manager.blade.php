@@ -15,7 +15,7 @@
                 <div class="col-6 col-md-4 col-xl-3">
                     <div class="border rounded p-1 h-100 d-flex flex-column">
                         <img src="{{ $gambar->url }}" alt="Foto {{ $property->name }}" class="img-fluid rounded"
-                             style="height:140px;width:100%;object-fit:cover">
+                             style="height:140px;width:100%;object-fit:cover" onerror="this.onerror=null;this.src='{{ \App\Models\Gambar::defaultUrl() }}'">
                         <div class="mt-2 d-flex gap-1 flex-wrap align-items-center">
                             @if($gambar->isDefault)
                                 <span class="badge bg-primary">Foto Utama</span>

@@ -14,6 +14,9 @@ class Gambar extends Model
     /** Disk penyimpanan foto properti (storage/app/public, butuh `php artisan storage:link`) */
     public const DISK = 'public';
 
+    /** Gambar pengganti jika listing belum punya foto atau file fotonya tidak ditemukan */
+    public const DEFAULT = 'images/properties/default.jpg';
+
     protected $fillable = ['name','property_id','isDefault'];
 
     protected $casts = [
@@ -23,6 +26,11 @@ class Gambar extends Model
     public function property()
     {
         return $this->belongsTo(Property::class);
+    }
+
+    public static function defaultUrl(): string
+    {
+        return asset(self::DEFAULT);
     }
 
     /**

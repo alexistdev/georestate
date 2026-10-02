@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 
     <!-- Basic -->
@@ -9,10 +9,11 @@
     <title>{{$title}}</title>
 
     <meta name="keywords" content="GeoRestate v.1.0" />
-    <meta name="description" content="Aplikasi Agen Real Estate">
+    <meta name="description" content="{{ config('georestate.tagline') }}">
     <meta name="author" content="alexistdev">
 
     <x-front.front-header-layout />
+    @stack('customCSS')
 
 </head>
 {{--<body class="loading-overlay-showing" data-loading-overlay data-plugin-options="{'hideDelay': 500}">--}}
@@ -41,6 +42,7 @@
 </div>
 
 <x-front.front-j-s-layout/>
+@stack('customJS')
 
 </body>
 </html>

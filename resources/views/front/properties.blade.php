@@ -3,427 +3,205 @@
         <div class="container position-relative z-index-2">
             <div class="row text-center text-md-start py-5">
                 <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                    <h1 class="font-weight-bold text-color-light text-8 mb-0">Properties</h1>
-                    <p class="text-color-light opacity-7 mb-0">Sed consequat euismod diam, eu ultrices nulla ullamcorper ac</p>
+                    <h1 class="font-weight-bold text-color-light text-8 mb-0">Cari Properti</h1>
+                    <p class="text-color-light opacity-7 mb-0">Kos, kamar, rumah, apartemen, dan ruko yang siap disewa</p>
                 </div>
                 <div class="col-md-4 order-1 order-md-2 align-self-center">
                     <ul class="breadcrumb breadcrumb-light d-block text-md-end text-4 mb-0">
-                        <li><a href="#" class="text-decoration-none">Home</a></li>
-                        <li class="text-upeercase active">Properties</li>
+                        <li><a href="{{ route('front.home') }}" class="text-decoration-none">Home</a></li>
+                        <li class="text-upeercase active">Properti</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <form class="form-style-3 pb-5" id="propertiesForm" action="demo-real-estate-properties.html" method="POST">
+        <form class="form-style-3 pb-5" id="formFilter" action="{{ route('front.properties') }}" method="GET">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-2 mb-2 mb-lg-0">
-                        <select class="form-select form-control text-default box-shadow-none" name="propertiesPropertyType" data-msg-required="This field is required." id="propertiesPropertyType" required="">
-                            <option value="">Property Type</option>
-                            <option value="1">Apartment</option>
-                            <option value="2">House</option>
+                <div class="row g-2">
+                    <div class="col-lg-4">
+                        <input type="text" name="q" value="{{ $filter['q'] ?? '' }}" maxlength="100"
+                               class="form-control text-default box-shadow-none" placeholder="Cari nama, alamat, atau kata kunci">
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <select class="form-select form-control text-default box-shadow-none" name="kategori" aria-label="Kategori">
+                            <option value="">Semua Kategori</option>
+                            @foreach($dataKategori as $kategori)
+                                <option value="{{ $kategori->id }}" @selected(($filter['kategori'] ?? null) == $kategori->id)>{{ $kategori->name }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-2 mb-2 mb-lg-0">
-                        <select class="form-select form-control text-default box-shadow-none" name="propertiesLocation" data-msg-required="This field is required." id="propertiesLocation" required="">
-                            <option value="">Location</option>
-                            <option value="1">Miami</option>
-                            <option value="2">New York</option>
-                            <option value="3">Houston</option>
-                            <option value="4">Los Angeles</option>
+                    <div class="col-6 col-lg-2">
+                        <select class="form-select form-control text-default box-shadow-none" name="periode" aria-label="Periode sewa">
+                            <option value="">Semua Periode</option>
+                            @foreach(\App\Http\Controllers\Front\PropertiesController::PERIODE as $value => $label)
+                                <option value="{{ $value }}" @selected(($filter['periode'] ?? null) === $value)>{{ $label }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-2 mb-2 mb-lg-0">
-                        <select class="form-select form-control text-default box-shadow-none" name="propertiesMinBeds" data-msg-required="This field is required." id="propertiesMinBeds" required="">
-                            <option value="">Min Beds</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
+                    <div class="col-6 col-lg-2">
+                        <input type="number" min="1" name="harga_min" value="{{ $filter['harga_min'] ?? '' }}"
+                               class="form-control text-default box-shadow-none" placeholder="Harga min (Rp)">
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <input type="number" min="1" name="harga_max" value="{{ $filter['harga_max'] ?? '' }}"
+                               class="form-control text-default box-shadow-none" placeholder="Harga maks (Rp)">
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <select class="form-select form-control text-default box-shadow-none" name="provinsi" id="filterProvinsi" aria-label="Provinsi">
+                            <option value="">Semua Provinsi</option>
+                            @foreach($dataProvinsi as $provinsi)
+                                <option value="{{ $provinsi->id }}" @selected(($filter['provinsi'] ?? null) == $provinsi->id)>{{ $provinsi->name }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-2 mb-2 mb-lg-0">
-                        <select class="form-select form-control text-default box-shadow-none" name="propertiesMinPrice" data-msg-required="This field is required." id="propertiesMinPrice" required="">
-                            <option value="">Min Price</option>
-                            <option value="150000">$150,000</option>
-                            <option value="200000">$200,000</option>
-                            <option value="250000">$250,000</option>
-                            <option value="300000">$300,000</option>
-                            <option value="350000">$350,000</option>
-                            <option value="400000">$400,000</option>
-                            <option value="450000">$450,000</option>
-                            <option value="500000">$500,000</option>
-                            <option value="550000">$550,000</option>
-                            <option value="600000">$600,000</option>
-                            <option value="650000">$650,000</option>
-                            <option value="700000">$700,000</option>
-                            <option value="750000">$750,000</option>
-                            <option value="800000">$800,000</option>
-                            <option value="850000">$850,000</option>
-                            <option value="900000">$900,000</option>
-                            <option value="950000">$950,000</option>
-                            <option value="1000000">$1,000,000</option>
-                            <option value="1250000">$1,250,000</option>
-                            <option value="1500000">$1,500,000</option>
-                            <option value="1750000">$1,750,000</option>
-                            <option value="2000000">$2,000,000</option>
-                            <option value="2250000">$2,250,000</option>
-                            <option value="2500000">$2,500,000</option>
-                            <option value="2750000">$2,750,000</option>
-                            <option value="3000000">$3,000,000</option>
-                            <option value="3250000">$3,250,000</option>
-                            <option value="3500000">$3,500,000</option>
-                            <option value="3750000">$3,750,000</option>
-                            <option value="4000000">$4,000,000</option>
-                            <option value="4250000">$4,250,000</option>
-                            <option value="4500000">$4,500,000</option>
-                            <option value="4750000">$4,750,000</option>
-                            <option value="5000000">$5,000,000</option>
-                            <option value="6000000">$6,000,000</option>
-                            <option value="7000000">$7,000,000</option>
-                            <option value="8000000">$8,000,000</option>
-                            <option value="9000000">$9,000,000</option>
-                            <option value="10000000">$10,000,000</option>
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <select class="form-select form-control text-default box-shadow-none" name="kabupaten" id="filterKabupaten" aria-label="Kabupaten">
+                            <option value="">Semua Kabupaten/Kota</option>
+                            @foreach($dataKabupaten as $kabupaten)
+                                <option value="{{ $kabupaten->id }}" @selected(($filter['kabupaten'] ?? null) == $kabupaten->id)>{{ $kabupaten->name }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-2 mb-2 mb-lg-0">
-                        <select class="form-select form-control text-default box-shadow-none" name="propertiesMaxPrice" data-msg-required="This field is required." id="propertiesMaxPrice" required="">
-                            <option value="">Max Price</option>
-                            <option value="150000">$150,000</option>
-                            <option value="200000">$200,000</option>
-                            <option value="250000">$250,000</option>
-                            <option value="300000">$300,000</option>
-                            <option value="350000">$350,000</option>
-                            <option value="400000">$400,000</option>
-                            <option value="450000">$450,000</option>
-                            <option value="500000">$500,000</option>
-                            <option value="550000">$550,000</option>
-                            <option value="600000">$600,000</option>
-                            <option value="650000">$650,000</option>
-                            <option value="700000">$700,000</option>
-                            <option value="750000">$750,000</option>
-                            <option value="800000">$800,000</option>
-                            <option value="850000">$850,000</option>
-                            <option value="900000">$900,000</option>
-                            <option value="950000">$950,000</option>
-                            <option value="1000000">$1,000,000</option>
-                            <option value="1250000">$1,250,000</option>
-                            <option value="1500000">$1,500,000</option>
-                            <option value="1750000">$1,750,000</option>
-                            <option value="2000000">$2,000,000</option>
-                            <option value="2250000">$2,250,000</option>
-                            <option value="2500000">$2,500,000</option>
-                            <option value="2750000">$2,750,000</option>
-                            <option value="3000000">$3,000,000</option>
-                            <option value="3250000">$3,250,000</option>
-                            <option value="3500000">$3,500,000</option>
-                            <option value="3750000">$3,750,000</option>
-                            <option value="4000000">$4,000,000</option>
-                            <option value="4250000">$4,250,000</option>
-                            <option value="4500000">$4,500,000</option>
-                            <option value="4750000">$4,750,000</option>
-                            <option value="5000000">$5,000,000</option>
-                            <option value="6000000">$6,000,000</option>
-                            <option value="7000000">$7,000,000</option>
-                            <option value="8000000">$8,000,000</option>
-                            <option value="9000000">$9,000,000</option>
-                            <option value="10000000">$10,000,000</option>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <select class="form-select form-control text-default box-shadow-none" name="kecamatan" id="filterKecamatan" aria-label="Kecamatan">
+                            <option value="">Semua Kecamatan</option>
+                            @foreach($dataKecamatan as $kecamatan)
+                                <option value="{{ $kecamatan->id }}" @selected(($filter['kecamatan'] ?? null) == $kecamatan->id)>{{ $kecamatan->name }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="col-lg-2 mb-2 mb-lg-0">
-                        <div class="d-grid gap-2">
-                            <input type="submit" value="Search Now" class="btn btn-secondary custom-btn-search-page-header font-weight-semibold border-0 text-1 text-uppercase mt-1 btn-px-4 btn-py-2">
+                    <div class="col-6 col-lg-2">
+                        <select class="form-select form-control text-default box-shadow-none" name="kamar" aria-label="Kamar tidur">
+                            <option value="">Kamar Tidur</option>
+                            @foreach([1, 2, 3, 4] as $kamar)
+                                <option value="{{ $kamar }}" @selected(($filter['kamar'] ?? null) == $kamar)>Min. {{ $kamar }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-secondary custom-btn-search-page-header font-weight-semibold border-0 text-1 text-uppercase btn-px-4 btn-py-2">Cari</button>
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="urut" value="{{ $filter['urut'] ?? '' }}" id="filterUrut">
             </div>
         </form>
-
     </section>
 
     <div class="container py-5 my-3">
-        <div class="row">
-            <div class="col">
-
-                <h2 class="mb-4">Listing for <span class="text-color-secondary">Sale</span> or <span class="text-color-secondary">Rent</span></h2>
-
-                <div class="row">
-                    <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
-                        <div class="card custom-card-info custom-card-info-shadow border-0">
-                            <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="{{route('front.properties.detail',"MQ==")}}" class="text-decoration-none">
-                                    <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
-                                    <span class="custom-card-info-img d-block">
-													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-1-thumb.jpg')}}" class="img-fluid">
-												</span>
-                                    <span class="custom-card-info-header d-block p-relative">
-													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
-												</span>
-                                    <span class="custom-card-info-content d-block">
-													<h4 class="text-dark mb-1 text-5">South Miami</h4>
-													<ul class="list list-unstyled list-inline mb-0">
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Beds: 3</strong>
-														</li>
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Baths: 2</strong>
-														</li>
-														<li class="list-inline-item me-0 mb-0">
-															<strong class="text-default text-uppercase text-3">Sq Ft: 500</strong>
-														</li>
-													</ul>
-												</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
-                        <div class="card custom-card-info custom-card-info-shadow border-0">
-                            <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="#" class="text-decoration-none">
-                                    <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
-                                    <span class="custom-card-info-img d-block">
-													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-2-thumb.jpg')}}" class="img-fluid">
-												</span>
-                                    <span class="custom-card-info-header d-block p-relative">
-													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
-												</span>
-                                    <span class="custom-card-info-content d-block">
-													<h4 class="text-dark mb-1 text-5">South Miami</h4>
-													<ul class="list list-unstyled list-inline mb-0">
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Beds: 3</strong>
-														</li>
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Baths: 2</strong>
-														</li>
-														<li class="list-inline-item me-0 mb-0">
-															<strong class="text-default text-uppercase text-3">Sq Ft: 500</strong>
-														</li>
-													</ul>
-												</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
-                        <div class="card custom-card-info custom-card-info-shadow border-0">
-                            <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="# " class="text-decoration-none">
-                                    <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
-                                    <span class="custom-card-info-img d-block">
-													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-3-thumb.jpg')}}" class="img-fluid">
-												</span>
-                                    <span class="custom-card-info-header d-block p-relative">
-													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
-												</span>
-                                    <span class="custom-card-info-content d-block">
-													<h4 class="text-dark mb-1 text-5">South Miami</h4>
-													<ul class="list list-unstyled list-inline mb-0">
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Beds: 3</strong>
-														</li>
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Baths: 2</strong>
-														</li>
-														<li class="list-inline-item me-0 mb-0">
-															<strong class="text-default text-uppercase text-3">Sq Ft: 500</strong>
-														</li>
-													</ul>
-												</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
-                        <div class="card custom-card-info custom-card-info-shadow border-0">
-                            <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="#" class="text-decoration-none">
-                                    <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
-                                    <span class="custom-card-info-img d-block">
-													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-4-thumb.jpg')}}" class="img-fluid">
-												</span>
-                                    <span class="custom-card-info-header d-block p-relative">
-													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
-												</span>
-                                    <span class="custom-card-info-content d-block">
-													<h4 class="text-dark mb-1 text-5">South Miami</h4>
-													<ul class="list list-unstyled list-inline mb-0">
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Beds: 3</strong>
-														</li>
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Baths: 2</strong>
-														</li>
-														<li class="list-inline-item me-0 mb-0">
-															<strong class="text-default text-uppercase text-3">Sq Ft: 500</strong>
-														</li>
-													</ul>
-												</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
-                        <div class="card custom-card-info custom-card-info-shadow border-0">
-                            <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="#" class="text-decoration-none">
-                                    <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
-                                    <span class="custom-card-info-img d-block">
-													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-5-thumb.jpg')}}" class="img-fluid">
-												</span>
-                                    <span class="custom-card-info-header d-block p-relative">
-													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
-												</span>
-                                    <span class="custom-card-info-content d-block">
-													<h4 class="text-dark mb-1 text-5">South Miami</h4>
-													<ul class="list list-unstyled list-inline mb-0">
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Beds: 3</strong>
-														</li>
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Baths: 2</strong>
-														</li>
-														<li class="list-inline-item me-0 mb-0">
-															<strong class="text-default text-uppercase text-3">Sq Ft: 500</strong>
-														</li>
-													</ul>
-												</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
-                        <div class="card custom-card-info custom-card-info-shadow border-0">
-                            <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="#" class="text-decoration-none">
-                                    <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
-                                    <span class="custom-card-info-img d-block">
-													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-6-thumb.jpg')}}" class="img-fluid">
-												</span>
-                                    <span class="custom-card-info-header d-block p-relative">
-													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
-												</span>
-                                    <span class="custom-card-info-content d-block">
-													<h4 class="text-dark mb-1 text-5">South Miami</h4>
-													<ul class="list list-unstyled list-inline mb-0">
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Beds: 3</strong>
-														</li>
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Baths: 2</strong>
-														</li>
-														<li class="list-inline-item me-0 mb-0">
-															<strong class="text-default text-uppercase text-3">Sq Ft: 500</strong>
-														</li>
-													</ul>
-												</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
-                        <div class="card custom-card-info custom-card-info-shadow border-0">
-                            <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="#" class="text-decoration-none">
-                                    <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
-                                    <span class="custom-card-info-img d-block">
-													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-1-thumb.jpg')}}" class="img-fluid">
-												</span>
-                                    <span class="custom-card-info-header d-block p-relative">
-													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
-												</span>
-                                    <span class="custom-card-info-content d-block">
-													<h4 class="text-dark mb-1 text-5">South Miami</h4>
-													<ul class="list list-unstyled list-inline mb-0">
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Beds: 3</strong>
-														</li>
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Baths: 2</strong>
-														</li>
-														<li class="list-inline-item me-0 mb-0">
-															<strong class="text-default text-uppercase text-3">Sq Ft: 500</strong>
-														</li>
-													</ul>
-												</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-3 pb-4 mb-1">
-                        <div class="card custom-card-info custom-card-info-shadow border-0">
-                            <div class="card-body overflow-hidden p-relative z-index-1">
-                                <a href="#" class="text-decoration-none">
-                                    <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">For Sale</span>
-                                    <span class="custom-card-info-img d-block">
-													<img src="{{asset('template/frontend/img/demos/real-estate/listing/listing-2-thumb.jpg')}}" class="img-fluid">
-												</span>
-                                    <span class="custom-card-info-header d-block p-relative">
-													<strong class="text-dark text-4">$ 1.250.000</strong>
-													<img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary custom-card-info-arrow p-absolute top-5 mt-2 me-3'}" />
-												</span>
-                                    <span class="custom-card-info-content d-block">
-													<h4 class="text-dark mb-1 text-5">South Miami</h4>
-													<ul class="list list-unstyled list-inline mb-0">
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Beds: 3</strong>
-														</li>
-														<li class="list-inline-item me-2 mb-0">
-															<strong class="text-default text-uppercase text-3">Baths: 2</strong>
-														</li>
-														<li class="list-inline-item me-0 mb-0">
-															<strong class="text-default text-uppercase text-3">Sq Ft: 500</strong>
-														</li>
-													</ul>
-												</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-flex pt-3">
-                    <div class="mx-auto">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-left"></i></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+            <h2 class="mb-0 text-6">
+                {{ $dataProperties->total() }} <span class="text-color-secondary">properti</span> ditemukan
+            </h2>
+            <div class="d-flex align-items-center gap-2">
+                @if(!empty($filter))
+                    <a href="{{ route('front.properties') }}" class="text-2 me-2">Reset filter</a>
+                @endif
+                <label for="pilihUrut" class="text-2 mb-0">Urutkan:</label>
+                <select id="pilihUrut" class="form-select form-select-sm w-auto">
+                    @foreach(\App\Http\Controllers\Front\PropertiesController::URUTAN as $value => $label)
+                        <option value="{{ $value }}" @selected(($filter['urut'] ?? 'terbaru') === $value)>{{ $label }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
+        @if(isset($filter['harga_min']) || isset($filter['harga_max']) || in_array($filter['urut'] ?? null, ['termurah', 'termahal'], true))
+            @unless(isset($filter['periode']))
+                <p class="text-2 mt-n3 mb-4">Filter dan urutan harga memakai harga <strong>bulanan</strong>. Pilih periode untuk mengubahnya.</p>
+            @endunless
+        @endif
+
+        <div class="row">
+            @forelse($dataProperties as $property)
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 pb-4 mb-1">
+                    @include('front.partials.property-card', ['property' => $property, 'periode' => $filter['periode'] ?? null])
+                </div>
+            @empty
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="icons icon-magnifier text-color-secondary text-10 d-block mb-3"></i>
+                        <h3 class="text-5 mb-2">Belum ada properti yang cocok</h3>
+                        <p class="mb-3">Coba ubah atau kurangi filter pencarian Anda.</p>
+                        <a href="{{ route('front.properties') }}" class="btn btn-secondary btn-px-4">Lihat Semua Properti</a>
+                    </div>
+                </div>
+            @endforelse
+        </div>
+
+        @if($dataProperties->hasPages())
+            <div class="d-flex pt-3 justify-content-center">
+                {{ $dataProperties->onEachSide(1)->links() }}
+            </div>
+        @endif
     </div>
 
     <section class="section section-height-3 bg-secondary border-0 m-0">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-9 text-center text-lg-start mb-4 mb-lg-0">
-                    <h2 class="mb-4 text-color-light mb-0">For <span class="font-weight-extra-bold">Residential And Commercial </span> Properties</h2>
-                    <p class="font-weight-semibold text-color-light text-4 opacity-7 mb-0">Our Staff is trained to find any location you need!</p>
+                    <h2 class="mb-4 text-color-light mb-0">Punya properti untuk <span class="font-weight-extra-bold">disewakan</span>?</h2>
+                    <p class="font-weight-semibold text-color-light text-4 opacity-7 mb-0">Daftar sebagai agen dan pasang listing Anda gratis.</p>
                 </div>
                 <div class="col-lg-3">
                     <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-primary font-weight-semibold border-0 text-3 text-uppercase mt-4 btn-py-3">Contact Us
-                            <img width="27" height="27" src="{{asset('template/frontend/img/demos/real-estate/icons/arrow-right.svg')}}" alt="arrow right" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light d-inline-block p-relative bottom-2 ms-2'}" />
-                        </a>
+                        <a href="{{ route('register') }}" class="btn btn-primary font-weight-semibold border-0 text-3 text-uppercase mt-4 btn-py-3">Daftar Agen</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    @push('customJS')
+        <script>
+            (function () {
+                const form = document.getElementById('formFilter');
+                const provinsi = document.getElementById('filterProvinsi');
+                const kabupaten = document.getElementById('filterKabupaten');
+                const kecamatan = document.getElementById('filterKecamatan');
+                const urlKabupaten = @json(route('front.wilayah.kabupaten', '__ID__'));
+                const urlKecamatan = @json(route('front.wilayah.kecamatan', '__ID__'));
+
+                function kosongkan(select) {
+                    select.length = 1;
+                }
+
+                function isi(select, url) {
+                    fetch(url, {headers: {'Accept': 'application/json'}})
+                        .then(response => response.ok ? response.json() : [])
+                        .then(data => data.forEach(item => select.add(new Option(item.name, item.id))));
+                }
+
+                provinsi.addEventListener('change', function () {
+                    kosongkan(kabupaten);
+                    kosongkan(kecamatan);
+                    if (this.value) {
+                        isi(kabupaten, urlKabupaten.replace('__ID__', this.value));
+                    }
+                });
+
+                kabupaten.addEventListener('change', function () {
+                    kosongkan(kecamatan);
+                    if (this.value) {
+                        isi(kecamatan, urlKecamatan.replace('__ID__', this.value));
+                    }
+                });
+
+                document.getElementById('pilihUrut').addEventListener('change', function () {
+                    document.getElementById('filterUrut').value = this.value;
+                    form.requestSubmit();
+                });
+
+                // Jangan kirim parameter kosong agar URL tetap rapi.
+                form.addEventListener('submit', function () {
+                    form.querySelectorAll('input, select').forEach(function (el) {
+                        if (!el.value) {
+                            el.disabled = true;
+                        }
+                    });
+                });
+            })();
+        </script>
+    @endpush
 </x-front.front-end-template>

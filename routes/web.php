@@ -95,10 +95,16 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 Route::group([], function () {
     Route::get('/', [FrontHome::class, 'index'])->name('front.home');
     Route::get('/properties', [FrontProp::class, 'index'])->name('front.properties');
-    Route::get('/properties/{id}/detail', [FrontProp::class, 'detail'])->name('front.properties.detail');
+    Route::get('/properties/{slug}', [FrontProp::class, 'show'])->name('front.properties.detail');
     Route::get('/agents', [FrontAgen::class, 'index'])->name('front.agents');
+    Route::get('/agents/{agent}', [FrontAgen::class, 'show'])->whereUuid('agent')->name('front.agents.detail');
     Route::get('/about', [FrontAbout::class, 'index'])->name('front.about');
     Route::get('/contact', [FrontContact::class, 'index'])->name('front.contact');
+    Route::post('/contact', [FrontContact::class, 'store'])->middleware('throttle:5,1')->name('front.contact.store');
+
+    /** ajax dropdown wilayah untuk filter pencarian */
+    Route::get('/wilayah/kabupaten/{provinsi}', [FrontProp::class, 'kabupaten'])->whereNumber('provinsi')->name('front.wilayah.kabupaten');
+    Route::get('/wilayah/kecamatan/{kabupaten}', [FrontProp::class, 'kecamatan'])->whereNumber('kabupaten')->name('front.wilayah.kecamatan');
 });
 
 require __DIR__.'/auth.php';

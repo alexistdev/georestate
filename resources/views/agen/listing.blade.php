@@ -49,13 +49,8 @@
                             @forelse($dataList as $list)
                                 <tr>
                                     <td>
-                                        @if($list->gambarUtama)
-                                            <img src="{{ $list->gambarUtama->url }}" alt="" class="rounded" style="width:64px;height:48px;object-fit:cover">
-                                        @else
-                                            <div class="bg-light rounded d-flex align-items-center justify-content-center text-muted" style="width:64px;height:48px">
-                                                <i class="ri-image-line"></i>
-                                            </div>
-                                        @endif
+                                        <img src="{{ $list->gambarUtamaUrl() }}" alt="" class="rounded" style="width:64px;height:48px;object-fit:cover"
+                                             onerror="this.onerror=null;this.src='{{ \App\Models\Gambar::defaultUrl() }}'">
                                     </td>
                                     <td>
                                         <a href="{{ route('agn.lists.show', $list) }}" class="fw-medium">{{ $list->name }}</a>

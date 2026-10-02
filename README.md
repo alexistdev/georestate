@@ -33,3 +33,5 @@ php artisan test
 | User | user@gmail.com | 1234 |
 
 New agents and users can also sign up at `/register`.
+
+When `APP_ENV=local`, the seeder also creates demo data (`DemoListingSeeder`): agents `agen2@gmail.com` to `agen4@gmail.com` (password `1234`) and approved sample listings with generated photos. Run `php artisan storage:link` so the photos are visible.

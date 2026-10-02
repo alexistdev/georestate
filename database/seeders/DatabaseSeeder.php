@@ -23,5 +23,10 @@ class DatabaseSeeder extends Seeder
             KecamatanSeeder::class,
             AgentSeeder::class,
         ]);
+
+        // Data contoh (agen, listing disetujui, foto) hanya untuk pengembangan.
+        if (app()->environment('local')) {
+            $this->call(DemoListingSeeder::class);
+        }
     }
 }

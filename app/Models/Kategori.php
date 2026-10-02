@@ -14,6 +14,11 @@ class Kategori extends Model
     protected $fillable = ['name'];
     protected $table = 'kategoris';
 
+    public function properties()
+    {
+        return $this->hasMany(Property::class);
+    }
+
     protected function name(): Attribute
     {
         return Attribute::make(

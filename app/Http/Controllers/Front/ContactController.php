@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Front\ContactRequest;
+use App\Models\ContactMessage;
 
 class ContactController extends Controller
 {
@@ -14,5 +15,13 @@ class ContactController extends Controller
             'menuUtama' => 'contact',
             'menuKedua' => 'contact',
         ));
+    }
+
+    public function store(ContactRequest $request)
+    {
+        ContactMessage::create($request->safe()->except('website'));
+
+        return redirect(route('front.contact'))
+            ->with(['success' => "Terima kasih, pesan Anda sudah kami terima. Kami akan segera menghubungi Anda."]);
     }
 }

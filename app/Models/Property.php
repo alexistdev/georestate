@@ -81,9 +81,104 @@ class Property extends Model
         return $this->hasOne(Gambar::class)->ofMany(['isDefault' => 'max', 'id' => 'min']);
     }
 
+    /**
+     * URL foto utama, atau gambar default jika belum ada foto.
+     */
+    public function gambarUtamaUrl(): string
+    {
+        return $this->gambarUtama?->url ?? Gambar::defaultUrl();
+    }
+
     public function scopeApproved(Builder $query): void
     {
         $query->where('status', PropertyStatus::Approved);
+    }
+
+    /**
+     * Listing yang boleh tampil di website: disetujui admin dan agennya tidak disuspend.
+     */
+    public function scopePublik(Builder $query): void
+    {
+        $query->approved()->whereHas('agent', fn (Builder $agent) => $agent->where('isSuspend', false));
+    }
+
+    /**
+     * Filter & urutan pencarian halaman publik.
+     * Rentang harga dan urutan harga memakai kolom periode yang dipilih (default bulanan).
+     *
+     * @param  array{q?: string, kategori?: int, provinsi?: int, kabupaten?: int, kecamatan?: int,
+     *     periode?: string, harga_min?: int, harga_max?: int, kamar?: int, urut?: string}  $filter
+     */
+    public function scopeFilter(Builder $query, array $filter): void
+    {
+        $kolomHarga = self::kolomHarga($filter['periode'] ?? null);
+
+        $query
+            ->when($filter['q'] ?? null, function (Builder $q, string $kata) {
+                $q->where(function (Builder $q) use ($kata) {
+                    $q->where('name', 'like', "%{$kata}%")
+                        ->orWhere('address', 'like', "%{$kata}%")
+                        ->orWhere('description', 'like', "%{$kata}%");
+                });
+            })
+            ->when($filter['kategori'] ?? null, fn (Builder $q, $id) => $q->where('kategori_id', $id))
+            ->when($filter['kecamatan'] ?? null, fn (Builder $q, $id) => $q->where('kecamatan_id', $id))
+            ->when(
+                empty($filter['kecamatan']) ? ($filter['kabupaten'] ?? null) : null,
+                fn (Builder $q, $id) => $q->whereIn('kecamatan_id', Kecamatan::select('id')->where('kabupaten_id', $id))
+            )
+            ->when(
+                empty($filter['kecamatan']) && empty($filter['kabupaten']) ? ($filter['provinsi'] ?? null) : null,
+                fn (Builder $q, $id) => $q->whereIn(
+                    'kecamatan_id',
+                    Kecamatan::select('id')->whereIn('kabupaten_id', Kabupaten::select('id')->where('provinsi_id', $id))
+                )
+            )
+            ->when(isset($filter['periode']), fn (Builder $q) => $q->whereNotNull($kolomHarga))
+            ->when($filter['harga_min'] ?? null, fn (Builder $q, $min) => $q->where($kolomHarga, '>=', $min))
+            ->when($filter['harga_max'] ?? null, fn (Builder $q, $max) => $q->where($kolomHarga, '<=', $max))
+            ->when($filter['kamar'] ?? null, fn (Builder $q, $kamar) => $q->where('beds', '>=', $kamar));
+
+        match ($filter['urut'] ?? 'terbaru') {
+            'termurah' => $query->orderByRaw("{$kolomHarga} is null")->orderBy($kolomHarga),
+            'termahal' => $query->orderByRaw("{$kolomHarga} is null")->orderByDesc($kolomHarga),
+            default => $query->latest('approved_at')->latest(),
+        };
+    }
+
+    /**
+     * Nama kolom harga untuk periode `harian|bulanan|tahunan` (default bulanan).
+     */
+    public static function kolomHarga(?string $periode): string
+    {
+        $kolom = 'harga_'.$periode;
+
+        return array_key_exists($kolom, self::PERIODE_HARGA) ? $kolom : 'harga_bulanan';
+    }
+
+    /**
+     * Harga yang ditonjolkan di kartu listing: periode yang sedang difilter jika ada,
+     * selain itu bulanan, lalu periode pertama yang tersedia.
+     *
+     * @param  string|null  $periode  harian|bulanan|tahunan
+     * @return array{0: string, 1: string}|null  [harga terformat, label periode]
+     */
+    public function hargaUtama(?string $periode = null): ?array
+    {
+        $harga = $this->daftarHarga();
+        if ($harga === []) {
+            return null;
+        }
+
+        $labelDipilih = $periode ? self::PERIODE_HARGA[self::kolomHarga($periode)] : 'Bulan';
+        $label = array_key_exists($labelDipilih, $harga) ? $labelDipilih : array_key_first($harga);
+
+        return [$harga[$label], $label];
+    }
+
+    public function punyaKoordinat(): bool
+    {
+        return $this->latitude !== null && $this->longitude !== null;
     }
 
     /**

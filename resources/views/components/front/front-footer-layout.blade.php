@@ -1,65 +1,41 @@
 <div>
+    @php($kontak = config('georestate.kontak'))
     <footer id="footer" class="m-0">
         <div class="container py-3">
             <div class="row py-5">
-                <div class="col-md-4 col-lg-3">
-                    <h4 class="mb-3">Porto Real Estate</h4>
+                <div class="col-md-4 col-lg-5">
+                    <h4 class="mb-3">{{ config('georestate.nama') }}</h4>
+                    <p class="mb-2">{{ config('georestate.tagline') }}</p>
                     <p class="mb-0">
-                        123 Porto Blvd, Suite 100<br>
-                        New York, NY<br>
-                        Phone : 123-456-7890<br>
-                        Email : <a class="text-color-secondary" href="mailto:mail@example.com">mail@example.com</a>
+                        @if($kontak['alamat']){!! nl2br(e($kontak['alamat'])) !!}<br>@endif
+                        @if($kontak['telepon'])Telepon : {{ $kontak['telepon'] }}<br>@endif
+                        @if($kontak['email'])Email : <a class="text-color-secondary" href="mailto:{{ $kontak['email'] }}">{{ $kontak['email'] }}</a>@endif
                     </p>
                 </div>
-                <div class="col-md-2">
-                    <h4 class="mb-3">Properties</h4>
+                <div class="col-md-4 col-lg-3">
+                    <h4 class="mb-3">Properti</h4>
                     <nav class="nav-footer">
                         <ul class="list-unstyled mb-0">
-                            <li>
-                                <a href="demo-real-estate-properties.html" class="custom-color-2 text-decoration-none">
-                                    For Sale
-                                </a>
-                            </li>
-                            <li>
-                                <a href="demo-real-estate-properties.html" class="custom-color-2 text-decoration-none">
-                                    For Rent
-                                </a>
-                            </li>
+                            @foreach(\App\Http\Controllers\Front\PropertiesController::PERIODE as $value => $label)
+                                <li>
+                                    <a href="{{ route('front.properties', ['periode' => $value]) }}" class="custom-color-2 text-decoration-none">
+                                        Sewa {{ $label }}
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </nav>
                 </div>
-                <div class="col-md-2">
-                    <h4 class="mb-3">Links</h4>
+                <div class="col-md-4 col-lg-4">
+                    <h4 class="mb-3">Tautan</h4>
                     <nav class="nav-footer">
                         <ul class="list-unstyled mb-0">
-                            <li>
-                                <a href="demo-real-estate-agents.html" class="custom-color-2 text-decoration-none">
-                                    Agents
-                                </a>
-                            </li>
-                            <li>
-                                <a href="demo-real-estate-who-we-are.html" class="custom-color-2 text-decoration-none">
-                                    Who We Are
-                                </a>
-                            </li>
-                            <li>
-                                <a href="demo-real-estate-contact.html" class="custom-color-2 text-decoration-none">
-                                    Contact
-                                </a>
-                            </li>
+                            <li><a href="{{ route('front.agents') }}" class="custom-color-2 text-decoration-none">Agen</a></li>
+                            <li><a href="{{ route('front.about') }}" class="custom-color-2 text-decoration-none">Tentang Kami</a></li>
+                            <li><a href="{{ route('front.contact') }}" class="custom-color-2 text-decoration-none">Kontak</a></li>
+                            <li><a href="{{ route('register') }}" class="custom-color-2 text-decoration-none">Daftar Agen</a></li>
                         </ul>
                     </nav>
-                </div>
-                <div class="col-md-4 col-lg-5">
-                    <h4 class="mb-3">Latest Post</h4>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2 pb-1">
-                            <a href="#">
-                                <p class="text-3 text-color-light opacity-8 mb-0"><strong class="font-weight-regular">Lorem ipsum dolor sit amet.</strong></p>
-                                <p class="text-2 mb-0">12:55 AM Dec 19th</p>
-                            </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -67,7 +43,7 @@
             <div class="container">
                 <div class="row ">
                     <div class="col text-center py-4">
-                        <p>© Copyright 2023. All Rights Reserved.</p>
+                        <p>© {{ date('Y') }} {{ config('georestate.nama') }}. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,6 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -28,7 +27,27 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(RouteServiceProvider::HOME);
+        $response->assertRedirect(route('front.home'));
+    }
+
+    public function test_login_redirects_each_role_to_its_dashboard(): void
+    {
+        $cases = [
+            'super' => 'sup.dashboard',
+            'admin' => 'adm.dashboard',
+            'agen' => 'agn.dashboard',
+        ];
+
+        foreach ($cases as $state => $routeName) {
+            $user = User::factory()->{$state}()->create();
+
+            $this->post('/login', [
+                'email' => $user->email,
+                'password' => 'password',
+            ])->assertRedirect(route($routeName));
+
+            $this->post('/logout');
+        }
     }
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
@@ -39,6 +58,18 @@ class AuthenticationTest extends TestCase
             'email' => $user->email,
             'password' => 'wrong-password',
         ]);
+
+        $this->assertGuest();
+    }
+
+    public function test_users_without_valid_role_can_not_login(): void
+    {
+        $user = User::factory()->create(['role_id' => 999]);
+
+        $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ])->assertSessionHasErrors('email');
 
         $this->assertGuest();
     }

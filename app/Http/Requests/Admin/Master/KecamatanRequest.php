@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Master;
 
+use App\Rules\EncodedIdExists;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,17 +28,17 @@ class KecamatanRequest extends FormRequest
     {
         if (in_array($this->method(), ['DELETE'])) {
             $rules = [
-                'kecamatan_id' => 'required|max:255',
+                'kecamatan_id' => ['required', 'max:255', new EncodedIdExists('kecamatans')],
             ];
         }else if(in_array($this->method(), ['PATCH'])){
             $rules = [
-                'kecamatan_id' => 'required|max:255',
-                'kabupaten_id' => 'required|max:255',
+                'kecamatan_id' => ['required', 'max:255', new EncodedIdExists('kecamatans')],
+                'kabupaten_id' => ['required', 'max:255', new EncodedIdExists('kabupatens')],
                 'name' => 'required|max:255',
             ];
         }else{
             $rules = [
-                'kabupaten_id' => 'required|max:255',
+                'kabupaten_id' => ['required', 'max:255', new EncodedIdExists('kabupatens')],
                 'name' => 'required|max:255',
             ];
         }

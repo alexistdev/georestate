@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Master;
 
+use App\Rules\EncodedIdExists;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,11 +30,11 @@ class ProvinsiRequest extends FormRequest
     {
         if (in_array($this->method(), ['DELETE'])) {
             $rules = [
-                'provinsi_id' => 'required|max:255',
+                'provinsi_id' => ['required', 'max:255', new EncodedIdExists('provinsis')],
             ];
         }else if(in_array($this->method(), ['PATCH'])){
             $rules = [
-                'provinsi_id' => 'required|max:255',
+                'provinsi_id' => ['required', 'max:255', new EncodedIdExists('provinsis')],
                 'name' => 'required|max:255',
             ];
         }else{

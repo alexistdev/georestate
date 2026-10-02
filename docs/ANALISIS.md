@@ -1,6 +1,6 @@
 # Analisis & Roadmap — GeoRestate
 
-_Terakhir diperbarui: 3 Oktober 2026 (Fase 0 selesai)._
+_Terakhir diperbarui: 3 Oktober 2026 (Fase 0 & Fase 1 selesai)._
 
 ## 1. Ringkasan
 
@@ -27,9 +27,8 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 | Area super | ⚠️ Baru dashboard kosong; menu masih memakai navbar admin |
 | Admin: master wilayah (provinsi/kabupaten/kecamatan) | ✅ CRUD + validasi |
 | Admin: daftar agen | ⚠️ List saja; tombol Detail/Hapus belum berfungsi |
-| Admin: dashboard, kategori, fasilitas, moderasi listing, user | ❌ |
-| Agen: tambah listing | ⚠️ Belum simpan pemilik, fasilitas, gambar, status approval |
-| Agen: list listing | ⚠️ Masih menampilkan listing semua agen; edit/hapus belum ada |
+| Admin: dashboard, kategori, fasilitas, moderasi listing, user | ❌ (listing baru tertahan `pending` sampai ada halaman moderasi) |
+| Agen: CRUD listing (milik sendiri), harga per periode, fasilitas, foto, status | ✅ |
 | Agen: dashboard, profil | ❌ |
 | User: favorit, kirim pesan ke agen | ❌ |
 | Frontend publik (home, properties, detail, agents, about, contact) | ❌ Statis (kecuali carousel agen di home) |
@@ -49,14 +48,16 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 - Fix form tambah listing (old value kamar mandi, URL ajax, isi ulang dropdown wilayah).
 - Login: link daftar & lupa password, remember me. README disamakan dengan seeder.
 
-### Fase 1 — Listing properti agen (inti bisnis)
+### Fase 1 — Listing properti agen (inti bisnis) ✅ SELESAI
 1. Migrasi: `properties.agent_id` (FK uuid ke `agents`), `slug`, `status` (`pending`/`approved`/`rejected`), `alasan_penolakan`, `approved_at`.
 2. Harga: `harga_harian`, `harga_bulanan`, `harga_tahunan` (nullable, minimal satu wajib diisi) menggantikan `price`. Hapus accessor `price` yang mengembalikan string.
 3. Master fasilitas: tabel `fasilitas` + pivot `fasilitas_property`, menggantikan `features` / `feature1..4`.
 4. `PropertyPolicy`: agen hanya kelola miliknya.
 5. CRUD lengkap agen: index (milik sendiri), create, edit/update (kembali ke `pending`), show, delete (soft delete).
 6. Upload multi-gambar ke `storage/app/public/properties`, gambar default, hapus gambar.
-7. Feature test.
+7. Feature test (`tests/Feature/Agen/ListingTest.php`).
+
+Catatan implementasi: kolom `price` dan tabel `features` dihapus; foto di disk `public` (`storage/app/public/properties/{id}`, butuh `php artisan storage:link`); edit listing selalu mengembalikan status ke `pending`; maksimal 10 foto @ 2 MB (JPG/PNG/WebP); daftar fasilitas awal di `FasilitasSeeder`.
 
 ### Fase 2 — Frontend publik dinamis (hanya listing `approved`)
 1. Home: properti terbaru, kategori, statistik.
@@ -97,3 +98,5 @@ Foto, telepon, alamat, wilayah (kecamatan), about. Ganti halaman profil Breeze/T
 - Accessor `name` wilayah/kategori: `strtoupper` saat baca, `strtolower` saat simpan, sedangkan seeder menyimpan UPPERCASE.
 - `Agent::$fillable` menyebut `kelurahan_id` yang tidak ada di tabel.
 - Middleware `isFree`, `PreventBackHistory`, dan `app/Exceptions/Handler.php` tidak dipakai.
+- `config/app.php` timezone masih `UTC`, sehingga waktu tampil 7 jam lebih awal dari WIB. Pertimbangkan `Asia/Jakarta`.
+- Kolom `properties.isStatus` tidak jelas fungsinya dan tidak dipakai (digantikan `status`).

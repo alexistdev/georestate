@@ -18,6 +18,11 @@ class Agent extends Model
         return $this->belongsTo(User::class,'user_id','id');
     }
 
+    public function properties()
+    {
+        return $this->hasMany(Property::class);
+    }
+
     public function kecamatan()
     {
         return $this->belongsTo(Kecamatan::class,'kecamatan_id','id')->with('kabupaten');

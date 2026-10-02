@@ -79,6 +79,15 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/agent/lists/add', [ListAgen::class, 'create'])->name('agn.lists.add');
         Route::get('/agent/lists/kabupaten/{id}', [ListAgen::class, 'getKabupaten'])->name('agn.lists.kabupaten');
         Route::get('/agent/lists/kecamatan/{id}', [ListAgen::class, 'getKecamatan'])->name('agn.lists.kecamatan');
+
+        Route::whereUuid('property')->group(function () {
+            Route::get('/agent/lists/{property}', [ListAgen::class, 'show'])->name('agn.lists.show');
+            Route::get('/agent/lists/{property}/edit', [ListAgen::class, 'edit'])->name('agn.lists.edit');
+            Route::patch('/agent/lists/{property}', [ListAgen::class, 'update'])->name('agn.lists.update');
+            Route::delete('/agent/lists/{property}', [ListAgen::class, 'destroy'])->name('agn.lists.delete');
+            Route::delete('/agent/lists/{property}/gambar/{gambar}', [ListAgen::class, 'destroyGambar'])->name('agn.lists.gambar.delete');
+            Route::patch('/agent/lists/{property}/gambar/{gambar}/utama', [ListAgen::class, 'setGambarUtama'])->name('agn.lists.gambar.utama');
+        });
     });
 });
 

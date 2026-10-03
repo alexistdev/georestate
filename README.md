@@ -16,6 +16,20 @@ A web-based application for real estate management, such as boarding houses, ren
 - Run: `php artisan migrate:fresh --seed`
 - Run: `php artisan serve`
 
+## License (GeoLicense)
+This application is protected by [GeoLicense](https://geolicense.my.id). Set these in `.env`:
+
+```env
+GEOLICENSE_SERVER_URL=https://geolicense.my.id
+GEOLICENSE_LICENSE_KEY=your-license-key
+GEOLICENSE_PRODUCT_SKU=your-product-sku
+```
+
+- On first boot the app activates the license and caches the token; all pages return **503** while the license is invalid (short grace period if the license server is unreachable).
+- Re-verification runs hourly via the scheduler, so add the cron entry: `* * * * * cd /path-to-project && php artisan schedule:run >> /dev/null 2>&1`
+- Manual check: `php artisan geolicense:verify`. After changing the key or SKU, run `php artisan cache:clear` to force re-activation.
+- A valid license is required in every environment, including local development. Automated tests mark the license as valid in `tests/TestCase.php` and never contact the license server.
+
 ## Running Tests
 Tests use an in-memory SQLite database (see `phpunit.xml`), so they never touch the MySQL development database.
 

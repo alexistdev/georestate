@@ -73,6 +73,18 @@ Catatan implementasi: kolom `price` dan tabel `features` dihapus; foto di disk `
 
 Kerangka peta (dikerjakan setelah project selesai): kolom `properties.latitude/longitude` (nullable) + partial `front/partials/peta-lokasi.blade.php` berisi TODO. Langkah lanjut: input titik di form agen, muat Leaflet/OSM, render marker.
 
+### Lisensi GeoLicense ✅ TERPASANG
+Plugin dari `geolicense/CLIENT/LARAVEL` (server: https://geolicense.my.id). File: `config/geolicense.php`, `app/Services/GeoLicense/*`, `app/Http/Middleware/LicenseValidationMiddleware.php` (global), `app/Providers/GeoLicenseServiceProvider.php`, command `geolicense:verify` (dijadwalkan per jam di `routes/console.php`), halaman `resources/views/errors/license.blade.php`.
+
+Penyesuaian terhadap plugin asli:
+1. Kirim `productSku` (`GEOLICENSE_PRODUCT_SKU`) di activate & verify. Server sekarang mewajibkannya, sedangkan plugin Laravel asli belum (plugin Spring Boot sudah).
+2. Lisensi wajib di semua environment (termasuk development); tidak ada saklar untuk mematikannya. Khusus test otomatis, `tests/TestCase.php` menandai lisensi valid dan memblokir request HTTP keluar.
+3. Aktivasi gagal saat boot tidak lagi melempar exception (yang membuat seluruh app & artisan error 500). Kegagalan dicatat di log dan dicoba lagi setelah `GEOLICENSE_ACTIVATION_RETRY_MINS` (default 5 menit) supaya server yang down tidak memperlambat setiap request.
+4. Halaman HTML 503 untuk browser; JSON tetap untuk request API.
+5. `SETUP.md` asli memakai `->everyHour()` (tidak ada di Laravel) → diganti `->hourly()`.
+
+Saran: terapkan poin 1–5 juga ke plugin di `geolicense/CLIENT/LARAVEL` agar project lain ikut mendapat perbaikan.
+
 ### Fase 3 — Admin & Super
 1. Dashboard statistik.
 2. Moderasi listing (approve/reject + alasan).

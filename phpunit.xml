@@ -21,6 +21,10 @@
         <env name="APP_ENV" value="testing"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_DRIVER" value="array"/>
+        <env name="LOG_CHANNEL" value="null"/>
+        <env name="GEOLICENSE_SERVER_URL" value="http://geolicense.invalid"/>
+        <env name="GEOLICENSE_LICENSE_KEY" value=""/>
+        <env name="GEOLICENSE_PRODUCT_SKU" value=""/>
         <env name="DB_CONNECTION" value="sqlite"/>
         <env name="DB_DATABASE" value=":memory:"/>
         <env name="MAIL_MAILER" value="array"/>

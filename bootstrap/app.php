@@ -22,6 +22,9 @@ return Application::configure(basePath: dirname(__DIR__))
                 Request::HEADER_X_FORWARDED_AWS_ELB
         );
 
+        // Cek lisensi GeoLicense untuk semua request (lihat config/geolicense.php).
+        $middleware->append(\App\Http\Middleware\LicenseValidationMiddleware::class);
+
         $middleware->alias([
             'roles' => \App\Http\Middleware\CekRole::class,
             'free'  => \App\Http\Middleware\isFree::class,

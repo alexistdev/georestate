@@ -7,7 +7,7 @@
         @if ($message = Session::get('success'))
             <div class="col-lg-12">
                 <div class="alert alert-success  alert-dismissible alert-outline fade show" role="alert">
-                    <strong> Success ! </strong> - {!! $message !!}
+                    <strong>Berhasil!</strong> {{ $message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
@@ -16,7 +16,7 @@
         @if ($message = Session::get('delete'))
             <div class="col-lg-12">
                 <div class="alert alert-danger  alert-dismissible alert-outline fade show" role="alert">
-                    <strong> Delete ! </strong> - {!! $message !!}
+                    <strong>Dihapus!</strong> {{ $message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="col-lg-12">
                 <div class="alert alert-danger  alert-dismissible alert-outline fade show" role="alert">
                     @foreach ($errors->all() as $error)
-                        <strong> Error ! </strong> - {{ $error }}
+                        <div>{{ $error }}</div>
                     @endforeach
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -42,7 +42,7 @@
                     <h5 class="card-title mb-0 float-start">Data Provinsi</h5>
                     <button class="btn btn-sm btn-primary float-end" data-bs-toggle="modal"
                             data-bs-target="#tambahProvinsi"><i class="mdi mdi-book-plus-multiple align-middle m-1"></i>
-                        Add
+                        Tambah
                     </button>
                 </div>
                 <div class="card-body">
@@ -53,7 +53,7 @@
                         <tr>
                             <th class="text-center">No.</th>
                             <th class="text-center">Nama</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -70,7 +70,7 @@
                     <button class="btn btn-sm btn-primary float-end" data-bs-toggle="modal"
                             data-bs-target="#tambahKabupaten"><i
                             class="mdi mdi-book-plus-multiple align-middle m-1"></i>
-                        Add
+                        Tambah
                     </button>
                 </div>
                 <div class="card-body">
@@ -83,7 +83,7 @@
                             <th class="text-center">No.</th>
                             <th class="text-center">Nama</th>
                             <th class="text-center">Provinsi</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -100,7 +100,7 @@
                     <button class="btn btn-sm btn-primary float-end" data-bs-toggle="modal"
                             data-bs-target="#tambahKecamatan"><i
                             class="mdi mdi-book-plus-multiple align-middle m-1"></i>
-                        Add
+                        Tambah
                     </button>
                 </div>
                 <div class="card-body">
@@ -112,7 +112,7 @@
                             <th class="text-center">No.</th>
                             <th class="text-center">Nama</th>
                             <th class="text-center">Kabupaten</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -187,96 +187,46 @@
             })
 
 
-            document.addEventListener("DOMContentLoaded", function () {
-                new DataTable("#tabelProvince", {
+            /**
+             * Tabel server-side: data diambil per halaman (pencarian & urutan diproses di server),
+             * tidak memuat ribuan kecamatan sekaligus.
+             */
+            function tabelWilayah(selector, url, kolomInduk) {
+                let columns = [
+                    {data: 'DT_RowIndex', class: 'text-center', orderable: false, searchable: false, width: '5%'},
+                    {data: 'name', name: 'name', class: 'text-center'},
+                ];
+                if (kolomInduk) {
+                    columns.push({data: kolomInduk + '.name', name: kolomInduk + '.name', class: 'text-center', defaultContent: '-'});
+                }
+                columns.push({data: 'action', class: 'text-center', orderable: false, searchable: false});
+
+                return new DataTable(selector, {
+                    processing: true,
+                    serverSide: true,
                     pagingType: "full_numbers",
-                    ajax: {
-                        type: 'GET',
-                        url: provinceURL,
-                        async: true,
-                    },
+                    searchDelay: 400,
+                    ajax: {type: 'GET', url: url},
                     language: {
-                        processing: "Loading",
+                        processing: "Memuat...",
+                        search: "Cari:",
+                        lengthMenu: "Tampilkan _MENU_ data",
+                        info: "_START_–_END_ dari _TOTAL_ data",
+                        infoEmpty: "Tidak ada data",
+                        infoFiltered: "(disaring dari _MAX_ data)",
+                        zeroRecords: "Data tidak ditemukan",
+                        paginate: {first: "«", previous: "‹", next: "›", last: "»"},
                     },
-                    columns: [
-                        {
-                            data: 'index',
-                            class: 'text-center',
-                            defaultContent: '',
-                            orderable: false,
-                            searchable: false,
-                            width: '5%',
-                            render: function (data, type, row, meta) {
-                                return meta.row + meta.settings._iDisplayStart + 1; //auto increment
-                            }
-                        },
-                        {data: 'name', class: 'text-center'},
-                        {data: 'action', class: 'text-center', orderable: false},
-                    ],
+                    order: [[1, 'asc']],
+                    columns: columns,
                     "bDestroy": true
-                })
-            });
+                });
+            }
 
             document.addEventListener("DOMContentLoaded", function () {
-                new DataTable("#tabelKabupaten", {
-                    pagingType: "full_numbers",
-                    ajax: {
-                        type: 'GET',
-                        url: kabupatenURL,
-                        async: true,
-                    },
-                    language: {
-                        processing: "Loading",
-                    },
-                    columns: [
-                        {
-                            data: 'index',
-                            class: 'text-center',
-                            defaultContent: '',
-                            orderable: false,
-                            searchable: false,
-                            width: '5%',
-                            render: function (data, type, row, meta) {
-                                return meta.row + meta.settings._iDisplayStart + 1; //auto increment
-                            }
-                        },
-                        {data: 'name', class: 'text-center'},
-                        {data: 'provinsi', class: 'text-center'},
-                        {data: 'action', class: 'text-center', orderable: false},
-                    ],
-                    "bDestroy": true
-                })
-            });
-
-            document.addEventListener("DOMContentLoaded", function () {
-                new DataTable("#tabelKecamatan", {
-                    pagingType: "full_numbers",
-                    ajax: {
-                        type: 'GET',
-                        url: kecamatanURL,
-                        async: true,
-                    },
-                    language: {
-                        processing: "Loading",
-                    },
-                    columns: [
-                        {
-                            data: 'index',
-                            class: 'text-center',
-                            defaultContent: '',
-                            orderable: false,
-                            searchable: false,
-                            width: '5%',
-                            render: function (data, type, row, meta) {
-                                return meta.row + meta.settings._iDisplayStart + 1; //auto increment
-                            }
-                        },
-                        {data: 'name', class: 'text-center'},
-                        {data: 'kabupaten', class: 'text-center'},
-                        {data: 'action', class: 'text-center', orderable: false},
-                    ],
-                    "bDestroy": true
-                })
+                tabelWilayah("#tabelProvince", provinceURL);
+                tabelWilayah("#tabelKabupaten", kabupatenURL, 'provinsi');
+                tabelWilayah("#tabelKecamatan", kecamatanURL, 'kabupaten');
             });
 
             $(document).ready(function () {

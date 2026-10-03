@@ -14,7 +14,7 @@ class Agent extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
-    protected $fillable = ['user_id','member_identifier','phone','kelurahan_id','alamat','about','isSuspend','level','kecamatan_id'];
+    protected $fillable = ['user_id','member_identifier','phone','alamat','about','isSuspend','level','kecamatan_id'];
 
     /** Foto pengganti jika agen belum punya foto atau file fotonya tidak ditemukan */
     public const FOTO_DEFAULT = 'images/agents/man.png';

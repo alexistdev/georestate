@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Services\Admin\AgentService;
 use App\Services\Admin\AgentServiceImpl;
-use App\Services\Admin\DisctrictServiceImpl;
+use App\Services\Admin\DistrictServiceImpl;
 use App\Services\Admin\DistrictService;
 use App\Services\Admin\ModerasiService;
 use App\Services\Admin\ModerasiServiceImpl;
@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
 
     public $bindings = [
         AgentService::class =>AgentServiceImpl::class,
-        DistrictService::class => DisctrictServiceImpl::class,
+        DistrictService::class => DistrictServiceImpl::class,
         ModerasiService::class => ModerasiServiceImpl::class,
         PropertyService::class => PropertyServiceImpl::class,
         ProfilService::class => ProfilServiceImpl::class,

@@ -47,7 +47,7 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 - Registrasi user/agen (`register2.blade.php`, Bootstrap).
 - Halaman publik tanpa middleware `guest`.
 - Escape HTML di DataTables (XSS), error tidak lagi di-`echo`.
-- Validasi `exists` (listing agen) dan `EncodedIdExists` (form wilayah base64).
+- Validasi `exists` (listing agen) dan `EncodedIdExists` (form wilayah base64). *(6B: base64 diganti ID asli + `Rule::exists()->withoutTrashed()`, `EncodedIdExists` dihapus.)*
 - `Property` memakai `HasUuids` (dulu `id` tertimpa auto-increment setelah `save()`).
 - Factory: User (state `super/admin/agen`), Provinsi, Kabupaten, Kecamatan, Kategori, Agent, Property.
 - Fix form tambah listing (old value kamar mandi, URL ajax, isi ulang dropdown wilayah).
@@ -140,7 +140,7 @@ Keputusan: foto dipotong otomatis di tengah; ganti email wajib password saat ini
 - Dashboard agen: pengingat jika foto, kecamatan, atau Tentang Saya masih kosong.
 - Topbar agen: foto, nama, peran, Profil Saya, Ubah Password, Logout (data contoh template dihapus).
 - Foto agen di website ditampilkan bulat & terpotong rapi (`object-fit: cover`).
-- `GET /profile` (Breeze) dialihkan: agen → Profil Saya, admin/super → Ubah Password, pencari → Akun Saya. Route `PATCH/DELETE /profile` bawaan Breeze masih ada.
+- `GET /profile` (Breeze) dialihkan: agen → Profil Saya, admin/super → Ubah Password, pencari → Akun Saya. Route `PATCH/DELETE /profile` bawaan Breeze dihapus di 6B.
 - Test: `tests/Feature/Agen/ProfilTest.php`.
 
 ### Fase 6 — Polish & deploy
@@ -156,23 +156,24 @@ Keputusan: logo sementara wordmark teks; peta Leaflet + OpenStreetMap; "Lupa pas
 - SEO: meta description, canonical, Open Graph & Twitter card di layout publik; detail properti & profil agen mengisi deskripsi + gambar pratinjau; `/sitemap.xml` (halaman publik, listing tayang, agen aktif) & `/robots.txt` dinamis (blokir /staff, /super, /agent, /akun, /login, /register; file statis `public/robots.txt` dihapus).
 - Test: `tests/Feature/TampilanTest.php`, `PasswordResetTest` disesuaikan.
 
-**6B–6D (belum):**
-1. ~~Ganti sisa halaman Breeze/Tailwind ke Bootstrap~~ (selesai di 6A; view Breeze yang tidak terpakai dihapus di 6B).
-2. Rename `Disctric*` → `District*`.
-3. DataTables server-side (sekarang `->get()` memuat ~7.000 kecamatan per request).
-4. Ganti ID base64 di form wilayah dengan ID asli + otorisasi.
-5. Halaman 404/403/500 bertema, SEO dasar, CI (`pint --test` + `php artisan test`).
-6. Bersihkan aset `public/template` (±242 MB) yang tidak dipakai.
-8. Aktifkan peta lokasi (lihat kerangka di Fase 2).
+**6B ✅ SELESAI — Bersih-bersih teknis**
+- `DisctricController`/`DisctrictServiceImpl` → `DistrictController`/`DistrictServiceImpl`; nama route `adm.disctrict*` → `adm.wilayah*` (URL tetap `/staff/wilayah`).
+- Form wilayah admin & form listing agen memakai ID asli (bukan base64); validasi `Rule::exists(...)->withoutTrashed()`. `App\Rules\EncodedIdExists` dan `App\Casts\Base64` dihapus.
+- Tabel provinsi/kabupaten/kecamatan memakai DataTables **server-side** (paging, cari, urut di server; ±7.200 kecamatan tidak lagi dimuat sekaligus). Label tabel berbahasa Indonesia.
+- Dropdown wilayah form listing agen memakai endpoint publik `front.wilayah.*` (sama dengan filter pencarian & profil agen); route `agn.lists.kabupaten/kecamatan` dihapus.
+- Dihapus: view Breeze/Tailwind (`layouts/*`, `dashboard`, `welcome`, `auth/login`, `auth/register`, `profile/*`, komponen Tailwind), `AppLayout`/`GuestLayout`, `ProfileController` + route `PATCH/DELETE /profile`, middleware `isFree`, `XssClean`, `PreventBackHistory`, `Authenticate`, `RedirectIfAuthenticated`, `TrustHosts`, `app/Exceptions/Handler.php`, serta tooling Vite/Tailwind (`package.json`, `vite.config.js`, `tailwind.config.js`, `postcss.config.js`, `resources/css`, `resources/js`). Aplikasi tidak butuh Node/npm.
+- Kolom `properties.isStatus` dihapus (migration `2026_10_08_000001`); `kelurahan_id` dibuang dari `Agent::$fillable`.
+- Accessor nama wilayah: disimpan huruf kecil (sesuai seeder), tampil huruf kapital; sekarang aman multibyte + `trim`.
+- Timezone `Asia/Jakarta` (bisa diubah lewat `APP_TIMEZONE`).
+- Test: `tests/Feature/Admin/DistrictTest.php` (ID asli, server-side, halaman wilayah).
+
+**6C–6D (belum):**
+1. Aktifkan peta lokasi Leaflet + OSM (lihat kerangka di Fase 2) — 6C.
+2. CI (`pint --test` + `php artisan test`), checklist `.env` produksi, cron, email/SMTP, panduan deploy — 6D.
+3. Bersihkan aset `public/template` (±242 MB) yang terbukti tidak dipakai — 6D.
 
 ## 5. Utang teknis yang diketahui
 
-- View Breeze yang tidak terpakai lagi (`layouts/app`, `layouts/guest`, `layouts/navigation`, `dashboard`, `welcome`, `auth/login`, `auth/register`, `profile/*`, komponen Tailwind) masih ada dan memakai `@vite`; tidak bisa diakses, akan dihapus di 6B.
-- `XssClean` men-`strip_tags` semua input → akan merusak deskripsi rich text; nanti escape saat output saja.
-- Accessor `name` wilayah (provinsi/kabupaten/kecamatan): `strtoupper` saat baca, `strtolower` saat simpan, sedangkan seeder menyimpan UPPERCASE. (Kategori sudah dibereskan di Fase 3C.)
-- `Agent::$fillable` menyebut `kelurahan_id` yang tidak ada di tabel.
-- Middleware `isFree`, `PreventBackHistory`, dan `app/Exceptions/Handler.php` tidak dipakai.
-- `config/app.php` timezone masih `UTC`, sehingga waktu tampil 7 jam lebih awal dari WIB. Pertimbangkan `Asia/Jakarta`.
-- Kolom `properties.isStatus` tidak jelas fungsinya dan tidak dipakai (digantikan `status`).
+- Data `created_at` lama yang dibuat sebelum 6B tersimpan dalam UTC; setelah timezone diganti ke WIB, waktunya tampil 7 jam lebih awal. Tidak masalah untuk data dev (`migrate:fresh --seed`).
 - Halaman login & daftar masih memakai foto latar stok dari template Velzon (`auth-one-bg`); ganti jika ingin foto sendiri.
 - Gambar demo template Porto (`template/frontend/img/demos/real-estate/**`: slider, background, listing, generic) ternyata PNG kosong/transparan, jadi tidak dipakai lagi di halaman publik.

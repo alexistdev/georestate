@@ -27,8 +27,6 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'roles' => \App\Http\Middleware\CekRole::class,
-            'free'  => \App\Http\Middleware\isFree::class,
-            'clean' => \App\Http\Middleware\XssClean::class,
             'ajax'  => \App\Http\Middleware\OnlyAjax::class,
         ]);
     })

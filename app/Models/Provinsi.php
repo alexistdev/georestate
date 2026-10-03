@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Provinsi extends Model
@@ -15,28 +15,31 @@ class Provinsi extends Model
      * Phone: 082371408678
      * Github: https://github.com/alexistdev
      */
-
     use HasFactory, SoftDeletes;
-
 
     protected $fillable = ['name'];
 
-    public static function boot ()
+    public static function boot()
     {
         parent::boot();
 
         self::deleting(function (Provinsi $parent) {
 
-            foreach ($parent->kabupaten as $child) $child->delete();
+            foreach ($parent->kabupaten as $child) {
+                $child->delete();
+            }
 
         });
     }
 
+    /**
+     * Nama disimpan huruf kecil (seperti data seeder) dan selalu ditampilkan huruf kapital.
+     */
     protected function name(): Attribute
     {
         return Attribute::make(
-            get: fn(string $value) => strtoupper($value),
-            set: fn(string $value) => strtolower($value),
+            get: fn (?string $value) => $value === null ? null : mb_strtoupper($value),
+            set: fn (?string $value) => $value === null ? null : mb_strtolower(trim($value)),
         );
     }
 

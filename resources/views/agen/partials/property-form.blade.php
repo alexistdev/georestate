@@ -6,7 +6,7 @@
     $isEdit = isset($property);
     $kecamatanAwal = $isEdit ? $property->kecamatan : null;
     $provinsiIdAwal = $kecamatanAwal?->kabupaten?->provinsi_id;
-    $provinsiAwal = old('provinsi', $provinsiIdAwal ? base64_encode($provinsiIdAwal) : null);
+    $provinsiAwal = old('provinsi', $provinsiIdAwal);
     $kabupatenAwal = old('kabupaten', $kecamatanAwal?->kabupaten_id);
     $kecamatanIdAwal = old('kecamatan', $kecamatanAwal?->id);
     // Setelah validasi gagal, pakai pilihan terakhir (bisa kosong); selain itu pakai data listing.
@@ -211,7 +211,7 @@
                             <select class="form-select" id="provinsiX" name="provinsi">
                                 <option value="">=Pilih=</option>
                                 @foreach($dataProvinsi as $provinsi)
-                                    <option value="{{ base64_encode($provinsi->id) }}" @selected(base64_encode($provinsi->id) === $provinsiAwal)>{{ $provinsi->name }}</option>
+                                    <option value="{{ $provinsi->id }}" @selected((string) $provinsi->id === (string) $provinsiAwal)>{{ $provinsi->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -294,7 +294,7 @@
             }
 
             function getKabupaten(idProvinsi,kabupaten,kecamatan,selectedKabupaten = null){
-                let kab = '{{ route('agn.lists.kabupaten','__ID__') }}';
+                let kab = '{{ route('front.wilayah.kabupaten','__ID__') }}';
                 let urlGetKabupaten = kab.replace('__ID__', idProvinsi);
                 kabupaten.find('option').not(':first').remove();
                 kecamatan.find('option').not(':first').remove();
@@ -319,7 +319,7 @@
             }
 
             function getKecamatan(idKabupaten,kecamatan,selectedKecamatan = null){
-                let kec = '{{ route('agn.lists.kecamatan','__ID__') }}';
+                let kec = '{{ route('front.wilayah.kecamatan','__ID__') }}';
                 let urlGetKecamatan = kec.replace('__ID__', idKabupaten);
                 kecamatan.find('option').not(':first').remove();
                 if(!idKabupaten){

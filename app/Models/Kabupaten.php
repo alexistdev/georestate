@@ -11,31 +11,37 @@ class Kabupaten extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['provinsi_id','name'];
+    protected $fillable = ['provinsi_id', 'name'];
+
     protected $table = 'kabupatens';
 
-    public static function boot ()
+    public static function boot()
     {
         parent::boot();
 
         self::deleting(function (Kabupaten $parent) {
 
-            foreach ($parent->kecamatan as $child) $child->delete();
+            foreach ($parent->kecamatan as $child) {
+                $child->delete();
+            }
 
         });
     }
 
+    /**
+     * Nama disimpan huruf kecil (seperti data seeder) dan selalu ditampilkan huruf kapital.
+     */
     protected function name(): Attribute
     {
         return Attribute::make(
-            get: fn(string $value) => strtoupper($value),
-            set: fn(string $value) => strtolower($value),
+            get: fn (?string $value) => $value === null ? null : mb_strtoupper($value),
+            set: fn (?string $value) => $value === null ? null : mb_strtolower(trim($value)),
         );
     }
 
     public function provinsi()
     {
-        return $this->belongsTo(Provinsi::class)->select('id','name');
+        return $this->belongsTo(Provinsi::class)->select('id', 'name');
     }
 
     public function kecamatan()

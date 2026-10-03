@@ -90,7 +90,7 @@
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
                                                 <input name="email" type="email" class="form-control" id="email" placeholder="Alamat email" value="{{ old('email') }}" required autofocus>
-                                                <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
+                                                @error('email')<div class="text-danger mt-2 small">{{ $message }}</div>@enderror
                                             </div>
 
                                             <div class="mb-3">

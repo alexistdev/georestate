@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Admin\Master;
 
-use App\Rules\EncodedIdExists;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,11 +30,11 @@ class ProvinsiRequest extends FormRequest
     {
         if (in_array($this->method(), ['DELETE'])) {
             $rules = [
-                'provinsi_id' => ['required', 'max:255', new EncodedIdExists('provinsis')],
+                'provinsi_id' => ['required', 'integer', Rule::exists('provinsis', 'id')->withoutTrashed()],
             ];
         }else if(in_array($this->method(), ['PATCH'])){
             $rules = [
-                'provinsi_id' => ['required', 'max:255', new EncodedIdExists('provinsis')],
+                'provinsi_id' => ['required', 'integer', Rule::exists('provinsis', 'id')->withoutTrashed()],
                 'name' => 'required|max:255',
             ];
         }else{
@@ -50,12 +50,14 @@ class ProvinsiRequest extends FormRequest
         if (in_array($this->method(), ['DELETE'])) {
             $message = [
                 'provinsi_id.required' => "ID tidak ditemukan silahkan refresh halaman!",
-                'provinsi_id.numeric' => "ID tidak ditemukan silahkan refresh halaman!",
+                'provinsi_id.integer' => "ID tidak ditemukan silahkan refresh halaman!",
+                'provinsi_id.exists' => "ID tidak ditemukan silahkan refresh halaman!",
             ];
         }else if(in_array($this->method(), ['PATCH'])){
             $message = [
                 'provinsi_id.required' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
-                'provinsi_id.max' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
+                'provinsi_id.integer' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
+                'provinsi_id.exists' => "ID tidak ditemukan, silahkan refresh halaman atau login ulang!",
                 'name.required' => "Nama Provinsi wajib diisi!",
                 'name.max' => "Panjang karakter maksimal yang diperbolehkan adalah 255 karakter!",
             ];

@@ -7,9 +7,7 @@ use App\Http\Requests\Agen\PropertyRequest;
 use App\Models\Agent;
 use App\Models\Fasilitas;
 use App\Models\Gambar;
-use App\Models\Kabupaten;
 use App\Models\Kategori;
-use App\Models\Kecamatan;
 use App\Models\Property;
 use App\Models\Provinsi;
 use App\Services\Agen\PropertyService;
@@ -141,28 +139,6 @@ class ListingController extends Controller
         $this->propertyService->setGambarUtama($gambar);
 
         return back()->with(['success' => "Foto utama berhasil diubah."]);
-    }
-
-    public function getKabupaten($provinsi_id = null)
-    {
-        if ($provinsi_id != null) {
-            $provId = base64_decode($provinsi_id);
-            $provinsi = Provinsi::findOrFail($provId);
-            $result = Kabupaten::where('provinsi_id', $provinsi->id)->orderBy('name', 'ASC')
-                ->get();
-            return response()->json($result);
-        }
-        abort('404', 'NOT FOUND');
-    }
-
-    public function getKecamatan($kabupaten_id = null)
-    {
-        if ($kabupaten_id != null) {
-            $kabupaten = Kabupaten::findOrFail($kabupaten_id);
-            $result = Kecamatan::where('kabupaten_id', $kabupaten->id)->orderBy('name', 'ASC')->get();
-            return response()->json($result);
-        }
-        abort('404', 'NOT FOUND');
     }
 
     /**

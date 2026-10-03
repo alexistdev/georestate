@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Super\{DashboardController as DashSuper, AdminController as AdminSuper};
 use App\Http\Controllers\Admin\{DashboardController as DashAdmin,
@@ -10,7 +9,7 @@ use App\Http\Controllers\Admin\{DashboardController as DashAdmin,
     PesanController as PesanAdmin
 };
 use App\Http\Controllers\Admin\Master\{AgentController as AgentAdmin,
-    DisctricController as WilayahAdmin,
+    DistrictController as WilayahAdmin,
     FasilitasController as FasilitasAdmin,
     KategoriController as KategoriAdmin,
     UserController as UserAdmin
@@ -40,10 +39,6 @@ PropertiesController as FrontProp,
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
 /** Arahkan ke dashboard sesuai role user */
 Route::get('/dashboard', function () {
     return redirect(auth()->user()->homeUrl());
@@ -58,8 +53,6 @@ Route::middleware('auth')->group(function () {
             default => 'usr.password',
         });
     })->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
@@ -123,21 +116,21 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::delete('/staff/user/{user}', [UserAdmin::class, 'destroy'])->whereNumber('user')->name('adm.user.delete');
         Route::patch('/staff/user/{user}/password', [UserAdmin::class, 'resetPassword'])->whereNumber('user')->name('adm.user.password');
         Route::patch('/staff/user/{user}/pulihkan', [UserAdmin::class, 'restore'])->whereNumber('user')->withTrashed()->name('adm.user.restore');
-        Route::get('/staff/wilayah', [WilayahAdmin::class, 'index'])->name('adm.disctrict');
-        Route::post('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_store'])->name('adm.disctrict.provinsi.save');
-        Route::patch('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_update'])->name('adm.disctrict.provinsi.update');
-        Route::delete('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_destroy'])->name('adm.disctrict.provinsi.delete');
+        Route::get('/staff/wilayah', [WilayahAdmin::class, 'index'])->name('adm.wilayah');
+        Route::post('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_store'])->name('adm.wilayah.provinsi.save');
+        Route::patch('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_update'])->name('adm.wilayah.provinsi.update');
+        Route::delete('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_destroy'])->name('adm.wilayah.provinsi.delete');
 
-        Route::post('/staff/wilayah/kabupaten', [WilayahAdmin::class, 'kabupaten_store'])->name('adm.disctrict.kabupaten.save');
-        Route::patch('/staff/wilayah/kabupaten', [WilayahAdmin::class, 'kabupaten_update'])->name('adm.disctrict.kabupaten.update');
-        Route::delete('/staff/wilayah/kabupaten', [WilayahAdmin::class, 'kabupaten_destroy'])->name('adm.disctrict.kabupaten.delete');
+        Route::post('/staff/wilayah/kabupaten', [WilayahAdmin::class, 'kabupaten_store'])->name('adm.wilayah.kabupaten.save');
+        Route::patch('/staff/wilayah/kabupaten', [WilayahAdmin::class, 'kabupaten_update'])->name('adm.wilayah.kabupaten.update');
+        Route::delete('/staff/wilayah/kabupaten', [WilayahAdmin::class, 'kabupaten_destroy'])->name('adm.wilayah.kabupaten.delete');
 
-        Route::post('/staff/wilayah/kecamatan', [WilayahAdmin::class, 'kecamatan_store'])->name('adm.disctrict.kecamatan.save');
-        Route::patch('/staff/wilayah/kecamatan', [WilayahAdmin::class, 'kecamatan_update'])->name('adm.disctrict.kecamatan.update');
-        Route::delete('/staff/wilayah/kecamatan', [WilayahAdmin::class, 'kecamatan_destroy'])->name('adm.disctrict.kecamatan.delete');
+        Route::post('/staff/wilayah/kecamatan', [WilayahAdmin::class, 'kecamatan_store'])->name('adm.wilayah.kecamatan.save');
+        Route::patch('/staff/wilayah/kecamatan', [WilayahAdmin::class, 'kecamatan_update'])->name('adm.wilayah.kecamatan.update');
+        Route::delete('/staff/wilayah/kecamatan', [WilayahAdmin::class, 'kecamatan_destroy'])->name('adm.wilayah.kecamatan.delete');
 
         /** ajax */
-        Route::middleware(['clean', 'ajax'])->group(function () {
+        Route::middleware('ajax')->group(function () {
             Route::get('/staff/ajax/provinsi', [WilayahAdmin::class, 'get_provinsi'])->name('adm.ajax.provinsi');
             Route::get('/staff/ajax/kabupaten', [WilayahAdmin::class, 'get_kabupaten'])->name('adm.ajax.kabupaten');
             Route::get('/staff/ajax/kecamatan', [WilayahAdmin::class, 'get_kecamatan'])->name('adm.ajax.kecamatan');
@@ -155,8 +148,6 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/agent/lists', [ListAgen::class, 'index'])->name('agn.lists');
         Route::post('/agent/lists', [ListAgen::class, 'store'])->name('agn.lists.save');
         Route::get('/agent/lists/add', [ListAgen::class, 'create'])->name('agn.lists.add');
-        Route::get('/agent/lists/kabupaten/{id}', [ListAgen::class, 'getKabupaten'])->name('agn.lists.kabupaten');
-        Route::get('/agent/lists/kecamatan/{id}', [ListAgen::class, 'getKecamatan'])->name('agn.lists.kecamatan');
 
         Route::whereUuid('property')->group(function () {
             Route::get('/agent/lists/{property}', [ListAgen::class, 'show'])->name('agn.lists.show');

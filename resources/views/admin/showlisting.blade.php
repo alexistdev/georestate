@@ -76,6 +76,13 @@
                     <h5 class="fs-15">Alamat</h5>
                     <p class="text-muted">{{ $property->address ?: '-' }}</p>
 
+                    <h5 class="fs-15">Titik Lokasi</h5>
+                    @if($property->punyaKoordinat())
+                        <div class="mb-3"><x-peta-lokasi :property="$property" tinggi="260px" /></div>
+                    @else
+                        <p class="text-muted">Agen belum menandai lokasi di peta.</p>
+                    @endif
+
                     <h5 class="fs-15">Fasilitas</h5>
                     <div class="d-flex flex-wrap gap-2">
                         @forelse($property->fasilitas as $fasilitas)

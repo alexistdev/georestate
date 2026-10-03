@@ -83,6 +83,8 @@ class PropertyServiceImpl implements PropertyService
             'kategori_id' => $data['kategori'],
             'kecamatan_id' => $data['kecamatan'],
             'address' => $data['address'] ?? null,
+            'latitude' => isset($data['latitude']) ? round((float) $data['latitude'], 7) : null,
+            'longitude' => isset($data['longitude']) ? round((float) $data['longitude'], 7) : null,
             'lt' => $data['lt'],
             'lb' => $data['lb'],
             'beds' => $data['kamar_tidur'] ?? 0,

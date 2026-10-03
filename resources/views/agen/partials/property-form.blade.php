@@ -9,6 +9,8 @@
     $provinsiAwal = old('provinsi', $provinsiIdAwal);
     $kabupatenAwal = old('kabupaten', $kecamatanAwal?->kabupaten_id);
     $kecamatanIdAwal = old('kecamatan', $kecamatanAwal?->id);
+    $latAwal = old('latitude', $isEdit ? $property->latitude : null);
+    $lngAwal = old('longitude', $isEdit ? $property->longitude : null);
     // Setelah validasi gagal, pakai pilihan terakhir (bisa kosong); selain itu pakai data listing.
     $fasilitasTerpilih = array_map('intval', !empty(old())
         ? old('fasilitas', [])
@@ -165,6 +167,40 @@
                     </div>
                     @if($errors->has('fasilitas') || $errors->has('fasilitas.*'))
                         <div class="text-sm text-danger mt-1">{{ $errors->first('fasilitas') ?: $errors->first('fasilitas.*') }}</div>
+                    @endif
+                </div>
+            </div>
+            <!-- end card -->
+
+            <div class="card">
+                @include('partials.leaflet')
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Titik Lokasi di Peta <span class="text-muted fs-13 fw-normal">(opsional)</span></h5>
+                    <p class="text-muted mb-0 mt-1">
+                        Klik peta atau geser penanda ke lokasi properti. Titik ini ditampilkan di halaman publik
+                        agar pencari bisa melihat lokasi dan petunjuk arah.
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2 mb-2">
+                        <div class="col-md">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="cariLokasi" placeholder="Cari nama jalan, gedung, atau tempat terdekat"
+                                       aria-label="Cari lokasi di peta">
+                                <button class="btn btn-outline-primary" type="button" id="tombolCariLokasi"><i class="ri-search-line align-bottom"></i> Cari</button>
+                            </div>
+                        </div>
+                        <div class="col-md-auto d-flex gap-2">
+                            <button class="btn btn-soft-primary" type="button" id="tombolLokasiSaya"><i class="ri-focus-3-line align-bottom"></i> Lokasi Saya</button>
+                            <button class="btn btn-soft-danger" type="button" id="tombolHapusTitik"><i class="ri-delete-bin-line align-bottom"></i> Hapus Titik</button>
+                        </div>
+                    </div>
+                    <div id="petaPilihLokasi" class="peta-georestate" style="height: 360px;"></div>
+                    <input type="hidden" name="latitude" id="latitude" value="{{ $latAwal }}">
+                    <input type="hidden" name="longitude" id="longitude" value="{{ $lngAwal }}">
+                    <div class="mt-2 small"><span id="statusTitik" class="text-muted" aria-live="polite"></span></div>
+                    @if($errors->has('latitude') || $errors->has('longitude'))
+                        <div class="text-sm text-danger mt-1 errorMessage">{{ $errors->first('latitude') ?: $errors->first('longitude') }}</div>
                     @endif
                 </div>
             </div>
@@ -365,6 +401,109 @@
                         .attr('src', URL.createObjectURL(file))
                         .attr('alt', file.name);
                     preview.append($('<div class="col-4 col-md-3"></div>').append(img));
+                });
+            });
+        });
+    </script>
+    <script>
+        /** Pemilih titik lokasi (Leaflet + OpenStreetMap, pencarian lewat Nominatim) */
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputLat = document.getElementById('latitude');
+            const inputLng = document.getElementById('longitude');
+            const status = document.getElementById('statusTitik');
+            const peta = GeoPeta.buat('petaPilihLokasi');
+            let marker = null;
+
+            function tampilkanStatus(teks, kelas) {
+                status.textContent = teks;
+                status.className = kelas || 'text-muted';
+            }
+
+            function pasangTitik(latlng, zoom) {
+                const lat = Number(latlng.lat.toFixed(7));
+                const lng = Number(latlng.lng.toFixed(7));
+                if (!marker) {
+                    marker = L.marker([lat, lng], {draggable: true}).addTo(peta);
+                    marker.on('dragend', function () { pasangTitik(marker.getLatLng()); });
+                } else {
+                    marker.setLatLng([lat, lng]);
+                }
+                inputLat.value = lat;
+                inputLng.value = lng;
+                if (zoom) {
+                    peta.setView([lat, lng], zoom);
+                }
+                tampilkanStatus('Titik dipilih: ' + lat + ', ' + lng + ' — geser penanda jika kurang tepat.', 'text-success');
+            }
+
+            function hapusTitik() {
+                if (marker) {
+                    peta.removeLayer(marker);
+                    marker = null;
+                }
+                inputLat.value = '';
+                inputLng.value = '';
+                tampilkanStatus('Belum ada titik. Klik peta untuk menandai lokasi.');
+            }
+
+            /** Cari tempat lewat Nominatim (OpenStreetMap), dibatasi wilayah Indonesia. */
+            function cariTempat(kata) {
+                const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=id&q=' + encodeURIComponent(kata);
+                return fetch(url, {headers: {'Accept-Language': 'id'}})
+                    .then(function (r) { return r.ok ? r.json() : []; })
+                    .then(function (hasil) { return hasil.length ? L.latLng(hasil[0].lat, hasil[0].lon) : null; })
+                    .catch(function () { return null; });
+            }
+
+            if (inputLat.value && inputLng.value) {
+                pasangTitik(L.latLng(inputLat.value, inputLng.value), 16);
+            } else {
+                peta.setView(GeoPeta.config.pusat, GeoPeta.config.zoom);
+                hapusTitik();
+            }
+
+            peta.on('click', function (e) { pasangTitik(e.latlng); });
+            document.getElementById('tombolHapusTitik').addEventListener('click', hapusTitik);
+
+            const inputCari = document.getElementById('cariLokasi');
+            function jalankanCari() {
+                const kata = inputCari.value.trim();
+                if (!kata) { return; }
+                tampilkanStatus('Mencari "' + kata + '"...');
+                cariTempat(kata).then(function (titik) {
+                    if (titik) {
+                        pasangTitik(titik, 17);
+                    } else {
+                        tampilkanStatus('Tempat tidak ditemukan. Coba kata lain atau klik langsung di peta.', 'text-danger');
+                    }
+                });
+            }
+            document.getElementById('tombolCariLokasi').addEventListener('click', jalankanCari);
+            inputCari.addEventListener('keydown', function (e) {
+                // Enter mencari, bukan mengirim form.
+                if (e.key === 'Enter') { e.preventDefault(); jalankanCari(); }
+            });
+
+            document.getElementById('tombolLokasiSaya').addEventListener('click', function () {
+                if (!navigator.geolocation) {
+                    tampilkanStatus('Browser tidak mendukung lokasi.', 'text-danger');
+                    return;
+                }
+                tampilkanStatus('Mengambil lokasi Anda...');
+                navigator.geolocation.getCurrentPosition(
+                    function (pos) { pasangTitik(L.latLng(pos.coords.latitude, pos.coords.longitude), 17); },
+                    function () { tampilkanStatus('Lokasi tidak bisa diambil. Izinkan akses lokasi atau klik di peta.', 'text-danger'); },
+                    {enableHighAccuracy: true, timeout: 10000}
+                );
+            });
+
+            /** Saat kecamatan dipilih dan titik belum ada, arahkan peta ke kecamatan tersebut. */
+            $('#kecamatanX').on('change', function () {
+                if (marker || !this.value) { return; }
+                const nama = [$('#kecamatanX option:selected').text(), $('#kabupatenX option:selected').text(), $('#provinsiX option:selected').text()]
+                    .filter(function (t) { return t && t !== '=Pilih='; }).join(', ');
+                cariTempat(nama).then(function (titik) {
+                    if (titik && !marker) { peta.setView(titik, 14); }
                 });
             });
         });

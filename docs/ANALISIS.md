@@ -35,7 +35,7 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 | Agen: Profil Saya (data diri, wilayah, foto, email, password) + pengingat profil belum lengkap | ✅ Fase 5 |
 | Tanya agen (inquiry), kotak masuk agen, favorit, area Akun Saya pencari properti | ✅ Fase 4 |
 | Frontend publik (home, cari & filter properti, detail, agen, tentang, kontak) | ✅ Hanya listing `approved` dari agen yang tidak disuspend |
-| Peta lokasi | ⚠️ Kerangka saja (kolom koordinat + placeholder), dikerjakan di akhir project |
+| Peta lokasi | ✅ Fase 6C: agen menandai titik di peta (Leaflet + OSM), tampil di detail publik, detail agen, review admin |
 | Pesan form Kontak | ✅ Tersimpan di `contact_messages`; dibaca admin di `/staff/pesan` |
 | Test | ✅ Fondasi siap (SQLite in-memory, factory, test role & wilayah) |
 
@@ -74,7 +74,7 @@ Catatan implementasi: kolom `price` dan tabel `features` dihapus; foto di disk `
 7. `DemoListingSeeder`: 3 agen tambahan (`agen2..4@gmail.com`, password `1234`) + 12 listing disetujui + 1 pending + 1 ditolak, foto dibuat dengan GD. Hanya jalan di `APP_ENV=local`.
 8. Test: `tests/Feature/Front/*`, `tests/Unit/AgentPhoneTest.php`.
 
-Kerangka peta (dikerjakan setelah project selesai): kolom `properties.latitude/longitude` (nullable) + partial `front/partials/peta-lokasi.blade.php` berisi TODO. Langkah lanjut: input titik di form agen, muat Leaflet/OSM, render marker.
+Kerangka peta: kolom `properties.latitude/longitude` (nullable). *(Diaktifkan di Fase 6C.)*
 
 ### Lisensi GeoLicense ✅ TERPASANG
 Plugin dari `geolicense/CLIENT/LARAVEL` (server: https://geolicense.my.id). File: `config/geolicense.php`, `app/Services/GeoLicense/*`, `app/Http/Middleware/LicenseValidationMiddleware.php` (global), `app/Providers/GeoLicenseServiceProvider.php`, command `geolicense:verify` (dijadwalkan per jam di `routes/console.php`), halaman `resources/views/errors/license.blade.php`.
@@ -167,10 +167,17 @@ Keputusan: logo sementara wordmark teks; peta Leaflet + OpenStreetMap; "Lupa pas
 - Timezone `Asia/Jakarta` (bisa diubah lewat `APP_TIMEZONE`).
 - Test: `tests/Feature/Admin/DistrictTest.php` (ID asli, server-side, halaman wilayah).
 
-**6C–6D (belum):**
-1. Aktifkan peta lokasi Leaflet + OSM (lihat kerangka di Fase 2) — 6C.
-2. CI (`pint --test` + `php artisan test`), checklist `.env` produksi, cron, email/SMTP, panduan deploy — 6D.
-3. Bersihkan aset `public/template` (±242 MB) yang terbukti tidak dipakai — 6D.
+**6C ✅ SELESAI — Peta lokasi**
+- Leaflet 1.9.4 (cdnjs, dengan SRI) + tile OpenStreetMap. Aset & konfigurasi dimuat sekali lewat `partials/leaflet.blade.php` (`window.GeoPeta`); tile/atribusi/pusat awal di `config/georestate.php` → `peta` (`GEORESTATE_PETA_TILE_URL`, `GEORESTATE_PETA_ATRIBUSI`).
+- Form listing agen: kartu "Titik Lokasi di Peta" (opsional) — klik peta / geser penanda, cari tempat (Nominatim, dibatasi Indonesia), "Lokasi Saya" (geolocation), "Hapus Titik". Saat kecamatan dipilih dan titik belum ada, peta diarahkan ke kecamatan tersebut.
+- Validasi: lintang & bujur wajib berpasangan dan berada di wilayah Indonesia (`Property::BATAS_LINTANG/BATAS_BUJUR`). Mengubah titik ikut mengembalikan listing ke Menunggu Persetujuan (seperti edit lainnya).
+- Komponen `<x-peta-lokasi :property>`: peta baca-saja + tautan petunjuk arah Google Maps & OpenStreetMap; dipakai di detail properti publik, detail listing agen, dan tinjau listing admin. Tanpa titik, halaman publik menampilkan alamat + catatan dan Leaflet tidak dimuat.
+- Test: `tests/Feature/PetaLokasiTest.php`.
+- Catatan: tile OSM & Nominatim gratis untuk trafik kecil; untuk trafik besar ganti `GEORESTATE_PETA_TILE_URL` ke penyedia tile lain. Listing demo seeder belum punya titik (isi lewat form edit).
+
+**6D (belum):**
+1. CI (`pint --test` + `php artisan test`), checklist `.env` produksi, cron, email/SMTP, panduan deploy — 6D.
+2. Bersihkan aset `public/template` (±242 MB) yang terbukti tidak dipakai — 6D.
 
 ## 5. Utang teknis yang diketahui
 

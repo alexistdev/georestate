@@ -104,7 +104,7 @@
                                     <td>
                                         {{ $property->address ?: '-' }}<br>
                                         <span class="text-2">{{ $property->lokasi() }}</span><br>
-                                        <a href="#map" class="text-2" data-hash data-hash-offset="0" data-hash-offset-lg="100">(Lihat lokasi)</a>
+                                        <a href="#map" class="text-2" data-hash data-hash-offset="0" data-hash-offset-lg="100">{{ $property->punyaKoordinat() ? "(Lihat di peta)" : "(Lihat lokasi)" }}</a>
                                     </td>
                                 </tr>
                                 <tr>

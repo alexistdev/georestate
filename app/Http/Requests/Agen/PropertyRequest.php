@@ -42,6 +42,9 @@ class PropertyRequest extends FormRequest
             'fasilitas.*' => 'integer|distinct|exists:fasilitas,id,deleted_at,NULL',
             'kecamatan' => 'required|integer|exists:kecamatans,id,deleted_at,NULL',
             'address' => 'nullable|string|max:255',
+            // Titik peta opsional, tetapi lintang & bujur harus diisi berpasangan dan berada di Indonesia.
+            'latitude' => ['nullable', 'required_with:longitude', 'numeric', 'between:'.implode(',', Property::BATAS_LINTANG)],
+            'longitude' => ['nullable', 'required_with:latitude', 'numeric', 'between:'.implode(',', Property::BATAS_BUJUR)],
             // Foto wajib minimal 1 saat tambah; saat edit opsional (menambah foto).
             'gambar' => [$this->isMethod('POST') ? 'required' : 'nullable', 'array', 'max:'.Property::MAX_GAMBAR],
             'gambar.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -103,6 +106,12 @@ class PropertyRequest extends FormRequest
             'kecamatan.integer' => "Kecamatan tidak valid!",
             'kecamatan.exists' => "Kecamatan tidak ditemukan!",
             'address.max' => "Panjang karakter maksimal yang diperbolehkan adalah 255 karakter!",
+            'latitude.required_with' => "Titik lokasi tidak lengkap, silahkan pilih ulang di peta!",
+            'longitude.required_with' => "Titik lokasi tidak lengkap, silahkan pilih ulang di peta!",
+            'latitude.numeric' => "Titik lokasi tidak valid!",
+            'longitude.numeric' => "Titik lokasi tidak valid!",
+            'latitude.between' => "Titik lokasi harus berada di wilayah Indonesia!",
+            'longitude.between' => "Titik lokasi harus berada di wilayah Indonesia!",
             'gambar.required' => "Upload minimal 1 foto properti!",
             'gambar.max' => "Maksimal ".Property::MAX_GAMBAR." foto per listing!",
             'gambar.*.image' => "File harus berupa gambar!",

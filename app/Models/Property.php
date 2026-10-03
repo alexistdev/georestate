@@ -25,7 +25,7 @@ class Property extends Model
     public const MAX_GAMBAR = 10;
 
     protected $fillable = [
-        'agent_id', 'name', 'kecamatan_id', 'kategori_id', 'address', 'description',
+        'agent_id', 'name', 'kecamatan_id', 'kategori_id', 'address', 'latitude', 'longitude', 'description',
         'beds', 'baths', 'lb', 'lt', 'harga_harian', 'harga_bulanan', 'harga_tahunan',
         'isPremium', 'isPremium_expired',
     ];
@@ -38,7 +38,15 @@ class Property extends Model
         'harga_harian' => 'integer',
         'harga_bulanan' => 'integer',
         'harga_tahunan' => 'integer',
+        'latitude' => 'float',
+        'longitude' => 'float',
     ];
+
+    /**
+     * Batas koordinat wilayah Indonesia (dengan sedikit kelonggaran) untuk validasi titik peta.
+     */
+    public const BATAS_LINTANG = [-11.5, 6.5];
+    public const BATAS_BUJUR = [94.5, 141.5];
 
     protected $attributes = [
         'status' => 'pending',
@@ -186,6 +194,18 @@ class Property extends Model
     public function punyaKoordinat(): bool
     {
         return $this->latitude !== null && $this->longitude !== null;
+    }
+
+    /**
+     * Tautan petunjuk arah Google Maps ke titik listing (null jika belum ada titik).
+     */
+    public function urlPetunjukArah(): ?string
+    {
+        if (!$this->punyaKoordinat()) {
+            return null;
+        }
+
+        return 'https://www.google.com/maps/dir/?api=1&destination='.$this->latitude.','.$this->longitude;
     }
 
     /**

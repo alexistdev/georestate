@@ -1,26 +1,22 @@
 {{--
-    KERANGKA PETA LOKASI (belum aktif).
-    Data: kolom properties.latitude & properties.longitude (nullable, belum diisi lewat form agen).
-
-    TODO (dikerjakan setelah fitur utama selesai, lihat docs/ANALISIS.md):
-    1. Tambah input koordinat / pilih titik peta di form listing agen.
-    2. Muat library peta (mis. Leaflet + OpenStreetMap) lewat @push('customCSS') dan @push('customJS').
-    3. Render marker di #petaLokasi memakai data-lat & data-lng.
-
+    Peta lokasi di halaman detail properti (Leaflet + OpenStreetMap).
+    Titik diisi agen di form listing; jika belum ada, tampil alamat saja.
     Variabel: $property
 --}}
 <div id="map">
     <h3 class="mt-5 mb-3">Lokasi</h3>
-    <div id="petaLokasi"
-         class="border-radius overflow-hidden mt-0 mb-4 bg-color-grey d-flex align-items-center justify-content-center text-center p-4"
-         style="min-height: 240px;"
-         @if($property->punyaKoordinat())
-             data-lat="{{ $property->latitude }}" data-lng="{{ $property->longitude }}"
-         @endif>
-        <div>
-            <i class="icons icon-map text-color-secondary text-8 d-block mb-2"></i>
-            <strong class="d-block text-dark">{{ $property->lokasi() ?: 'Lokasi belum diatur' }}</strong>
-            <span class="text-2">Peta lokasi akan segera tersedia.</span>
+    @if($property->punyaKoordinat())
+        <x-peta-lokasi :property="$property" tinggi="360px" class="mb-1" id="petaLokasi" />
+        <p class="text-2 mt-2 mb-4">{{ collect([$property->address, $property->lokasi()])->filter()->implode(', ') }}</p>
+    @else
+        <div id="petaLokasi"
+             class="border-radius overflow-hidden mt-0 mb-4 bg-color-grey d-flex align-items-center justify-content-center text-center p-4"
+             style="min-height: 160px;">
+            <div>
+                <i class="icons icon-map text-color-secondary text-8 d-block mb-2"></i>
+                <strong class="d-block text-dark">{{ $property->lokasi() ?: 'Lokasi belum diatur' }}</strong>
+                <span class="text-2">Agen belum menandai titik lokasi di peta. Tanyakan detail lokasi kepada agen.</span>
+            </div>
         </div>
-    </div>
+    @endif
 </div>

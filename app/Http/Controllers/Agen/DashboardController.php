@@ -40,6 +40,11 @@ class DashboardController extends Controller
                 ->get(),
             'hariNotifikasi' => self::HARI_NOTIFIKASI,
             'pertanyaanBaru' => $agent->inquiries()->where('status', InquiryStatus::Baru)->count(),
+            'profilKurang' => array_keys(array_filter([
+                'foto profil' => empty($agent->gambar),
+                'wilayah (kecamatan)' => empty($agent->kecamatan_id),
+                'deskripsi Tentang Saya' => empty($agent->about),
+            ])),
         ));
     }
 }

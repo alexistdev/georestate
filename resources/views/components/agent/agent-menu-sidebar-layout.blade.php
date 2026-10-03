@@ -20,6 +20,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link menu-link @if($menuUtama == "profil") active @endif" href="{{ route('agn.profil') }}">
+                <i class="bx bx-user-circle"></i> <span>Profil Saya</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link menu-link" href="{{ route('front.home') }}" target="_blank" rel="noopener">
                 <i class="bx bx-globe"></i> <span>Lihat Website</span>
             </a>

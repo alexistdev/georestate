@@ -11,6 +11,16 @@
         </div>
     </div>
 
+    @if($profilKurang !== [])
+        <div class="alert alert-warning d-flex flex-wrap align-items-center gap-2">
+            <div class="flex-grow-1">
+                <strong>Lengkapi profil Anda</strong> agar calon penyewa lebih percaya.
+                Belum diisi: {{ implode(', ', $profilKurang) }}.
+            </div>
+            <a href="{{ route('agn.profil') }}" class="btn btn-sm btn-warning text-dark">Lengkapi Profil</a>
+        </div>
+    @endif
+
     @if($pertanyaanBaru > 0)
         <div class="alert alert-info d-flex flex-wrap align-items-center gap-2">
             <div class="flex-grow-1"><strong>{{ $pertanyaanBaru }} pertanyaan baru</strong> dari calon penyewa menunggu balasan Anda.</div>

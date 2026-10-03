@@ -10,6 +10,8 @@ use App\Services\Admin\ModerasiService;
 use App\Services\Admin\ModerasiServiceImpl;
 use App\Services\Agen\PropertyService;
 use App\Services\Agen\PropertyServiceImpl;
+use App\Services\Agen\ProfilService;
+use App\Services\Agen\ProfilServiceImpl;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         DistrictService::class => DisctrictServiceImpl::class,
         ModerasiService::class => ModerasiServiceImpl::class,
         PropertyService::class => PropertyServiceImpl::class,
+        ProfilService::class => ProfilServiceImpl::class,
     ];
 
     public function register(): void

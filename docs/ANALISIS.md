@@ -1,6 +1,6 @@
 # Analisis & Roadmap — GeoRestate
 
-_Terakhir diperbarui: 3 Oktober 2026 (Fase 0–4 selesai)._
+_Terakhir diperbarui: 3 Oktober 2026 (Fase 0–5 selesai)._
 
 ## 1. Ringkasan
 
@@ -32,7 +32,7 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 | Admin: master kategori & fasilitas (tambah, ubah, hapus, pulihkan) | ✅ Fase 3C |
 | Agen: CRUD listing (milik sendiri), harga per periode, fasilitas, foto, status | ✅ |
 | Agen: dashboard (jumlah per status + notifikasi disetujui/ditolak) | ✅ |
-| Agen: profil | ❌ |
+| Agen: Profil Saya (data diri, wilayah, foto, email, password) + pengingat profil belum lengkap | ✅ Fase 5 |
 | Tanya agen (inquiry), kotak masuk agen, favorit, area Akun Saya pencari properti | ✅ Fase 4 |
 | Frontend publik (home, cari & filter properti, detail, agen, tentang, kontak) | ✅ Hanya listing `approved` dari agen yang tidak disuspend |
 | Peta lokasi | ⚠️ Kerangka saja (kolom koordinat + placeholder), dikerjakan di akhir project |
@@ -133,8 +133,15 @@ Keputusan: tanya agen boleh tanpa login; favorit wajib login; status Baru / Suda
 - `App\Support\Telepon` untuk format nomor/WhatsApp (dipakai Agent & Inquiry). DemoListingSeeder menambah 2 pertanyaan & 2 favorit contoh.
 - Test: `tests/Feature/InquiryTest.php`, `tests/Feature/FavoritTest.php`.
 
-### Fase 5 — Profil agen
-Foto, telepon, alamat, wilayah (kecamatan), about. Ganti halaman profil Breeze/Tailwind. (Premium ditunda.)
+### Fase 5 — Profil agen ✅ SELESAI
+Keputusan: foto dipotong otomatis di tengah; ganti email wajib password saat ini; telepon tetap wajib; pengingat profil tidak memblokir; `/profile` Breeze dialihkan sesuai peran. (Premium tetap ditunda.)
+- Profil Saya `/agent/profil` (menu sidebar & topbar): nama, telepon/WhatsApp (wajib, format divalidasi), alamat, wilayah berantai (memakai endpoint `front.wilayah.*`), Tentang Saya, foto profil (JPG/PNG/WebP ≤ 2 MB, disimpan di `storage/app/public/agents/{id}`; foto lama dihapus saat diganti). Service `Agen\ProfilService`.
+- Ganti email (`PATCH /agent/profil/email`, wajib password saat ini) & ubah password (route bawaan `password.update`) di halaman yang sama.
+- Dashboard agen: pengingat jika foto, kecamatan, atau Tentang Saya masih kosong.
+- Topbar agen: foto, nama, peran, Profil Saya, Ubah Password, Logout (data contoh template dihapus).
+- Foto agen di website ditampilkan bulat & terpotong rapi (`object-fit: cover`).
+- `GET /profile` (Breeze) dialihkan: agen → Profil Saya, admin/super → Ubah Password, pencari → Akun Saya. Route `PATCH/DELETE /profile` bawaan Breeze masih ada.
+- Test: `tests/Feature/Agen/ProfilTest.php`.
 
 ### Fase 6 — Polish & deploy
 1. Ganti sisa halaman Breeze/Tailwind (lupa password, reset, verifikasi email, profil) ke Bootstrap; setelah itu `npm run build` tidak wajib lagi.

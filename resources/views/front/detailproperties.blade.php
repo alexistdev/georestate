@@ -158,7 +158,7 @@
                             <div class="card-body bg-transparent p-relative p-4 my-2 text-center z-index-1">
                                 <h3 class="text-color-light font-weight-semibold text-5 d-block mb-4">Hubungi Agen</h3>
                                 <a href="{{ route('front.agents.detail', $agent) }}" class="text-decoration-none">
-                                    <img alt="{{ $agent->hasUser->name ?? 'Agen' }}" class="img-fluid rounded-circle m-auto" src="{{ $agent->fotoUrl() }}" style="max-width: 110px;" onerror="this.onerror=null;this.src='{{ asset(\App\Models\Agent::FOTO_DEFAULT) }}'">
+                                    <img alt="{{ $agent->hasUser->name ?? 'Agen' }}" class="img-fluid rounded-circle m-auto" src="{{ $agent->fotoUrl() }}" style="width: 110px; height: 110px; object-fit: cover;" onerror="this.onerror=null;this.src='{{ asset(\App\Models\Agent::FOTO_DEFAULT) }}'">
                                     <strong class="text-color-light font-weight-semibold text-4 line-height-5 d-block mt-3 mb-1 text-center">{{ $agent->hasUser->name ?? 'Agen' }}</strong>
                                 </a>
                                 @if($agent->teleponUrl())

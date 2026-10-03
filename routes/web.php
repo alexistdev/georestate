@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin\Master\{AgentController as AgentAdmin,
     UserController as UserAdmin
 };
 
-use App\Http\Controllers\Agen\{DashboardController as DashAgen, ListingController as ListAgen, InquiryController as InquiryAgen};
+use App\Http\Controllers\Agen\{DashboardController as DashAgen, ListingController as ListAgen, InquiryController as InquiryAgen, ProfilController as ProfilAgen};
 use App\Http\Controllers\User\AkunController as AkunUser;
 
 use App\Http\Controllers\Front\{HomeController as FrontHome,
@@ -49,7 +49,14 @@ Route::get('/dashboard', function () {
 })->middleware('auth')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    /** Halaman profil Breeze tidak dipakai: arahkan ke halaman profil/akun sesuai peran. */
+    Route::get('/profile', function () {
+        return redirect()->route(match (auth()->user()->roleEnum()) {
+            \App\Enums\Role::Agen => 'agn.profil',
+            \App\Enums\Role::Admin, \App\Enums\Role::Super => 'adm.password',
+            default => 'usr.password',
+        });
+    })->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -135,6 +142,9 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     });
 
     Route::group(['roles' => 'agen'], function () {
+        Route::get('/agent/profil', [ProfilAgen::class, 'edit'])->name('agn.profil');
+        Route::patch('/agent/profil', [ProfilAgen::class, 'update'])->name('agn.profil.update');
+        Route::patch('/agent/profil/email', [ProfilAgen::class, 'updateEmail'])->name('agn.profil.email');
         Route::get('/agent/pertanyaan', [InquiryAgen::class, 'index'])->name('agn.pertanyaan');
         Route::get('/agent/pertanyaan/{inquiry}', [InquiryAgen::class, 'show'])->whereNumber('inquiry')->name('agn.pertanyaan.show');
         Route::patch('/agent/pertanyaan/{inquiry}/status', [InquiryAgen::class, 'updateStatus'])->whereNumber('inquiry')->name('agn.pertanyaan.status');

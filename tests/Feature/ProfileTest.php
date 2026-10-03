@@ -10,15 +10,13 @@ class ProfileTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_profile_page_is_displayed(): void
+    public function test_profile_page_redirects_by_role(): void
     {
-        $user = User::factory()->create();
-
-        $response = $this
-            ->actingAs($user)
-            ->get('/profile');
-
-        $response->assertOk();
+        // Halaman profil Breeze tidak dipakai; /profile diarahkan ke halaman profil/akun sesuai peran.
+        $this->actingAs(User::factory()->create())->get('/profile')->assertRedirect(route('usr.password'));
+        $this->actingAs(User::factory()->admin()->create())->get('/profile')->assertRedirect(route('adm.password'));
+        $this->actingAs(User::factory()->super()->create())->get('/profile')->assertRedirect(route('adm.password'));
+        $this->actingAs(\App\Models\Agent::factory()->create()->hasUser)->get('/profile')->assertRedirect(route('agn.profil'));
     }
 
     public function test_profile_information_can_be_updated(): void

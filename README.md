@@ -18,6 +18,20 @@ GeoRestate is a web application for listing rental properties: boarding houses (
 
 The user interface is in Indonesian.
 
+## Screenshots
+
+**Home page**: quick search and the latest listings.
+
+![Home page](images/gambar1.png)
+
+**Property detail**: prices, specifications, and contact buttons (WhatsApp/phone) for the agent.
+
+![Property detail](images/gambar2.png)
+
+**Agent panel**: listing detail with approval status, location map, and facilities.
+
+![Agent panel - listing detail](images/gambar3.png)
+
 ## Tech Stack
 
 | | |

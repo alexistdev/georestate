@@ -414,3 +414,248 @@ a:hover .kartu-kategori {
         background: #1c5fa8;
     }
 }
+
+/* ---------- Footer ---------- */
+#footer.footer-georestate {
+    position: relative;
+    margin-top: 60px !important;
+    border-top: 0;
+    background-color: #0f3b73;
+    background-image:
+        radial-gradient(circle at 90% 10%, rgba(92, 195, 255, .18) 0, rgba(92, 195, 255, 0) 40%),
+        radial-gradient(circle at 5% 100%, rgba(255, 159, 28, .12) 0, rgba(255, 159, 28, 0) 35%),
+        url("../images/hero/pola-peta-terang.svg"),
+        linear-gradient(180deg, #0f3b73 0%, #0b2a52 100%);
+    background-size: auto, auto, 240px 240px, auto;
+    color: rgba(255, 255, 255, .72);
+    font-size: 14px;
+}
+
+/* Gelombang di atas footer; latar halaman di atasnya tetap terlihat */
+.footer-georestate__gelombang {
+    position: absolute;
+    top: -59px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    pointer-events: none;
+}
+
+.footer-georestate__teks {
+    max-width: 360px;
+    color: rgba(255, 255, 255, .72);
+    line-height: 1.7;
+}
+
+#footer .footer-georestate__judul {
+    position: relative;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+#footer .footer-georestate__judul::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 28px;
+    height: 3px;
+    border-radius: 3px;
+    background: #ff9f1c;
+}
+
+.footer-georestate__tautan li + li {
+    margin-top: 10px;
+}
+
+#footer .footer-georestate__tautan a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, .78);
+    text-decoration: none;
+    transition: color .15s ease, transform .15s ease;
+}
+
+#footer .footer-georestate__tautan a::before {
+    content: "\f054";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 9px;
+    color: #5cc3ff;
+}
+
+#footer .footer-georestate__tautan a:hover {
+    color: #fff;
+    transform: translateX(4px);
+}
+
+.footer-georestate__kontak li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.footer-georestate__kontak li + li {
+    margin-top: 12px;
+}
+
+.footer-georestate__kontak i {
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .1);
+    color: #ffc85c;
+    font-size: 13px;
+    line-height: 32px;
+    text-align: center;
+}
+
+.footer-georestate__kontak span,
+#footer .footer-georestate__kontak a {
+    padding-top: 6px;
+    color: rgba(255, 255, 255, .85);
+    text-decoration: none;
+}
+
+#footer .footer-georestate__kontak a:hover {
+    color: #fff;
+}
+
+.footer-georestate__ajakan {
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .07);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+#footer .footer-georestate__ajakan h5 {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.footer-georestate__ajakan p {
+    color: rgba(255, 255, 255, .72);
+    line-height: 1.6;
+}
+
+.footer-georestate__ajakan-ikon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ffc85c, #ff9f1c);
+    color: #fff;
+    font-size: 18px;
+    box-shadow: 0 8px 18px rgba(255, 159, 28, .35);
+}
+
+#footer .footer-georestate__tombol {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: #ff9f1c;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(255, 159, 28, .35);
+    transition: background-color .15s ease, transform .15s ease;
+}
+
+#footer .footer-georestate__tombol:hover {
+    background: #f08c00;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+#footer.footer-georestate p {
+    color: inherit;
+}
+
+.footer-georestate__bawah {
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    background: rgba(0, 0, 0, .15);
+    color: rgba(255, 255, 255, .6);
+    font-size: 13px;
+}
+
+#footer .footer-georestate__bawah a {
+    color: rgba(255, 255, 255, .8);
+}
+
+#footer .footer-georestate__bawah a:hover {
+    color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #footer .footer-georestate__tautan a,
+    #footer .footer-georestate__tombol { transition: none; }
+}
+
+/* ---------- Header halaman (Properti, Agen, Tentang, Kontak) ---------- */
+.page-header.page-header-georestate {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 40px;
+    background:
+        radial-gradient(circle at 85% 0%, rgba(92, 195, 255, .35) 0, rgba(92, 195, 255, 0) 45%),
+        radial-gradient(circle at 5% 100%, rgba(255, 159, 28, .16) 0, rgba(255, 159, 28, 0) 40%),
+        linear-gradient(135deg, #0f3b73 0%, #1c5fa8 55%, #2b7fd1 100%);
+}
+
+.page-header.page-header-georestate::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, .14) 1.2px, transparent 1.2px);
+    background-size: 22px 22px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 50%, #000 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 50%, #000 100%);
+    pointer-events: none;
+}
+
+.page-header-georestate__gelombang {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 50px;
+    pointer-events: none;
+}
+
+/* Kartu formulir (halaman Kontak) di atas latar bermotif */
+.bagian-listing .custom-card-info.bg-color-quaternary {
+    background: #fff !important;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 8px 24px rgba(28, 95, 168, .08);
+}
+
+.bagian-listing .custom-card-info.bg-color-quaternary .card-body {
+    background: transparent;
+}
+
+.bagian-listing .custom-card-info.bg-color-quaternary .form-control {
+    border: 1px solid #dbe6f3 !important;
+    border-radius: 8px;
+    background: #f5f9fd !important;
+}
+
+.bagian-listing .custom-card-info.bg-color-quaternary .form-control:focus {
+    border-color: #1c5fa8 !important;
+    background: #fff !important;
+    box-shadow: 0 0 0 3px rgba(28, 95, 168, .12) !important;
+}

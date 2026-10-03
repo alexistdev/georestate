@@ -1,5 +1,5 @@
 <x-front.front-end-template :title="$judul" :main-label="$menuUtama" :secondary-label="$menuKedua">
-    <section class="page-header page-header-modern bg-color-primary border-0 m-0">
+    <section class="page-header page-header-modern page-header-georestate border-0 m-0">
         <div class="container position-relative z-index-2">
             <div class="row text-center text-md-start py-5">
                 <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
@@ -88,9 +88,13 @@
                 <input type="hidden" name="urut" value="{{ $filter['urut'] ?? '' }}" id="filterUrut">
             </div>
         </form>
+        <svg class="page-header-georestate__gelombang" viewBox="0 0 1440 50" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 30 C 240 55, 480 5, 720 25 S 1200 50, 1440 15 L1440 50 L0 50 Z" fill="#f3f7fc"/>
+        </svg>
     </section>
 
-    <div class="container py-5 my-3">
+    <section class="bagian-listing">
+    <div class="container py-5">
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
             <h2 class="mb-0 text-6">
                 {{ $dataProperties->total() }} <span class="text-color-secondary">properti</span> ditemukan
@@ -136,6 +140,7 @@
             </div>
         @endif
     </div>
+    </section>
 
     <section class="section section-height-3 bg-secondary border-0 m-0">
         <div class="container">

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <g fill="none" stroke="#ffffff" stroke-opacity=".04" stroke-width="2" stroke-linecap="round">
+    <path d="M0 60 H240"/>
+    <path d="M0 170 C 60 150, 110 200, 160 175 S 220 150, 240 160"/>
+    <path d="M70 0 V240"/>
+    <path d="M180 0 C 170 60, 200 100, 185 150 S 175 220, 182 240"/>
+    <path d="M70 60 L180 170" stroke-dasharray="4 8"/>
+  </g>
+  <g fill="#ffffff" fill-opacity=".025">
+    <rect x="86" y="74" width="34" height="22" rx="3"/>
+    <rect x="128" y="74" width="22" height="34" rx="3"/>
+    <rect x="12" y="80" width="44" height="26" rx="3"/>
+    <rect x="196" y="190" width="30" height="30" rx="3"/>
+    <rect x="96" y="196" width="40" height="24" rx="3"/>
+  </g>
+  <g fill="#ffc85c" fill-opacity=".08">
+    <path d="M140 140 c-7 -8 -10 -12 -10 -17 a10 10 0 0 1 20 0 c0 5 -3 9 -10 17z"/>
+  </g>
+</svg>

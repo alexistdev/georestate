@@ -175,12 +175,13 @@ Keputusan: logo sementara wordmark teks; peta Leaflet + OpenStreetMap; "Lupa pas
 - Test: `tests/Feature/PetaLokasiTest.php`.
 - Catatan: tile OSM & Nominatim gratis untuk trafik kecil; untuk trafik besar ganti `GEORESTATE_PETA_TILE_URL` ke penyedia tile lain. Listing demo seeder belum punya titik (isi lewat form edit).
 
-**6D (belum):**
-1. CI (`pint --test` + `php artisan test`), checklist `.env` produksi, cron, email/SMTP, panduan deploy — 6D.
-2. Bersihkan aset `public/template` (±242 MB) yang terbukti tidak dipakai — 6D.
+**6D ✅ SELESAI — Bersihkan aset template**
+Keputusan: project dijadikan repo publik untuk portofolio, jadi persiapan produksi (panduan deploy, CI, SMTP, seeder produksi) tidak dikerjakan.
+- `public/template` dari ±242 MB / 10.694 file menjadi ±18 MB / 125 file. Yang disimpan hanya file yang dirujuk view + font/gambar yang dirujuk CSS-nya (dihitung otomatis), lalu diverifikasi dengan membuka 40 halaman (publik, auth, admin, super, agen) di browser: tidak ada file template yang 404.
+- Include library yang tidak dipakai dibuang dari layout: ApexCharts, jsvectormap, Swiper (admin/agen), dan `view.contact.js` (website).
+- Jika menambah halaman yang butuh plugin template lain (mis. chart), ambil dari paket template asli atau CDN; file-file itu sudah tidak ada di repo.
 
 ## 5. Utang teknis yang diketahui
 
 - Data `created_at` lama yang dibuat sebelum 6B tersimpan dalam UTC; setelah timezone diganti ke WIB, waktunya tampil 7 jam lebih awal. Tidak masalah untuk data dev (`migrate:fresh --seed`).
 - Halaman login & daftar masih memakai foto latar stok dari template Velzon (`auth-one-bg`); ganti jika ingin foto sendiri.
-- Gambar demo template Porto (`template/frontend/img/demos/real-estate/**`: slider, background, listing, generic) ternyata PNG kosong/transparan, jadi tidak dipakai lagi di halaman publik.

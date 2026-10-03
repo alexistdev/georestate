@@ -1,7 +1,4 @@
 <div>
-    <!-- plugin css -->
-    <link href="{{asset('template/admin/assets/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css" />
-
     <!-- Layout config Js -->
     <script src="{{asset('template/admin/assets/js/layout.js')}}"></script>
     <!-- Bootstrap Css -->

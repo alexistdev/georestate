@@ -5,9 +5,6 @@
     <!-- Theme Base, Components and Settings -->
     <script src="{{asset('template/frontend/js/theme.js')}}"></script>
 
-    <!-- Current Page Vendor and Views -->
-    <script src="{{asset('template/frontend/js/views/view.contact.js')}}"></script>
-
     <!-- Demo -->
     <script src="{{asset('template/frontend/js/demos/demo-real-estate.js')}}"></script>
 

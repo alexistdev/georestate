@@ -1,6 +1,6 @@
 # Analisis & Roadmap — GeoRestate
 
-_Terakhir diperbarui: 3 Oktober 2026 (Fase 0–5 selesai)._
+_Terakhir diperbarui: 3 Oktober 2026 (Fase 0–5 dan 6A selesai)._
 
 ## 1. Ringkasan
 
@@ -144,23 +144,35 @@ Keputusan: foto dipotong otomatis di tengah; ganti email wajib password saat ini
 - Test: `tests/Feature/Agen/ProfilTest.php`.
 
 ### Fase 6 — Polish & deploy
-1. Ganti sisa halaman Breeze/Tailwind (lupa password, reset, verifikasi email, profil) ke Bootstrap; setelah itu `npm run build` tidak wajib lagi.
+Keputusan: logo sementara wordmark teks; peta Leaflet + OpenStreetMap; "Lupa password" disembunyikan sampai email disiapkan (admin mereset dari panel); timezone Asia/Jakarta; hapus hanya aset template yang terbukti tidak dipakai. Target server (shared hosting/VPS) ditanyakan di 6D.
+
+**6A ✅ SELESAI — Tampilan & branding**
+- Logo wordmark SVG `public/images/logo/` (logo-dark, logo-light, logo-icon) + favicon (`favicon.svg`, `favicon.ico`, PNG 32 & apple-touch 180) lewat partial `partials/favicon`; dipasang di website, panel admin/agen, login/daftar, halaman error. Ganti file di folder itu untuk memakai logo resmi.
+- Topbar admin & agen ditulis ulang tanpa contoh template (pencarian, menu aplikasi, notifikasi palsu, keranjang); tersisa logo, menu, layar penuh, mode gelap, menu user.
+- Halaman login: carousel testimoni template diganti keunggulan GeoRestate, teks berbahasa Indonesia.
+- Halaman lupa password, reset password, verifikasi email, konfirmasi password memakai komponen Bootstrap `<x-auth-card>` (tanpa `npm run build`). "Lupa password?" hanya tampil jika `App\Support\Fitur::emailAktif()` (mailer bukan log/array); permintaan reset ditolak jika email belum aktif.
+- Admin mereset password agen (`PATCH /staff/agent/{agent}/password`) & pencari properti (`PATCH /staff/user/{user}/password`).
+- Halaman error bertema 403/404/419/429/500/503 + halaman lisensi memakai `errors/layout.blade.php` (berdiri sendiri, tanpa DB/sesi).
+- SEO: meta description, canonical, Open Graph & Twitter card di layout publik; detail properti & profil agen mengisi deskripsi + gambar pratinjau; `/sitemap.xml` (halaman publik, listing tayang, agen aktif) & `/robots.txt` dinamis (blokir /staff, /super, /agent, /akun, /login, /register; file statis `public/robots.txt` dihapus).
+- Test: `tests/Feature/TampilanTest.php`, `PasswordResetTest` disesuaikan.
+
+**6B–6D (belum):**
+1. ~~Ganti sisa halaman Breeze/Tailwind ke Bootstrap~~ (selesai di 6A; view Breeze yang tidak terpakai dihapus di 6B).
 2. Rename `Disctric*` → `District*`.
 3. DataTables server-side (sekarang `->get()` memuat ~7.000 kecamatan per request).
 4. Ganti ID base64 di form wilayah dengan ID asli + otorisasi.
 5. Halaman 404/403/500 bertema, SEO dasar, CI (`pint --test` + `php artisan test`).
 6. Bersihkan aset `public/template` (±242 MB) yang tidak dipakai.
-7. Ganti logo Porto (`template/frontend/img/demos/real-estate/logo.png`) dan favicon dengan logo GeoRestate.
 8. Aktifkan peta lokasi (lihat kerangka di Fase 2).
 
 ## 5. Utang teknis yang diketahui
 
-- Halaman Breeze (lupa password, reset, verifikasi email, profil) memakai `@vite` → **error 500 jika belum `npm run build`**.
+- View Breeze yang tidak terpakai lagi (`layouts/app`, `layouts/guest`, `layouts/navigation`, `dashboard`, `welcome`, `auth/login`, `auth/register`, `profile/*`, komponen Tailwind) masih ada dan memakai `@vite`; tidak bisa diakses, akan dihapus di 6B.
 - `XssClean` men-`strip_tags` semua input → akan merusak deskripsi rich text; nanti escape saat output saja.
 - Accessor `name` wilayah (provinsi/kabupaten/kecamatan): `strtoupper` saat baca, `strtolower` saat simpan, sedangkan seeder menyimpan UPPERCASE. (Kategori sudah dibereskan di Fase 3C.)
 - `Agent::$fillable` menyebut `kelurahan_id` yang tidak ada di tabel.
 - Middleware `isFree`, `PreventBackHistory`, dan `app/Exceptions/Handler.php` tidak dipakai.
 - `config/app.php` timezone masih `UTC`, sehingga waktu tampil 7 jam lebih awal dari WIB. Pertimbangkan `Asia/Jakarta`.
 - Kolom `properties.isStatus` tidak jelas fungsinya dan tidak dipakai (digantikan `status`).
-- Topbar admin & agen masih berisi elemen contoh template: ikon notifikasi (badge 3), menu aplikasi, dan kotak pencarian yang tidak berfungsi; juga logo Velzon.
+- Halaman login & daftar masih memakai foto latar stok dari template Velzon (`auth-one-bg`); ganti jika ingin foto sendiri.
 - Gambar demo template Porto (`template/frontend/img/demos/real-estate/**`: slider, background, listing, generic) ternyata PNG kosong/transparan, jadi tidak dipakai lagi di halaman publik.

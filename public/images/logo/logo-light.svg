@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 48" width="210" height="48" role="img" aria-label="GeoRestate">
+  <g>
+    <path d="M24 2C13.5 2 5 10.3 5 20.6 5 34.4 24 46 24 46s19-11.6 19-25.4C43 10.3 34.5 2 24 2z" fill="#00a4f2"/>
+    <path d="M24 11.5 13.5 20v13h7.5v-7.5h6V33h7.5V20z" fill="#fff"/>
+  </g>
+  <text x="52" y="33" font-family="Poppins, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="-0.5">
+    <tspan fill="#7fd3ff">Geo</tspan><tspan fill="#ffffff">Restate</tspan>
+  </text>
+</svg>

@@ -1,4 +1,6 @@
-<x-front.front-end-template :title="$judul" :main-label="$menuUtama" :secondary-label="$menuKedua">
+<x-front.front-end-template :title="$judul" :main-label="$menuUtama" :secondary-label="$menuKedua"
+                            :description="$agent->about ?: 'Agen properti '.$agent->hasUser->name.' di '.config('georestate.nama').'. Lihat semua listing sewa dari agen ini.'"
+                            :image="$agent->gambar ? $agent->fotoUrl() : null">
     <section class="page-header page-header-modern bg-color-primary border-0 m-0">
         <div class="container position-relative z-index-2">
             <div class="row text-center text-md-start py-5">

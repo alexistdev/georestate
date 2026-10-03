@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin\Master;
 
 use App\Enums\Role;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ResetPasswordRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -38,6 +40,14 @@ class UserController extends Controller
             'jumlahAktif' => $this->pencari(false)->count(),
             'jumlahTerhapus' => $this->pencari(true)->count(),
         ));
+    }
+
+    public function resetPassword(ResetPasswordRequest $request, User $user)
+    {
+        $this->pastikanPencari($user);
+        $user->update(['password' => Hash::make($request->validated('password'))]);
+
+        return redirect(route('adm.user'))->with(['success' => "Password {$user->email} berhasil direset. Sampaikan password baru ke pengguna."]);
     }
 
     public function destroy(User $user)

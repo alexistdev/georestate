@@ -25,6 +25,7 @@ PropertiesController as FrontProp,
     AboutController as FrontAbout,
     ContactController as FrontContact,
     FavoritController as FrontFavorit,
+    SeoController as FrontSeo,
     InquiryController as FrontInquiry
 };
 
@@ -103,6 +104,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
             Route::get('/staff/agent/{agent}', [AgentAdmin::class, 'show'])->withTrashed()->name('adm.agent.show');
             Route::patch('/staff/agent/{agent}/suspend', [AgentAdmin::class, 'suspend'])->name('adm.agent.suspend');
             Route::patch('/staff/agent/{agent}/aktifkan', [AgentAdmin::class, 'aktifkan'])->name('adm.agent.aktifkan');
+            Route::patch('/staff/agent/{agent}/password', [AgentAdmin::class, 'resetPassword'])->name('adm.agent.password');
             Route::delete('/staff/agent/{agent}', [AgentAdmin::class, 'destroy'])->name('adm.agent.delete');
             Route::patch('/staff/agent/{agent}/pulihkan', [AgentAdmin::class, 'restore'])->withTrashed()->name('adm.agent.restore');
         });
@@ -119,6 +121,7 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         /** kelola pencari properti */
         Route::get('/staff/user', [UserAdmin::class, 'index'])->name('adm.user');
         Route::delete('/staff/user/{user}', [UserAdmin::class, 'destroy'])->whereNumber('user')->name('adm.user.delete');
+        Route::patch('/staff/user/{user}/password', [UserAdmin::class, 'resetPassword'])->whereNumber('user')->name('adm.user.password');
         Route::patch('/staff/user/{user}/pulihkan', [UserAdmin::class, 'restore'])->whereNumber('user')->withTrashed()->name('adm.user.restore');
         Route::get('/staff/wilayah', [WilayahAdmin::class, 'index'])->name('adm.disctrict');
         Route::post('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_store'])->name('adm.disctrict.provinsi.save');
@@ -186,6 +189,9 @@ Route::group([], function () {
     Route::post('/contact', [FrontContact::class, 'store'])->middleware('throttle:5,1')->name('front.contact.store');
     Route::post('/properties/{slug}/tanya', [FrontInquiry::class, 'store'])->middleware('throttle:5,1')->name('front.inquiry.store');
     Route::get('/properties/{slug}/favorit/masuk', [FrontFavorit::class, 'masuk'])->middleware('guest')->name('front.favorit.masuk');
+
+    Route::get('/sitemap.xml', [FrontSeo::class, 'sitemap'])->name('front.sitemap');
+    Route::get('/robots.txt', [FrontSeo::class, 'robots'])->name('front.robots');
 
     /** ajax dropdown wilayah untuk filter pencarian */
     Route::get('/wilayah/kabupaten/{provinsi}', [FrontProp::class, 'kabupaten'])->whereNumber('provinsi')->name('front.wilayah.kabupaten');

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-layout="horizontal" data-topbar="dark" data-sidebar-size="lg" data-sidebar="light" data-sidebar-image="none" data-preloader="disable">
+<html lang="id" data-layout="horizontal" data-topbar="dark" data-sidebar-size="lg" data-sidebar="light" data-sidebar-image="none" data-preloader="disable">
 
 <head>
 
@@ -9,7 +9,7 @@
     <meta content="GeoRestate V.1.0" name="description" />
     <meta content="AlexistDev" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('template/admin/assets/images/favicon.ico')}}">
+    @include('partials.favicon')
     <!-- Layout config Js -->
     <script src="{{asset('template/admin/assets/js/layout.js')}}"></script>
     <!-- Bootstrap Css -->
@@ -40,7 +40,7 @@
                                     <div class="position-relative h-100 d-flex flex-column">
                                         <div class="mb-4">
                                             <a href="{{route('login')}}" class="d-block">
-                                                <img src="{{asset('template/admin/assets/images/logo-light.png')}}" alt="" height="18">
+                                                <img src="{{ asset('images/logo/logo-light.svg') }}" alt="{{ config('georestate.nama') }}" height="34">
                                             </a>
                                         </div>
                                         <div class="mt-auto">
@@ -56,13 +56,13 @@
                                                 </div>
                                                 <div class="carousel-inner text-center text-white pb-5">
                                                     <div class="carousel-item active">
-                                                        <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
+                                                        <p class="fs-15 fst-italic">" Temukan kos, rumah, dan apartemen sewaan harian, bulanan, atau tahunan. "</p>
                                                     </div>
                                                     <div class="carousel-item">
-                                                        <p class="fs-15 fst-italic">" The theme is really great with an amazing customer support."</p>
+                                                        <p class="fs-15 fst-italic">" Agen memasang listing, admin meninjau, calon penyewa langsung menghubungi agen. "</p>
                                                     </div>
                                                     <div class="carousel-item">
-                                                        <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
+                                                        <p class="fs-15 fst-italic">" Simpan properti favorit dan pantau status pertanyaan Anda. "</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -76,8 +76,8 @@
                             <div class="col-lg-6">
                                 <div class="p-lg-5 p-4">
                                     <div>
-                                        <h5 class="text-primary">Welcome Back !</h5>
-                                        <p class="text-muted">Sign in to continue to GeoRestate.</p>
+                                        <h5 class="text-primary">Selamat Datang Kembali!</h5>
+                                        <p class="text-muted">Masuk untuk melanjutkan ke {{ config('georestate.nama') }}.</p>
                                     </div>
 
                                     @if(session('status'))
@@ -89,35 +89,37 @@
                                         @csrf
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input name="email" type="email" class="form-control" id="email" placeholder="Email" value="{{ old('email') }}" required autofocus>
+                                                <input name="email" type="email" class="form-control" id="email" placeholder="Alamat email" value="{{ old('email') }}" required autofocus>
                                                 <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
                                             </div>
 
                                             <div class="mb-3">
-                                                <div class="float-end">
-                                                    <a href="{{ route('password.request') }}" class="text-muted">Forgot password?</a>
-                                                </div>
+                                                @if(\App\Support\Fitur::emailAktif())
+                                                    <div class="float-end">
+                                                        <a href="{{ route('password.request') }}" class="text-muted">Lupa password?</a>
+                                                    </div>
+                                                @endif
                                                 <label class="form-label" for="password-input">Password</label>
                                                 <div class="position-relative auth-pass-inputgroup mb-3">
-                                                    <input name="password" type="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input">
+                                                    <input name="password" type="password" class="form-control pe-5 password-input" placeholder="Masukkan password" id="password-input">
                                                     <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                                 </div>
                                             </div>
 
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="remember" id="auth-remember-check">
-                                                <label class="form-check-label" for="auth-remember-check">Remember me</label>
+                                                <label class="form-check-label" for="auth-remember-check">Ingat saya</label>
                                             </div>
 
                                             <div class="mt-4">
-                                                <button class="btn btn-success w-100" type="submit">Sign In</button>
+                                                <button class="btn btn-success w-100" type="submit">Masuk</button>
                                             </div>
 
                                         </form>
                                     </div>
 
                                     <div class="mt-5 text-center">
-                                        <p class="mb-0">Don't have an account ? <a href="{{ route('register') }}" class="fw-semibold text-primary text-decoration-underline"> Signup</a> </p>
+                                        <p class="mb-0">Belum punya akun? <a href="{{ route('register') }}" class="fw-semibold text-primary text-decoration-underline">Daftar</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +145,7 @@
                 <div class="col-lg-12">
                     <div class="text-center">
                         <p class="mb-0">&copy;
-                            <script>document.write(new Date().getFullYear())</script> GeoRestate v.1.0. Crafted with <i class="mdi mdi-heart text-danger"></i> by alexistdev
+                            {{ date('Y') }} {{ config('georestate.nama') }}. Crafted with <i class="mdi mdi-heart text-danger"></i> by alexistdev
                         </p>
                     </div>
                 </div>

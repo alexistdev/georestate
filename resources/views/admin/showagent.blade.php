@@ -85,6 +85,17 @@
                             </form>
                         @endif
 
+                        <form method="POST" action="{{ route('adm.agent.password', $agent) }}" class="mb-3" autocomplete="off">
+                            @csrf
+                            @method('PATCH')
+                            <label class="form-label">Reset password agen</label>
+                            <input type="password" name="password" required autocomplete="new-password" placeholder="Password baru (min. 8 karakter)"
+                                   class="form-control mb-2 @error('password') is-invalid @enderror">
+                            @error('password')<div class="invalid-feedback mb-2">{{ $message }}</div>@enderror
+                            <input type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Ulangi password baru" class="form-control mb-2">
+                            <button type="submit" class="btn btn-soft-info w-100"><i class="ri-lock-password-line align-bottom"></i> Reset Password</button>
+                        </form>
+
                         <form method="POST" action="{{ route('adm.agent.delete', $agent) }}"
                               onsubmit="return confirm('Hapus agen ini? Akun tidak bisa login dan listing-nya hilang dari website. Data masih bisa dipulihkan.')">
                             @csrf

@@ -9,7 +9,6 @@ A web-based application for real estate management, such as boarding houses, ren
 ## Installation Guide
 - Clone the repository
 - Open terminal and run `composer install`
-- Run `npm install` and `npm run build` (needed by the forgot password, email verification and profile pages)
 - Create an empty database named: `georestate`
 - Copy `.env.example` and rename it to `.env`
 - Run: `php artisan key:generate`
@@ -29,6 +28,9 @@ GEOLICENSE_PRODUCT_SKU=your-product-sku
 - Re-verification runs hourly via the scheduler, so add the cron entry: `* * * * * cd /path-to-project && php artisan schedule:run >> /dev/null 2>&1`
 - Manual check: `php artisan geolicense:verify`. After changing the key or SKU, run `php artisan cache:clear` to force re-activation.
 - A valid license is required in every environment, including local development. Automated tests mark the license as valid in `tests/TestCase.php` and never contact the license server.
+
+## Email & Password Reset
+"Forgot password?" is shown only when a real mailer is configured (`MAIL_MAILER` other than `log`/`array`, e.g. `smtp` with `MAIL_HOST`, `MAIL_USERNAME`, `MAIL_PASSWORD`). Until then, administrators reset passwords from the admin panel (Agents → detail, Property Seekers → Reset Password; Super Admin → Manage Admins).
 
 ## Running Tests
 Tests use an in-memory SQLite database (see `phpunit.xml`), so they never touch the MySQL development database.

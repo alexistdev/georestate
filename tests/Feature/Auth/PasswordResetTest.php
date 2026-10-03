@@ -12,6 +12,31 @@ class PasswordResetTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // Anggap email sudah disiapkan (pengiriman tetap dipalsukan dengan Notification::fake()).
+        config(['mail.default' => 'smtp']);
+    }
+
+    public function test_forgot_password_is_hidden_and_refused_when_email_is_not_configured(): void
+    {
+        config(['mail.default' => 'log']);
+        Notification::fake();
+        $user = User::factory()->create();
+
+        $this->get('/login')->assertDontSee(route('password.request'), false);
+        $this->get('/forgot-password')->assertOk()->assertSee('Reset password lewat email belum tersedia');
+        $this->post('/forgot-password', ['email' => $user->email])->assertSessionHasErrors('email');
+
+        Notification::assertNothingSent();
+    }
+
+    public function test_forgot_password_link_is_shown_when_email_is_configured(): void
+    {
+        $this->get('/login')->assertSee(route('password.request'), false);
+    }
+
     public function test_reset_password_link_screen_can_be_rendered(): void
     {
         $response = $this->get('/forgot-password');

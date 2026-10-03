@@ -9,7 +9,7 @@
     <meta content="GeoRestate V.1.0" name="description" />
     <meta content="AlexistDev" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('template/admin/assets/images/favicon.ico')}}">
+    @include('partials.favicon')
     <!-- Layout config Js -->
     <script src="{{asset('template/admin/assets/js/layout.js')}}"></script>
     <!-- Bootstrap Css -->

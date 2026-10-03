@@ -1,6 +1,6 @@
 <div>
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('template/admin/assets/images/favicon.ico')}}">
+    @include('partials.favicon')
 
     <!-- jsvectormap css -->
     <link href="{{asset('template/admin/assets/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css" />

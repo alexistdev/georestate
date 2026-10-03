@@ -64,6 +64,11 @@
                                         <button type="submit" class="btn btn-sm btn-soft-success">Pulihkan</button>
                                     </form>
                                 @else
+                                    <button type="button" class="btn btn-sm btn-soft-info btn-reset-user"
+                                            data-bs-toggle="modal" data-bs-target="#modalResetUser"
+                                            data-action="{{ route('adm.user.password', $user) }}" data-email="{{ $user->email }}">
+                                        <i class="ri-lock-password-line align-bottom"></i> Reset Password
+                                    </button>
                                     <form method="POST" action="{{ route('adm.user.delete', $user) }}" class="d-inline"
                                           onsubmit="return confirm('Hapus akun ini? Akun tidak bisa login, tapi masih bisa dipulihkan.')">
                                         @csrf
@@ -91,4 +96,45 @@
             @endif
         </div>
     </div>
+    <div class="modal fade" id="modalResetUser" tabindex="-1" aria-labelledby="judulResetUser" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form method="POST" id="formResetUser" action="" autocomplete="off">
+                    @csrf
+                    @method('PATCH')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="judulResetUser">Reset Password <span id="emailResetUser" class="text-muted fs-14"></span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="resetUserPassword" class="form-label">Password Baru <span class="text-danger">*</span></label>
+                            <input type="password" name="password" id="resetUserPassword" required autocomplete="new-password" class="form-control">
+                            <div class="form-text">Minimal 8 karakter. Sampaikan ke pengguna dan minta ia menggantinya di Akun Saya.</div>
+                        </div>
+                        <div>
+                            <label for="resetUserPassword2" class="form-label">Ulangi Password Baru <span class="text-danger">*</span></label>
+                            <input type="password" name="password_confirmation" id="resetUserPassword2" required autocomplete="new-password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Reset Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @push('customJS')
+        <script>
+            document.addEventListener('click', function (e) {
+                const tombol = e.target.closest('.btn-reset-user');
+                if (tombol) {
+                    document.getElementById('formResetUser').action = tombol.dataset.action;
+                    document.getElementById('emailResetUser').textContent = '(' + tombol.dataset.email + ')';
+                }
+            });
+        </script>
+    @endpush
 </x-admin.admin-template>

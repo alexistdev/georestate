@@ -26,7 +26,7 @@ class RegisteredUserController extends Controller
     public function create(): View
     {
         return view('auth.register2', [
-            'title' => "Daftar | Aplikasi Real Estate ",
+            'title' => "Daftar | ".config('georestate.nama'),
         ]);
     }
 

@@ -8,7 +8,7 @@
     <meta content="GeoRestate Premium RealEstate Management System" name="description" />
     <meta content="AlexistDev" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{asset('template/admin/assets/images/favicon.ico')}}">
+    @include('partials.favicon')
     <!-- Start: Agent Layout -->
     <x-agent.agent-header-layout />
     <!-- End: Agent Layout -->
@@ -32,19 +32,19 @@
             <!-- Dark Logo-->
             <a href="{{route('agn.dashboard')}}" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{asset('template/admin/assets/images/logo-sm.png')}}" alt="" height="22">
+                        <img src="{{ asset('images/logo/logo-icon.svg') }}" alt="{{ config('georestate.nama') }}" height="26">
                     </span>
                 <span class="logo-lg">
-                        <img src="{{asset('template/admin/assets/images/logo-dark.png')}}" alt="" height="17">
+                        <img src="{{ asset('images/logo/logo-dark.svg') }}" alt="{{ config('georestate.nama') }}" height="28">
                     </span>
             </a>
             <!-- Light Logo-->
             <a href="{{route('agn.dashboard')}}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{asset('template/admin/assets/images/logo-sm.png')}}" alt="" height="22">
+                        <img src="{{ asset('images/logo/logo-icon.svg') }}" alt="{{ config('georestate.nama') }}" height="26">
                     </span>
                 <span class="logo-lg">
-                        <img src="{{asset('template/admin/assets/images/logo-light.png')}}" alt="" height="17">
+                        <img src="{{ asset('images/logo/logo-light.svg') }}" alt="{{ config('georestate.nama') }}" height="28">
                     </span>
             </a>
             <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">

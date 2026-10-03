@@ -19,11 +19,17 @@ class FrontEndTemplate extends Component
     public $mainLabel;
     public $secondaryLabel;
 
-    public function __construct($title,$mainLabel=null,$secondaryLabel=null)
+    /** Deskripsi & gambar untuk SEO / pratinjau tautan (Open Graph). */
+    public ?string $description;
+    public ?string $image;
+
+    public function __construct($title,$mainLabel=null,$secondaryLabel=null,$description=null,$image=null)
     {
        $this->title = $title;
        $this->mainLabel = $mainLabel;
        $this->secondaryLabel = $secondaryLabel;
+       $this->description = $description;
+       $this->image = $image;
     }
 
 

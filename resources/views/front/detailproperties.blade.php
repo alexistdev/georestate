@@ -1,4 +1,11 @@
-<x-front.front-end-template :title="$judul" :main-label="$menuUtama" :secondary-label="$menuKedua">
+@php
+    $hargaSeo = $property->hargaUtama();
+    $deskripsiSeo = 'Disewakan: '.($property->kategori->name ?? 'properti').' di '.$property->lokasi().'.'
+        .($hargaSeo ? ' Mulai '.$hargaSeo[0].' / '.$hargaSeo[1].'.' : '')
+        .' '.$property->description;
+@endphp
+<x-front.front-end-template :title="$judul" :main-label="$menuUtama" :secondary-label="$menuKedua"
+                            :description="$deskripsiSeo" :image="$property->gambarUtama ? $property->gambarUtamaUrl() : null">
     @php
         $agent = $property->agent;
         $pesanWa = 'Halo, saya tertarik dengan properti "'.$property->name.'" di GeoRestate: '.route('front.properties.detail', $property->slug);

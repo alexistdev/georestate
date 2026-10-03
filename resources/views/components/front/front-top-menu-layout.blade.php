@@ -82,7 +82,7 @@
                         <div class="header-row">
                             <div class="header-logo">
                                 <a href="{{ route('front.home') }}">
-                                    <img alt="{{ config('georestate.nama') }}" width="123" height="48" data-sticky-width="123" data-sticky-height="48" src="{{ asset('template/frontend/img/demos/real-estate/logo.png') }}">
+                                    <img alt="{{ config('georestate.nama') }}" width="184" height="42" data-sticky-width="158" data-sticky-height="36" src="{{ asset('images/logo/logo-dark.svg') }}">
                                 </a>
                             </div>
                         </div>

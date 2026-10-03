@@ -6,12 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{$title}}</title>
-
-    <meta name="keywords" content="GeoRestate v.1.0" />
-    <meta name="description" content="{{ config('georestate.tagline') }}">
-    <meta name="author" content="alexistdev">
-
+    @php
+        $deskripsiHalaman = \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', $description ?? config('georestate.tagline'))), 160);
+        $gambarHalaman = $image ?? asset('images/logo/apple-touch-icon.png');
+    @endphp
+    <title>{{ $title }}</title>
+    <meta name="description" content="{{ $deskripsiHalaman }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="theme-color" content="#1c5fa8">
+    {{-- Pratinjau saat tautan dibagikan (WhatsApp, Facebook, Telegram, X). --}}
+    <meta property="og:site_name" content="{{ config('georestate.nama') }}">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ $deskripsiHalaman }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $gambarHalaman }}">
+    <meta name="twitter:card" content="{{ $image ? 'summary_large_image' : 'summary' }}">
     <x-front.front-header-layout />
     @stack('customCSS')
 

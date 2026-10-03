@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin\Master;
 
 use App\Enums\PropertyStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ResetPasswordRequest;
 use App\Http\Requests\Admin\SuspendAgentRequest;
 use App\Models\Agent;
 use App\Services\Admin\AgentService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -84,6 +86,14 @@ class AgentController extends Controller
 
         return redirect(route('adm.agent.show', $agent))
             ->with(['success' => "Agen diaktifkan kembali. Listing yang disetujui tampil lagi di website."]);
+    }
+
+    public function resetPassword(ResetPasswordRequest $request, Agent $agent)
+    {
+        $agent->hasUser()->firstOrFail()->update(['password' => Hash::make($request->validated('password'))]);
+
+        return redirect(route('adm.agent.show', $agent))
+            ->with(['success' => "Password agen berhasil direset. Sampaikan password baru ke agen dan minta ia menggantinya di Profil Saya."]);
     }
 
     public function destroy(Agent $agent)

@@ -41,6 +41,32 @@ class User extends Authenticatable
     }
 
     /**
+     * Properti favorit (pencari properti).
+     */
+    public function favorit()
+    {
+        return $this->belongsToMany(Property::class, 'favorites')->withTimestamps();
+    }
+
+    /** @var array<int, string>|null */
+    private ?array $favoritIdsCache = null;
+
+    /**
+     * ID properti favorit, di-cache per request (dipakai kartu listing).
+     *
+     * @return array<int, string>
+     */
+    public function favoritIds(): array
+    {
+        return $this->favoritIdsCache ??= $this->favorit()->pluck('properties.id')->all();
+    }
+
+    public function inquiries()
+    {
+        return $this->hasMany(Inquiry::class);
+    }
+
+    /**
      * Role user sebagai enum, atau null jika role tidak dikenal.
      */
     public function roleEnum(): ?RoleEnum

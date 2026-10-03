@@ -32,6 +32,14 @@
     <!-- End: Footer -->
 
     <div role="main" class="main">
+        @if(session('favorit_success'))
+            <div class="container pt-4">
+                <div class="alert alert-success mb-0">
+                    {{ session('favorit_success') }}
+                    @auth <a href="{{ route('usr.favorit') }}" class="alert-link ms-1">Lihat Favorit Saya</a> @endauth
+                </div>
+            </div>
+        @endif
 
         {{$slot}}
 

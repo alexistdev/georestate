@@ -1,6 +1,6 @@
 # Analisis & Roadmap — GeoRestate
 
-_Terakhir diperbarui: 3 Oktober 2026 (Fase 0–3 selesai)._
+_Terakhir diperbarui: 3 Oktober 2026 (Fase 0–4 selesai)._
 
 ## 1. Ringkasan
 
@@ -33,7 +33,7 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 | Agen: CRUD listing (milik sendiri), harga per periode, fasilitas, foto, status | ✅ |
 | Agen: dashboard (jumlah per status + notifikasi disetujui/ditolak) | ✅ |
 | Agen: profil | ❌ |
-| User: favorit, kirim pesan ke agen | ❌ (sementara pengunjung menghubungi agen via WhatsApp/telepon) |
+| Tanya agen (inquiry), kotak masuk agen, favorit, area Akun Saya pencari properti | ✅ Fase 4 |
 | Frontend publik (home, cari & filter properti, detail, agen, tentang, kontak) | ✅ Hanya listing `approved` dari agen yang tidak disuspend |
 | Peta lokasi | ⚠️ Kerangka saja (kolom koordinat + placeholder), dikerjakan di akhir project |
 | Pesan form Kontak | ✅ Tersimpan di `contact_messages`; dibaca admin di `/staff/pesan` |
@@ -123,11 +123,15 @@ Keputusan: Super = semua hak Admin + kelola akun Admin; tolak listing wajib alas
 - Perbaikan: `User::hasRole()` menerima enum dengan benar; role dicari dengan `firstOrCreate` saat membuat akun.
 - Test: `tests/Feature/Super/KelolaAdminTest.php`.
 
-### Fase 4 — User & inquiry
-1. Tabel `inquiries` (property_id, user_id/nama/email/telepon tamu, pesan, status).
-2. Form contact di detail properti + notifikasi email ke agen.
-3. Agen: kotak masuk inquiry.
-4. User: favorit, riwayat inquiry.
+### Fase 4 — User & inquiry ✅ SELESAI
+Keputusan: tanya agen boleh tanpa login; favorit wajib login; status Baru / Sudah Dihubungi / Selesai; email notifikasi ditunda; admin hanya melihat & menghapus spam.
+- Tabel `inquiries` (property_id, agent_id, user_id nullable, nama, email, telepon, pesan, status, read_at) & `favorites` (user_id, property_id). Enum `InquiryStatus`.
+- Detail properti: form "Tanya Agen" (`POST /properties/{slug}/tanya`, throttle 5/menit + honeypot; data terisi otomatis jika login) dan tombol ❤ (juga di kartu listing). Tamu → `/properties/{slug}/favorit/masuk` → login → kembali ke properti.
+- Agen: menu Pertanyaan (badge baru) `/agent/pertanyaan`, tab per status, detail (otomatis dibaca), balas via WhatsApp/email (pesan terisi), ubah status; notifikasi di dashboard. Sidebar agen dirapikan (bagian "Promosi" berisi link mati dihapus).
+- Pencari properti: Akun Saya `/akun/favorit`, `/akun/pertanyaan` (status terlihat), `/akun/password`; header menampilkan "AKUN SAYA". Favorit hanya menampilkan listing yang masih tayang.
+- Admin: `/staff/pertanyaan` lihat semua, cari, hapus.
+- `App\Support\Telepon` untuk format nomor/WhatsApp (dipakai Agent & Inquiry). DemoListingSeeder menambah 2 pertanyaan & 2 favorit contoh.
+- Test: `tests/Feature/InquiryTest.php`, `tests/Feature/FavoritTest.php`.
 
 ### Fase 5 — Profil agen
 Foto, telepon, alamat, wilayah (kecamatan), about. Ganti halaman profil Breeze/Tailwind. (Premium ditunda.)
@@ -151,5 +155,5 @@ Foto, telepon, alamat, wilayah (kecamatan), about. Ganti halaman profil Breeze/T
 - Middleware `isFree`, `PreventBackHistory`, dan `app/Exceptions/Handler.php` tidak dipakai.
 - `config/app.php` timezone masih `UTC`, sehingga waktu tampil 7 jam lebih awal dari WIB. Pertimbangkan `Asia/Jakarta`.
 - Kolom `properties.isStatus` tidak jelas fungsinya dan tidak dipakai (digantikan `status`).
-- Topbar admin masih berisi elemen contoh template: ikon notifikasi (badge 3), menu aplikasi, dan kotak pencarian yang tidak berfungsi; juga logo Velzon.
+- Topbar admin & agen masih berisi elemen contoh template: ikon notifikasi (badge 3), menu aplikasi, dan kotak pencarian yang tidak berfungsi; juga logo Velzon.
 - Gambar demo template Porto (`template/frontend/img/demos/real-estate/**`: slider, background, listing, generic) ternyata PNG kosong/transparan, jadi tidak dipakai lagi di halaman publik.

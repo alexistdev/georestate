@@ -7,6 +7,7 @@ use App\Enums\Role as RoleEnum;
 use App\Models\Agent;
 use App\Models\Fasilitas;
 use App\Models\Gambar;
+use App\Models\Inquiry;
 use App\Models\Kategori;
 use App\Models\Kecamatan;
 use App\Models\Property;
@@ -96,6 +97,22 @@ class DemoListingSeeder extends Seeder
                 ]);
             }
         }
+
+        // Contoh pertanyaan & favorit: dari user@gmail.com (pencari) dan dari tamu, ke listing agen@gmail.com.
+        $pencari = User::where('email', 'user@gmail.com')->first();
+        $listingAgenUtama = Property::where('agent_id', $agents->first()?->id)->where('status', PropertyStatus::Approved)->get();
+        foreach ($listingAgenUtama->take(2) as $i => $listing) {
+            Inquiry::create([
+                'property_id' => $listing->id,
+                'agent_id' => $listing->agent_id,
+                'user_id' => $i === 0 ? $pencari?->id : null,
+                'name' => $i === 0 ? ($pencari->name ?? 'Pencari') : 'Dewi Lestari',
+                'email' => $i === 0 ? ($pencari->email ?? 'pencari@example.com') : 'dewi@example.com',
+                'phone' => '08'.$faker->numerify('##########'),
+                'message' => 'Halo, apakah "'.$listing->name.'" masih tersedia? Kapan bisa survei lokasi?',
+            ]);
+        }
+        $pencari?->favorit()->syncWithoutDetaching($listingAgenUtama->take(2)->pluck('id')->all());
 
         // Contoh status lain untuk akun agen@gmail.com.
         if ($agentUtama = $agents->first()) {

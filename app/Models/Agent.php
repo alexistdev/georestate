@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Telepon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -68,32 +69,21 @@ class Agent extends Model
      */
     public function nomorInternasional(): ?string
     {
-        $nomor = preg_replace('/\D/', '', (string) $this->phone);
-        if ($nomor === '') {
-            return null;
-        }
-        if (str_starts_with($nomor, '0')) {
-            return '62'.substr($nomor, 1);
-        }
-        if (str_starts_with($nomor, '8')) {
-            return '62'.$nomor;
-        }
-        return $nomor;
+        return Telepon::internasional($this->phone);
     }
 
     public function whatsappUrl(?string $pesan = null): ?string
     {
-        $nomor = $this->nomorInternasional();
-        if ($nomor === null) {
-            return null;
-        }
-        return 'https://wa.me/'.$nomor.($pesan ? '?text='.rawurlencode($pesan) : '');
+        return Telepon::whatsappUrl($this->phone, $pesan);
     }
 
     public function teleponUrl(): ?string
     {
-        $nomor = $this->nomorInternasional();
+        return Telepon::teleponUrl($this->phone);
+    }
 
-        return $nomor ? 'tel:+'.$nomor : null;
+    public function inquiries()
+    {
+        return $this->hasMany(Inquiry::class);
     }
 }

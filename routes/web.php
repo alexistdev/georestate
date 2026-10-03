@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Super\{DashboardController as DashSuper, AdminController as AdminSuper};
 use App\Http\Controllers\Admin\{DashboardController as DashAdmin,
     ListingController as ListAdmin,
+    InquiryController as InquiryAdmin,
     PasswordController as PasswordAdmin,
     PesanController as PesanAdmin
 };
@@ -15,13 +16,16 @@ use App\Http\Controllers\Admin\Master\{AgentController as AgentAdmin,
     UserController as UserAdmin
 };
 
-use App\Http\Controllers\Agen\{DashboardController as DashAgen,ListingController as ListAgen};
+use App\Http\Controllers\Agen\{DashboardController as DashAgen, ListingController as ListAgen, InquiryController as InquiryAgen};
+use App\Http\Controllers\User\AkunController as AkunUser;
 
 use App\Http\Controllers\Front\{HomeController as FrontHome,
 PropertiesController as FrontProp,
     AgenController as FrontAgen,
     AboutController as FrontAbout,
-    ContactController as FrontContact
+    ContactController as FrontContact,
+    FavoritController as FrontFavorit,
+    InquiryController as FrontInquiry
 };
 
 /*
@@ -78,6 +82,10 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
             Route::patch('/staff/listing/{property}/reject', [ListAdmin::class, 'reject'])->name('adm.listing.reject');
         });
 
+        /** pertanyaan calon penyewa ke agen (lihat & hapus spam) */
+        Route::get('/staff/pertanyaan', [InquiryAdmin::class, 'index'])->name('adm.pertanyaan');
+        Route::delete('/staff/pertanyaan/{inquiry}', [InquiryAdmin::class, 'destroy'])->whereNumber('inquiry')->name('adm.pertanyaan.delete');
+
         /** pesan dari form kontak */
         Route::get('/staff/pesan', [PesanAdmin::class, 'index'])->name('adm.pesan');
         Route::get('/staff/pesan/{pesan}', [PesanAdmin::class, 'show'])->whereNumber('pesan')->name('adm.pesan.show');
@@ -127,6 +135,9 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     });
 
     Route::group(['roles' => 'agen'], function () {
+        Route::get('/agent/pertanyaan', [InquiryAgen::class, 'index'])->name('agn.pertanyaan');
+        Route::get('/agent/pertanyaan/{inquiry}', [InquiryAgen::class, 'show'])->whereNumber('inquiry')->name('agn.pertanyaan.show');
+        Route::patch('/agent/pertanyaan/{inquiry}/status', [InquiryAgen::class, 'updateStatus'])->whereNumber('inquiry')->name('agn.pertanyaan.status');
         Route::get('/agent/dashboard', [DashAgen::class, 'index'])->name('agn.dashboard');
         Route::get('/agent/lists', [ListAgen::class, 'index'])->name('agn.lists');
         Route::post('/agent/lists', [ListAgen::class, 'store'])->name('agn.lists.save');
@@ -145,6 +156,14 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     });
 });
 
+/** Area pencari properti */
+Route::group(['middleware' => ['web', 'auth', 'roles'], 'roles' => 'user'], function () {
+    Route::get('/akun/favorit', [AkunUser::class, 'favorit'])->name('usr.favorit');
+    Route::get('/akun/pertanyaan', [AkunUser::class, 'pertanyaan'])->name('usr.pertanyaan');
+    Route::get('/akun/password', [AkunUser::class, 'password'])->name('usr.password');
+    Route::post('/properties/{slug}/favorit', [FrontFavorit::class, 'toggle'])->name('front.favorit.toggle');
+});
+
 /** Halaman publik: bisa diakses tamu maupun user yang sudah login */
 Route::group([], function () {
     Route::get('/', [FrontHome::class, 'index'])->name('front.home');
@@ -155,6 +174,8 @@ Route::group([], function () {
     Route::get('/about', [FrontAbout::class, 'index'])->name('front.about');
     Route::get('/contact', [FrontContact::class, 'index'])->name('front.contact');
     Route::post('/contact', [FrontContact::class, 'store'])->middleware('throttle:5,1')->name('front.contact.store');
+    Route::post('/properties/{slug}/tanya', [FrontInquiry::class, 'store'])->middleware('throttle:5,1')->name('front.inquiry.store');
+    Route::get('/properties/{slug}/favorit/masuk', [FrontFavorit::class, 'masuk'])->middleware('guest')->name('front.favorit.masuk');
 
     /** ajax dropdown wilayah untuk filter pencarian */
     Route::get('/wilayah/kabupaten/{provinsi}', [FrontProp::class, 'kabupaten'])->whereNumber('provinsi')->name('front.wilayah.kabupaten');

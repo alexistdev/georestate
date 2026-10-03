@@ -5,6 +5,7 @@
 @php($harga = $property->hargaUtama($periode ?? null))
 <div class="card custom-card-info custom-card-info-shadow border-0 h-100">
     <div class="card-body overflow-hidden p-relative z-index-1">
+        @include('front.partials.favorit-button', ['property' => $property, 'varian' => 'kartu'])
         <a href="{{ route('front.properties.detail', $property->slug) }}" class="text-decoration-none">
             <span class="custom-card-info-type bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block p-absolute top-8 left-8">
                 {{ $property->kategori->name ?? 'Properti' }}

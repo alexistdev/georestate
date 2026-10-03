@@ -80,6 +80,10 @@
                                         <p class="text-muted">Sign in to continue to GeoRestate.</p>
                                     </div>
 
+                                    @if(session('status'))
+                                        <div class="alert alert-info mt-3 mb-0">{{ session('status') }}</div>
+                                    @endif
+
                                     <div class="mt-4">
                                         <form method="POST" action="{{ route('login') }}">
                                         @csrf

@@ -40,9 +40,15 @@
                                 <ul class="list list-unstyled list-inline mb-0">
                                     @auth
                                         <li class="list-inline-item me-4 mb-0">
-                                            <a href="{{ route('dashboard') }}" class="text-default text-hover-secondary font-weight-semibold text-decoration-none text-1">
-                                                DASHBOARD
-                                            </a>
+                                            @if(auth()->user()->hasRole(\App\Enums\Role::User))
+                                                <a href="{{ route('usr.favorit') }}" class="text-default text-hover-secondary font-weight-semibold text-decoration-none text-1">
+                                                    AKUN SAYA
+                                                </a>
+                                            @else
+                                                <a href="{{ route('dashboard') }}" class="text-default text-hover-secondary font-weight-semibold text-decoration-none text-1">
+                                                    DASHBOARD
+                                                </a>
+                                            @endif
                                         </li>
                                         <li class="list-inline-item me-0 mb-0">
                                             <form method="POST" action="{{ route('logout') }}" class="d-inline">

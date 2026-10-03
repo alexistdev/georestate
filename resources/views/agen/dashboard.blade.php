@@ -11,6 +11,13 @@
         </div>
     </div>
 
+    @if($pertanyaanBaru > 0)
+        <div class="alert alert-info d-flex flex-wrap align-items-center gap-2">
+            <div class="flex-grow-1"><strong>{{ $pertanyaanBaru }} pertanyaan baru</strong> dari calon penyewa menunggu balasan Anda.</div>
+            <a href="{{ route('agn.pertanyaan', ['status' => 'baru']) }}" class="btn btn-sm btn-info">Lihat Pertanyaan</a>
+        </div>
+    @endif
+
     {{-- Notifikasi hasil moderasi admin --}}
     @foreach($ditolak as $listing)
         <div class="alert alert-danger d-flex flex-wrap align-items-center gap-2">

@@ -9,6 +9,9 @@
                 <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
                     <h1 class="font-weight-bold text-color-light text-7 mb-0">{{ $property->name }}</h1>
                     <p class="text-color-light opacity-7 mb-0">{{ $property->lokasi() }}</p>
+                    <div class="mt-3">
+                        @include('front.partials.favorit-button', ['property' => $property, 'varian' => 'detail'])
+                    </div>
                 </div>
                 <div class="col-md-4 order-1 order-md-2 align-self-center">
                     <ul class="breadcrumb breadcrumb-light d-block text-md-end text-4 mb-0">
@@ -169,7 +172,8 @@
                                         </a>
                                     @endif
                                     @if($agent->teleponUrl())
-                                        <a href="{{ $agent->teleponUrl() }}" class="btn btn-outline btn-light font-weight-semibold text-2 text-uppercase btn-py-2">
+                                        <a href="{{ $agent->teleponUrl() }}" class="btn font-weight-semibold text-2 text-uppercase btn-py-2"
+                                           style="border: 2px solid #fff; color: #fff; background: transparent;">
                                             <i class="fas fa-phone me-1"></i> Telepon
                                         </a>
                                     @endif
@@ -177,6 +181,56 @@
                                         <span class="opacity-7 text-2">Agen belum mencantumkan nomor telepon.</span>
                                     @endunless
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-12" id="tanya-agen">
+                        @php($penanya = auth()->user())
+                        <div class="card custom-card-info bg-color-quaternary border-0 mb-4">
+                            <div class="card-body bg-transparent p-relative p-4 z-index-1">
+                                <h3 class="text-color-dark font-weight-semibold text-5 d-block mt-1 mb-2">Tanya Agen</h3>
+                                <p class="text-2 mb-3">Kirim pertanyaan tentang properti ini. Agen akan menghubungi Anda.</p>
+
+                                @if(session('inquiry_success'))
+                                    <div class="alert alert-success text-2">{{ session('inquiry_success') }}</div>
+                                @endif
+
+                                {{-- Jangan pakai class "contact-form": class itu dipakai script AJAX bawaan template. --}}
+                                <form class="form-style-3" action="{{ route('front.inquiry.store', $property->slug) }}" method="POST">
+                                    @csrf
+                                    <div class="form-group mb-2">
+                                        <input type="text" name="name" maxlength="100" required placeholder="Nama *"
+                                               value="{{ old('name', $penanya?->name) }}"
+                                               class="form-control bg-color-light box-shadow-none border-0 @error('name') is-invalid @enderror">
+                                        @error('name')<div class="text-danger text-2 mt-1">{{ $message }}</div>@enderror
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <input type="email" name="email" maxlength="100" required placeholder="E-mail *"
+                                               value="{{ old('email', $penanya?->email) }}"
+                                               class="form-control bg-color-light box-shadow-none border-0 @error('email') is-invalid @enderror">
+                                        @error('email')<div class="text-danger text-2 mt-1">{{ $message }}</div>@enderror
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <input type="text" name="phone" maxlength="30" placeholder="No. WhatsApp (opsional)"
+                                               value="{{ old('phone') }}"
+                                               class="form-control bg-color-light box-shadow-none border-0 @error('phone') is-invalid @enderror">
+                                        @error('phone')<div class="text-danger text-2 mt-1">{{ $message }}</div>@enderror
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <textarea name="message" rows="4" maxlength="2000" required placeholder="Pesan *"
+                                                  class="form-control bg-color-light box-shadow-none border-0 @error('message') is-invalid @enderror">{{ old('message', 'Halo, saya tertarik dengan "'.$property->name.'". Apakah masih tersedia?') }}</textarea>
+                                        @error('message')<div class="text-danger text-2 mt-1">{{ $message }}</div>@enderror
+                                    </div>
+                                    {{-- Honeypot anti-spam: disembunyikan dari pengguna, harus tetap kosong. --}}
+                                    <div style="position: absolute; left: -10000px;" aria-hidden="true">
+                                        <label for="websiteTanya">Website</label>
+                                        <input type="text" name="website" id="websiteTanya" tabindex="-1" autocomplete="off">
+                                    </div>
+                                    <div class="d-grid">
+                                        <button class="btn btn-secondary font-weight-semibold border-0 text-2 text-uppercase btn-py-2" type="submit">Kirim Pertanyaan</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

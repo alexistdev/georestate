@@ -20,6 +20,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link @if(request()->routeIs('adm.pertanyaan*')) active @endif" href="{{ route('adm.pertanyaan') }}">
+                        <i class="bx bx-message-square-dots"></i> <span>Pertanyaan ke Agen</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link @if(request()->routeIs('adm.pesan*')) active @endif" href="{{ route('adm.pesan') }}">
                         <i class="bx bx-envelope"></i> <span>Pesan Kontak</span>
                         @if($jumlahPesanBaru > 0)

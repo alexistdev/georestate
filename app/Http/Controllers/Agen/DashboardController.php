@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Agen;
 
+use App\Enums\InquiryStatus;
 use App\Enums\PropertyStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,7 @@ class DashboardController extends Controller
                 ->latest('approved_at')
                 ->get(),
             'hariNotifikasi' => self::HARI_NOTIFIKASI,
+            'pertanyaanBaru' => $agent->inquiries()->where('status', InquiryStatus::Baru)->count(),
         ));
     }
 }

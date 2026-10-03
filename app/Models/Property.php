@@ -73,6 +73,11 @@ class Property extends Model
         return $this->belongsToMany(Fasilitas::class, 'fasilitas_property', 'property_id', 'fasilitas_id')->withTrashed();
     }
 
+    public function inquiries()
+    {
+        return $this->hasMany(Inquiry::class);
+    }
+
     public function gambars()
     {
         return $this->hasMany(Gambar::class)->orderByDesc('isDefault')->orderBy('id');

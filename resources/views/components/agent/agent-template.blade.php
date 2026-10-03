@@ -12,6 +12,7 @@
     <!-- Start: Agent Layout -->
     <x-agent.agent-header-layout />
     <!-- End: Agent Layout -->
+    <link href="{{ asset('css/georestate-admin.css') }}" rel="stylesheet" type="text/css" />
     @stack('customCSS')
 
 </head>

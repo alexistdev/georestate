@@ -13,6 +13,16 @@ enum Role: string
     case Agen = 'agen';
     case User = 'user';
 
+    public function label(): string
+    {
+        return match ($this) {
+            self::Super => 'Super Admin',
+            self::Admin => 'Administrator',
+            self::Agen => 'Agen',
+            self::User => 'Pencari Properti',
+        };
+    }
+
     /**
      * Halaman tujuan setelah login untuk tiap role.
      */

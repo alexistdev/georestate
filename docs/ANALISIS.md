@@ -1,6 +1,6 @@
 # Analisis & Roadmap — GeoRestate
 
-_Terakhir diperbarui: 3 Oktober 2026 (Fase 0, 1, 2, dan 3A–3C selesai)._
+_Terakhir diperbarui: 3 Oktober 2026 (Fase 0–3 selesai)._
 
 ## 1. Ringkasan
 
@@ -24,7 +24,8 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 |---|---|
 | Login + redirect per role, `/dashboard` → dashboard sesuai role | ✅ |
 | Registrasi user / agen | ✅ (agen melengkapi wilayah nanti di profil) |
-| Area super | ⚠️ Punya semua hak admin (akses `/staff/*`); dashboard & kelola akun admin di Fase 3D |
+| Area super | ✅ Semua hak admin + dashboard (kartu jumlah admin) + kelola akun Admin |
+| Ubah password admin/super di panel admin | ✅ `/staff/password` |
 | Admin: master wilayah (provinsi/kabupaten/kecamatan) | ✅ CRUD + validasi |
 | Admin: dashboard statistik, moderasi listing (setujui / tolak / turunkan + alasan), pesan Kontak | ✅ Fase 3A |
 | Admin: kelola agen (suspend/aktifkan, hapus/pulihkan) & pencari properti (hapus/pulihkan) | ✅ Fase 3B |
@@ -113,7 +114,14 @@ Keputusan: Super = semua hak Admin + kelola akun Admin; tolak listing wajib alas
 - Relasi `Property::kategori()` & `fasilitas()` memakai `withTrashed()` sehingga listing lama tetap menampilkan data yang sudah dihapus; form agen & filter publik hanya menampilkan data aktif; form edit memberi petunjuk jika kategori lama sudah dihapus.
 - Huruf besar paksa (accessor) pada `Kategori` dihapus; migrasi `normalize_kategori_names` merapikan data lama (Title Case, "apartement" → "Apartemen"); seeder disesuaikan.
 - Test: `tests/Feature/Admin/MasterKategoriFasilitasTest.php`.
-**3D** Area super: dashboard & navbar sendiri, kelola akun admin.
+**3D ✅ SELESAI** (keputusan: dashboard super = dashboard admin + jumlah admin; super hanya membuat akun Admin; password awal ditentukan super; hapus admin = soft delete)
+- Dashboard super `/super/dashboard` memakai data dashboard admin + kartu "Akun Admin"; menu Dashboard mengarah sesuai peran; menu "Kelola Admin" hanya untuk super.
+- Kelola admin `/super/admin`: tab Aktif/Terhapus, cari, tambah (nama, email, password awal), ubah nama/email, reset password (modal), hapus (soft delete) & pulihkan. Hanya akun ber-role Admin; super tidak bisa mengelola akun super/agen/pencari atau menghapus dirinya; admin biasa 403.
+- Ubah password `/staff/password` untuk admin & super (form Bootstrap, simpan via route bawaan `password.update`).
+- Topbar admin: nama, peran (`Role::label()`), email, Ubah Password, Logout (data contoh template dihapus).
+- `public/css/georestate-admin.css`: warna teks tombol `btn-soft-*` Velzon digelapkan (kontras 1.9–3:1 → ≥5:1), dimuat di layout admin & agen.
+- Perbaikan: `User::hasRole()` menerima enum dengan benar; role dicari dengan `firstOrCreate` saat membuat akun.
+- Test: `tests/Feature/Super/KelolaAdminTest.php`.
 
 ### Fase 4 — User & inquiry
 1. Tabel `inquiries` (property_id, user_id/nama/email/telepon tamu, pesan, status).
@@ -143,4 +151,5 @@ Foto, telepon, alamat, wilayah (kecamatan), about. Ganti halaman profil Breeze/T
 - Middleware `isFree`, `PreventBackHistory`, dan `app/Exceptions/Handler.php` tidak dipakai.
 - `config/app.php` timezone masih `UTC`, sehingga waktu tampil 7 jam lebih awal dari WIB. Pertimbangkan `Asia/Jakarta`.
 - Kolom `properties.isStatus` tidak jelas fungsinya dan tidak dipakai (digantikan `status`).
+- Topbar admin masih berisi elemen contoh template: ikon notifikasi (badge 3), menu aplikasi, dan kotak pencarian yang tidak berfungsi; juga logo Velzon.
 - Gambar demo template Porto (`template/frontend/img/demos/real-estate/**`: slider, background, listing, generic) ternyata PNG kosong/transparan, jadi tidak dipakai lagi di halaman publik.

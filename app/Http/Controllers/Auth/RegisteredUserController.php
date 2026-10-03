@@ -57,7 +57,7 @@ class RegisteredUserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role_id' => Role::where('name', $role->value)->value('id'),
+                'role_id' => Role::firstOrCreate(['name' => $role->value])->id,
             ]);
 
             if ($role === RoleEnum::Agen) {

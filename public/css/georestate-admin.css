@@ -1,0 +1,13 @@
+/*
+ * Penyesuaian tema Velzon untuk panel admin & agen GeoRestate.
+ *
+ * Tombol "soft" bawaan Velzon memakai teks warna terang di atas latar pucat
+ * (kontras 1.9–3:1, di bawah standar keterbacaan 4.5:1). Warna teks digelapkan
+ * agar terbaca (≥ 5:1); tampilan saat hover tetap mengikuti template.
+ */
+.btn-soft-primary:not(:hover):not(:focus):not(:active)   { color: #2c55c0; }
+.btn-soft-success:not(:hover):not(:focus):not(:active)   { color: #0a7139; }
+.btn-soft-danger:not(:hover):not(:focus):not(:active)    { color: #b42323; }
+.btn-soft-info:not(:hover):not(:focus):not(:active)      { color: #11708e; }
+.btn-soft-warning:not(:hover):not(:focus):not(:active)   { color: #7d5600; }
+.btn-soft-secondary:not(:hover):not(:focus):not(:active) { color: #5530b3; }

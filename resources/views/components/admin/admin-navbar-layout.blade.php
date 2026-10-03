@@ -5,8 +5,9 @@
             </div>
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                @php($isSuper = auth()->user()?->hasRole(\App\Enums\Role::Super))
                 <li class="nav-item">
-                    <a class="nav-link menu-link @if(request()->routeIs('adm.dashboard')) active @endif" href="{{ route('adm.dashboard') }}">
+                    <a class="nav-link menu-link @if(request()->routeIs('adm.dashboard', 'sup.dashboard')) active @endif" href="{{ route($isSuper ? 'sup.dashboard' : 'adm.dashboard') }}">
                         <i class="bx bxs-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>
@@ -59,6 +60,13 @@
                         </ul>
                     </div>
                 </li>
+                @if($isSuper)
+                    <li class="nav-item">
+                        <a class="nav-link menu-link @if(request()->routeIs('sup.admin*')) active @endif" href="{{ route('sup.admin') }}">
+                            <i class="bx bx-shield-quarter"></i> <span>Kelola Admin</span>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
         <!-- Sidebar -->

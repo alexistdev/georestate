@@ -58,7 +58,7 @@ class User extends Authenticatable
             return false;
         }
 
-        foreach ((array) $roles as $role) {
+        foreach ($roles instanceof RoleEnum ? [$roles] : (array) $roles as $role) {
             $role = $role instanceof RoleEnum ? $role : RoleEnum::tryFrom(strtolower($role));
             if ($role === $current) {
                 return true;

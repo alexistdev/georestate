@@ -11,29 +11,35 @@
     </div>
 
     <div class="row g-3 mb-4">
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
+        <div class="col-xxl col-lg-4 col-sm-6">
             <x-stat-card label="Listing Tayang" :nilai="$listingTayang" ikon="ri-home-4-line" warna="success"
                          :link="route('adm.listing', ['status' => 'approved'])" />
         </div>
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
+        <div class="col-xxl col-lg-4 col-sm-6">
             <x-stat-card label="Menunggu Persetujuan" :nilai="$listingPending" ikon="ri-time-line" warna="warning"
                          :link="route('adm.listing', ['status' => 'pending'])" />
         </div>
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
+        <div class="col-xxl col-lg-4 col-sm-6">
             <x-stat-card label="Listing Ditolak" :nilai="$listingDitolak" ikon="ri-close-circle-line" warna="danger"
                          :link="route('adm.listing', ['status' => 'rejected'])" />
         </div>
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
+        <div class="col-xxl col-lg-4 col-sm-6">
             <x-stat-card label="Agen Aktif" :nilai="$agenAktif" ikon="ri-user-star-line" warna="primary"
                          :link="route('adm.agent')" :catatan="$agenSuspend ? $agenSuspend.' agen disuspend' : null" />
         </div>
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
+        <div class="col-xxl col-lg-4 col-sm-6">
             <x-stat-card label="Pencari Properti" :nilai="$jumlahUser" ikon="ri-group-line" warna="info" :link="route('adm.user')" />
         </div>
-        <div class="col-xxl-2 col-lg-4 col-sm-6">
+        <div class="col-xxl col-lg-4 col-sm-6">
             <x-stat-card label="Pesan Belum Dibaca" :nilai="$pesanBaru" ikon="ri-mail-unread-line" warna="secondary"
                          :link="route('adm.pesan', ['filter' => 'baru'])" />
         </div>
+        @isset($jumlahAdmin)
+            <div class="col-xxl col-lg-4 col-sm-6">
+                <x-stat-card label="Akun Admin" :nilai="$jumlahAdmin" ikon="ri-shield-user-line" warna="primary"
+                             :link="route('sup.admin')" />
+            </div>
+        @endisset
     </div>
 
     <div class="row">

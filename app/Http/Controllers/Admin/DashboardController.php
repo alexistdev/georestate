@@ -14,10 +14,19 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        return view('admin.dashboard', array_merge($this->data(), [
+            'judul' => "Dashboard Administrator | GeoRestate v.1.0",
+        ]));
+    }
+
+    /**
+     * Data dashboard; dipakai juga oleh dashboard super admin.
+     */
+    protected function data(): array
+    {
         $jumlahListing = Property::selectRaw('status, count(*) as total')->groupBy('status')->pluck('total', 'status');
 
-        return view('admin.dashboard', array(
-            'judul' => "Dashboard Administrator | GeoRestate v.1.0",
+        return array(
             'menuUtama' => 'dashboard',
             'menuKedua' => 'dashboard',
             'listingTayang' => (int) ($jumlahListing[PropertyStatus::Approved->value] ?? 0),
@@ -33,6 +42,6 @@ class DashboardController extends Controller
                 ->limit(5)
                 ->get(),
             'pesanTerbaru' => ContactMessage::latest()->limit(5)->get(),
-        ));
+        );
     }
 }

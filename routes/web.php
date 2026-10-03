@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Super\DashboardController as DashSuper;
+use App\Http\Controllers\Super\{DashboardController as DashSuper, AdminController as AdminSuper};
 use App\Http\Controllers\Admin\{DashboardController as DashAdmin,
     ListingController as ListAdmin,
+    PasswordController as PasswordAdmin,
     PesanController as PesanAdmin
 };
 use App\Http\Controllers\Admin\Master\{AgentController as AgentAdmin,
@@ -52,11 +53,22 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'super'], function () {
         Route::get('/super/dashboard', [DashSuper::class, 'index'])->name('sup.dashboard');
+
+        /** kelola akun admin */
+        Route::get('/super/admin', [AdminSuper::class, 'index'])->name('sup.admin');
+        Route::post('/super/admin', [AdminSuper::class, 'store'])->name('sup.admin.save');
+        Route::whereNumber('user')->group(function () {
+            Route::patch('/super/admin/{user}', [AdminSuper::class, 'update'])->name('sup.admin.update');
+            Route::patch('/super/admin/{user}/password', [AdminSuper::class, 'resetPassword'])->name('sup.admin.password');
+            Route::delete('/super/admin/{user}', [AdminSuper::class, 'destroy'])->name('sup.admin.delete');
+            Route::patch('/super/admin/{user}/pulihkan', [AdminSuper::class, 'restore'])->withTrashed()->name('sup.admin.restore');
+        });
     });
 
     /** Area admin; super admin juga punya semua hak admin */
     Route::group(['roles' => ['admin', 'super']], function () {
         Route::get('/staff/dashboard', [DashAdmin::class, 'index'])->name('adm.dashboard');
+        Route::get('/staff/password', [PasswordAdmin::class, 'edit'])->name('adm.password');
 
         /** moderasi listing */
         Route::get('/staff/listing', [ListAdmin::class, 'index'])->name('adm.listing');

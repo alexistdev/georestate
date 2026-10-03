@@ -85,7 +85,7 @@ class FavoritTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->actingAs($user)->get(route('front.home'))->assertSee('AKUN SAYA');
+        $this->actingAs($user)->get(route('front.home'))->assertSee('Akun Saya');
         $this->actingAs($user)->get(route('usr.favorit'))->assertOk()->assertSee('Belum ada properti favorit');
         $this->actingAs($user)->get(route('usr.pertanyaan'))->assertOk()->assertSee('Belum ada pertanyaan');
         $this->actingAs($user)->get(route('usr.password'))->assertOk()->assertSee('Password Saat Ini');

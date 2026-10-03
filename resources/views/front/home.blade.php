@@ -1,8 +1,8 @@
 <x-front.front-end-template :title="$judul" :main-label="$menuUtama" :secondary-label="$menuKedua">
-    <section class="position-relative bg-color-primary" style="min-height: 520px;">
+    <section class="hero-georestate">
         <div class="container position-relative z-index-1 py-5">
             <div class="row align-items-center" style="min-height: 440px;">
-                <div class="col-lg-7 col-xl-6">
+                <div class="col-lg-6 col-xl-6">
                     <div class="card custom-card-info custom-card-info-shadow bg-color-light border-0 box-shadow-1 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
                         <div class="card-body p-4 p-lg-5">
                             <h1 class="text-dark font-weight-bold text-7 line-height-3 mb-2">{{ config('georestate.tagline') }}</h1>
@@ -45,13 +45,26 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-6 col-xl-6 d-none d-lg-block">
+                    <div class="hero-georestate__ilustrasi appear-animation" data-appear-animation="fadeInLeftShorter" data-appear-animation-delay="400">
+                        <img src="{{ asset('images/hero/kota.svg') }}" alt="" width="640" height="440">
+                        <span class="hero-georestate__label hero-georestate__label--1"><i class="fas fa-check" style="background:#2fbf71"></i> Listing diverifikasi admin</span>
+                        <span class="hero-georestate__label hero-georestate__label--2"><i class="fas fa-map-marker-alt" style="background:#ff9f1c"></i> Lokasi jelas di peta</span>
+                        <span class="hero-georestate__label hero-georestate__label--3"><i class="fab fa-whatsapp" style="background:#25d366"></i> Langsung chat agen</span>
+                    </div>
+                </div>
             </div>
         </div>
+        <svg class="hero-georestate__gelombang" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 40 C 240 80, 480 0, 720 30 S 1200 70, 1440 20 L1440 70 L0 70 Z" fill="#f3f7fc"/>
+        </svg>
     </section>
 
-    <div class="container py-5 my-3">
-        <div class="row">
+    <section class="bagian-listing">
+    <div class="container py-5">
+        <div class="row pt-2 pb-3">
             <div class="col-lg-9">
+                <span class="judul-kecil">Baru tayang</span>
                 <h2 class="mb-4">Listing <span class="text-color-secondary">Terbaru</span></h2>
 
                 <div class="row">
@@ -78,16 +91,18 @@
 
                 <hr class="my-5">
 
-                <h2 class="mb-3 pb-1">Cari Berdasarkan Kategori</h2>
+                <span class="judul-kecil">Jelajahi</span>
+                <h2 class="mb-3 pb-1">Cari Berdasarkan <span class="text-color-secondary">Kategori</span></h2>
 
                 <div class="row">
                     @foreach($dataKategori as $kategori)
                         <div class="col-md-4 pb-4 mb-1">
                             <a href="{{ route('front.properties', ['kategori' => $kategori->id]) }}" class="text-decoration-none">
-                                <div class="card custom-card-info custom-card-info-shadow border-0 bg-color-secondary h-100">
+                                <div class="card kartu-kategori border-0 h-100">
                                     <div class="card-body text-center py-5">
+                                        <span class="kartu-kategori__ikon"><i class="fas fa-home"></i></span>
                                         <strong class="text-color-light font-weight-semibold text-5 d-block mb-2">{{ $kategori->name }}</strong>
-                                        <span class="bg-primary text-color-light px-3 py-1 text-1 font-weight-semibold text-uppercase d-inline-block">{{ $kategori->properties_count }} Properti</span>
+                                        <span class="kartu-kategori__jumlah">{{ $kategori->properties_count }} Properti</span>
                                     </div>
                                 </div>
                             </a>
@@ -135,6 +150,7 @@
             </div>
         </div>
     </div>
+    </section>
 
     @push('customJS')
         <script>

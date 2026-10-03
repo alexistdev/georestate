@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 440" role="img" aria-label="Ilustrasi kota dengan penanda lokasi">
+  <defs>
+    <pattern id="jendela" width="22" height="26" patternUnits="userSpaceOnUse">
+      <rect x="5" y="6" width="12" height="14" rx="2" fill="#cfe6ff"/>
+    </pattern>
+    <pattern id="jendela-redup" width="18" height="22" patternUnits="userSpaceOnUse">
+      <rect x="4" y="5" width="10" height="11" rx="1.5" fill="#ffffff" fill-opacity=".35"/>
+    </pattern>
+    <linearGradient id="menara" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e3eefb"/>
+    </linearGradient>
+    <linearGradient id="pin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffc85c"/>
+      <stop offset="1" stop-color="#ff9f1c"/>
+    </linearGradient>
+    <linearGradient id="pin-biru" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5cc3ff"/>
+      <stop offset="1" stop-color="#1e90ff"/>
+    </linearGradient>
+    <filter id="bayang" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0a2547" flood-opacity=".35"/>
+    </filter>
+  </defs>
+
+  <!-- matahari / lingkaran latar -->
+  <circle cx="470" cy="150" r="120" fill="#ffffff" fill-opacity=".07"/>
+  <circle cx="470" cy="150" r="78" fill="#ffffff" fill-opacity=".07"/>
+
+  <!-- gedung latar belakang -->
+  <g fill="#ffffff" fill-opacity=".14">
+    <rect x="40" y="210" width="60" height="180" rx="4"/>
+    <rect x="108" y="170" width="46" height="220" rx="4"/>
+    <rect x="470" y="150" width="58" height="240" rx="4"/>
+    <rect x="536" y="200" width="70" height="190" rx="4"/>
+  </g>
+  <g>
+    <rect x="40" y="210" width="60" height="180" fill="url(#jendela-redup)"/>
+    <rect x="108" y="170" width="46" height="220" fill="url(#jendela-redup)"/>
+    <rect x="470" y="150" width="58" height="240" fill="url(#jendela-redup)"/>
+    <rect x="536" y="200" width="70" height="190" fill="url(#jendela-redup)"/>
+  </g>
+
+  <!-- rute putus-putus antar pin -->
+  <path d="M190 128 C 260 40, 330 40, 372 72 S 470 120, 560 92" fill="none" stroke="#ffffff" stroke-opacity=".7" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+
+  <!-- apartemen (menara) -->
+  <g filter="url(#bayang)">
+    <rect x="312" y="118" width="120" height="272" rx="8" fill="url(#menara)"/>
+    <rect x="312" y="118" width="120" height="20" rx="8" fill="#b9d6f5"/>
+    <rect x="322" y="148" width="100" height="208" fill="url(#jendela)"/>
+    <rect x="356" y="356" width="32" height="34" rx="3" fill="#1c5fa8"/>
+  </g>
+
+  <!-- rumah -->
+  <g filter="url(#bayang)">
+    <rect x="150" y="262" width="140" height="128" rx="6" fill="#ffffff"/>
+    <path d="M136 270 L220 200 L304 270 Z" fill="#ff9f1c"/>
+    <path d="M136 270 L220 200 L304 270 L292 270 L220 212 L148 270 Z" fill="#e8860b"/>
+    <rect x="203" y="320" width="34" height="70" rx="3" fill="#1c5fa8"/>
+    <rect x="166" y="290" width="28" height="26" rx="3" fill="#cfe6ff"/>
+    <rect x="246" y="290" width="28" height="26" rx="3" fill="#cfe6ff"/>
+    <circle cx="230" cy="356" r="2.5" fill="#ffc85c"/>
+  </g>
+
+  <!-- ruko -->
+  <g filter="url(#bayang)">
+    <rect x="446" y="250" width="132" height="140" rx="6" fill="#ffffff"/>
+    <rect x="440" y="242" width="144" height="16" rx="4" fill="#5cc3ff"/>
+    <rect x="456" y="268" width="112" height="40" fill="url(#jendela)"/>
+    <rect x="456" y="324" width="50" height="66" rx="3" fill="#1c5fa8"/>
+    <rect x="518" y="324" width="50" height="66" rx="3" fill="#2b7fd1"/>
+    <path d="M456 318 h112" stroke="#ff9f1c" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- pepohonan -->
+  <g>
+    <rect x="96" y="340" width="6" height="50" fill="#0f3b73"/>
+    <circle cx="99" cy="330" r="22" fill="#2fbf71"/>
+    <circle cx="112" cy="342" r="14" fill="#27a862"/>
+    <rect x="296" y="350" width="5" height="40" fill="#0f3b73"/>
+    <circle cx="298" cy="342" r="16" fill="#2fbf71"/>
+    <rect x="600" y="345" width="5" height="45" fill="#0f3b73"/>
+    <circle cx="602" cy="336" r="18" fill="#27a862"/>
+  </g>
+
+  <!-- tanah -->
+  <rect x="20" y="388" width="600" height="6" rx="3" fill="#ffffff" fill-opacity=".55"/>
+  <rect x="80" y="404" width="480" height="4" rx="2" fill="#ffffff" fill-opacity=".25"/>
+
+  <!-- pin lokasi -->
+  <g filter="url(#bayang)">
+    <path d="M190 160 c-22 -26 -32 -40 -32 -56 a32 32 0 0 1 64 0 c0 16 -10 30 -32 56z" fill="url(#pin)"/>
+    <circle cx="190" cy="104" r="12" fill="#ffffff"/>
+    <path d="M372 104 c-18 -21 -26 -33 -26 -46 a26 26 0 0 1 52 0 c0 13 -8 25 -26 46z" fill="url(#pin-biru)"/>
+    <circle cx="372" cy="58" r="10" fill="#ffffff"/>
+    <path d="M560 122 c-16 -19 -24 -30 -24 -42 a24 24 0 0 1 48 0 c0 12 -8 23 -24 42z" fill="url(#pin)"/>
+    <circle cx="560" cy="80" r="9" fill="#ffffff"/>
+  </g>
+</svg>

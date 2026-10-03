@@ -31,6 +31,7 @@
 
     <!-- Theme Custom CSS -->
     <link rel="stylesheet" href="{{asset('template/frontend/css/custom.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/georestate-front.css') }}">
 
     <!-- Head Libs -->
     <script src="{{asset('template/frontend/vendor/modernizr/modernizr.min.js')}}"></script>

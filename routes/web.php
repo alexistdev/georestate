@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\{DashboardController as DashAdmin,
 };
 use App\Http\Controllers\Admin\Master\{AgentController as AgentAdmin,
     DisctricController as WilayahAdmin,
+    FasilitasController as FasilitasAdmin,
+    KategoriController as KategoriAdmin,
     UserController as UserAdmin
 };
 
@@ -77,6 +79,15 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
             Route::delete('/staff/agent/{agent}', [AgentAdmin::class, 'destroy'])->name('adm.agent.delete');
             Route::patch('/staff/agent/{agent}/pulihkan', [AgentAdmin::class, 'restore'])->withTrashed()->name('adm.agent.restore');
         });
+
+        /** master kategori & fasilitas */
+        foreach (['kategori' => KategoriAdmin::class, 'fasilitas' => FasilitasAdmin::class] as $nama => $controller) {
+            Route::get("/staff/{$nama}", [$controller, 'index'])->name("adm.{$nama}");
+            Route::post("/staff/{$nama}", [$controller, 'store'])->name("adm.{$nama}.save");
+            Route::patch("/staff/{$nama}/{id}", [$controller, 'update'])->whereNumber('id')->name("adm.{$nama}.update");
+            Route::delete("/staff/{$nama}/{id}", [$controller, 'destroy'])->whereNumber('id')->name("adm.{$nama}.delete");
+            Route::patch("/staff/{$nama}/{id}/pulihkan", [$controller, 'restore'])->whereNumber('id')->name("adm.{$nama}.restore");
+        }
 
         /** kelola pencari properti */
         Route::get('/staff/user', [UserAdmin::class, 'index'])->name('adm.user');

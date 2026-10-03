@@ -63,12 +63,14 @@ class Property extends Model
 
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class,'kategori_id','id');
+        // withTrashed: listing lama tetap menampilkan kategori yang sudah dihapus admin.
+        return $this->belongsTo(Kategori::class,'kategori_id','id')->withTrashed();
     }
 
     public function fasilitas()
     {
-        return $this->belongsToMany(Fasilitas::class, 'fasilitas_property', 'property_id', 'fasilitas_id');
+        // withTrashed: listing lama tetap menampilkan fasilitas yang sudah dihapus admin.
+        return $this->belongsToMany(Fasilitas::class, 'fasilitas_property', 'property_id', 'fasilitas_id')->withTrashed();
     }
 
     public function gambars()

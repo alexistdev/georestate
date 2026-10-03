@@ -16,9 +16,9 @@ class KategoriSeeder extends Seeder
     {
         $date = Carbon::now()->format('Y-m-d H:i:s');
         $kategori = [
-            array('name'=>'apartement','created_at' => $date,'updated_at' => $date),
-            array('name'=>'rumah','created_at' => $date,'updated_at' => $date),
-            array('name'=>'ruko','created_at' => $date,'updated_at' => $date),
+            array('name'=>'Apartemen','created_at' => $date,'updated_at' => $date),
+            array('name'=>'Rumah','created_at' => $date,'updated_at' => $date),
+            array('name'=>'Ruko','created_at' => $date,'updated_at' => $date),
         ];
         Kategori::insert($kategori);
     }

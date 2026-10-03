@@ -30,7 +30,7 @@ class PropertyRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:5000',
-            'kategori' => 'required|integer|exists:kategoris,id',
+            'kategori' => 'required|integer|exists:kategoris,id,deleted_at,NULL',
             'lt' => 'required|integer|min:0|max:1000000',
             'lb' => 'required|integer|min:0|max:1000000',
             'kamar_tidur' => 'nullable|integer|min:0|max:99',
@@ -80,7 +80,7 @@ class PropertyRequest extends FormRequest
             'description.max' => "Panjang karakter maksimal yang diperbolehkan adalah 5000 karakter!",
             'kategori.required' => "Wajib dipilih!",
             'kategori.integer' => "Kategori tidak valid!",
-            'kategori.exists' => "Kategori tidak ditemukan!",
+            'kategori.exists' => "Kategori sudah tidak tersedia, silahkan pilih kategori lain!",
             'lt.required' => "Wajib diisi!",
             'lt.integer' => "Harus berupa angka !",
             'lb.required' => "Wajib diisi!",

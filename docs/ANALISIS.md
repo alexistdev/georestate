@@ -1,6 +1,6 @@
 # Analisis & Roadmap — GeoRestate
 
-_Terakhir diperbarui: 3 Oktober 2026 (Fase 0, 1, 2, 3A, dan 3B selesai)._
+_Terakhir diperbarui: 3 Oktober 2026 (Fase 0, 1, 2, dan 3A–3C selesai)._
 
 ## 1. Ringkasan
 
@@ -28,7 +28,7 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 | Admin: master wilayah (provinsi/kabupaten/kecamatan) | ✅ CRUD + validasi |
 | Admin: dashboard statistik, moderasi listing (setujui / tolak / turunkan + alasan), pesan Kontak | ✅ Fase 3A |
 | Admin: kelola agen (suspend/aktifkan, hapus/pulihkan) & pencari properti (hapus/pulihkan) | ✅ Fase 3B |
-| Admin: kategori & fasilitas (3C) | ❌ |
+| Admin: master kategori & fasilitas (tambah, ubah, hapus, pulihkan) | ✅ Fase 3C |
 | Agen: CRUD listing (milik sendiri), harga per periode, fasilitas, foto, status | ✅ |
 | Agen: dashboard (jumlah per status + notifikasi disetujui/ditolak) | ✅ |
 | Agen: profil | ❌ |
@@ -107,7 +107,12 @@ Keputusan: Super = semua hak Admin + kelola akun Admin; tolak listing wajib alas
 - Kelola pencari properti `/staff/user`: tab Aktif/Terhapus, cari, hapus & pulihkan (hanya akun role user).
 - Menu admin: Pengguna → Agen, Pencari Properti. Service `Admin\AgentService` berisi suspend/aktifkan/hapus/pulihkan.
 - Test: `tests/Feature/Admin/KelolaPenggunaTest.php`.
-**3C** Master kategori & fasilitas.
+**3C ✅ SELESAI** (keputusan: kategori terhapus wajib diganti saat listing diedit; fasilitas terhapus terlepas saat listing disimpan ulang; nama unik tanpa beda huruf besar/kecil; nama kategori tampil sesuai input)
+- `/staff/kategori` & `/staff/fasilitas` (menu Master Data): tab Aktif/Terhapus, cari, jumlah listing pemakai, tambah, ubah (modal), hapus (soft delete), pulihkan (ditolak jika nama sudah dipakai data aktif). Satu controller dasar `Admin\Master\MasterNamaController` + view `admin/master-nama.blade.php`.
+- Rule `App\Rules\NamaUnik` (unik di antara data aktif, case-insensitive); spasi berlebih dirapikan.
+- Relasi `Property::kategori()` & `fasilitas()` memakai `withTrashed()` sehingga listing lama tetap menampilkan data yang sudah dihapus; form agen & filter publik hanya menampilkan data aktif; form edit memberi petunjuk jika kategori lama sudah dihapus.
+- Huruf besar paksa (accessor) pada `Kategori` dihapus; migrasi `normalize_kategori_names` merapikan data lama (Title Case, "apartement" → "Apartemen"); seeder disesuaikan.
+- Test: `tests/Feature/Admin/MasterKategoriFasilitasTest.php`.
 **3D** Area super: dashboard & navbar sendiri, kelola akun admin.
 
 ### Fase 4 — User & inquiry
@@ -133,7 +138,7 @@ Foto, telepon, alamat, wilayah (kecamatan), about. Ganti halaman profil Breeze/T
 
 - Halaman Breeze (lupa password, reset, verifikasi email, profil) memakai `@vite` → **error 500 jika belum `npm run build`**.
 - `XssClean` men-`strip_tags` semua input → akan merusak deskripsi rich text; nanti escape saat output saja.
-- Accessor `name` wilayah/kategori: `strtoupper` saat baca, `strtolower` saat simpan, sedangkan seeder menyimpan UPPERCASE.
+- Accessor `name` wilayah (provinsi/kabupaten/kecamatan): `strtoupper` saat baca, `strtolower` saat simpan, sedangkan seeder menyimpan UPPERCASE. (Kategori sudah dibereskan di Fase 3C.)
 - `Agent::$fillable` menyebut `kelurahan_id` yang tidak ada di tabel.
 - Middleware `isFree`, `PreventBackHistory`, dan `app/Exceptions/Handler.php` tidak dipakai.
 - `config/app.php` timezone masih `UTC`, sehingga waktu tampil 7 jam lebih awal dari WIB. Pertimbangkan `Asia/Jakarta`.

@@ -54,18 +54,18 @@ class DemoListingSeeder extends Seeder
             }));
 
         $contoh = [
-            ['Kos Putri Nyaman Dekat Kampus', 'rumah', ['harga_bulanan' => 850000], 1, 1],
-            ['Kos Putra Eksklusif AC + WiFi', 'rumah', ['harga_harian' => 90000, 'harga_bulanan' => 1200000], 1, 1],
-            ['Rumah Minimalis 2 Lantai Siap Huni', 'rumah', ['harga_bulanan' => 3500000, 'harga_tahunan' => 38000000], 3, 2],
-            ['Rumah Keluarga Dekat Sekolah', 'rumah', ['harga_tahunan' => 25000000], 3, 1],
-            ['Apartemen Studio Pusat Kota', 'apartement', ['harga_harian' => 350000, 'harga_bulanan' => 4500000], 1, 1],
-            ['Apartemen 2 Kamar View Kota', 'apartement', ['harga_bulanan' => 7000000, 'harga_tahunan' => 78000000], 2, 1],
-            ['Apartemen Furnished Dekat Mall', 'apartement', ['harga_harian' => 450000], 1, 1],
-            ['Ruko 3 Lantai Pinggir Jalan Utama', 'ruko', ['harga_tahunan' => 90000000], 0, 2],
-            ['Ruko Strategis Dekat Pasar', 'ruko', ['harga_bulanan' => 6500000, 'harga_tahunan' => 70000000], 0, 1],
-            ['Kamar Kos Harian Murah', 'rumah', ['harga_harian' => 75000, 'harga_bulanan' => 900000], 1, 1],
-            ['Rumah Asri dengan Taman', 'rumah', ['harga_bulanan' => 2800000], 2, 1],
-            ['Apartemen Mewah Penthouse', 'apartement', ['harga_bulanan' => 15000000, 'harga_tahunan' => 165000000], 3, 3],
+            ['Kos Putri Nyaman Dekat Kampus', 'Rumah', ['harga_bulanan' => 850000], 1, 1],
+            ['Kos Putra Eksklusif AC + WiFi', 'Rumah', ['harga_harian' => 90000, 'harga_bulanan' => 1200000], 1, 1],
+            ['Rumah Minimalis 2 Lantai Siap Huni', 'Rumah', ['harga_bulanan' => 3500000, 'harga_tahunan' => 38000000], 3, 2],
+            ['Rumah Keluarga Dekat Sekolah', 'Rumah', ['harga_tahunan' => 25000000], 3, 1],
+            ['Apartemen Studio Pusat Kota', 'Apartemen', ['harga_harian' => 350000, 'harga_bulanan' => 4500000], 1, 1],
+            ['Apartemen 2 Kamar View Kota', 'Apartemen', ['harga_bulanan' => 7000000, 'harga_tahunan' => 78000000], 2, 1],
+            ['Apartemen Furnished Dekat Mall', 'Apartemen', ['harga_harian' => 450000], 1, 1],
+            ['Ruko 3 Lantai Pinggir Jalan Utama', 'Ruko', ['harga_tahunan' => 90000000], 0, 2],
+            ['Ruko Strategis Dekat Pasar', 'Ruko', ['harga_bulanan' => 6500000, 'harga_tahunan' => 70000000], 0, 1],
+            ['Kamar Kos Harian Murah', 'Rumah', ['harga_harian' => 75000, 'harga_bulanan' => 900000], 1, 1],
+            ['Rumah Asri dengan Taman', 'Rumah', ['harga_bulanan' => 2800000], 2, 1],
+            ['Apartemen Mewah Penthouse', 'Apartemen', ['harga_bulanan' => 15000000, 'harga_tahunan' => 165000000], 3, 3],
         ];
 
         foreach ($contoh as $i => [$nama, $namaKategori, $harga, $beds, $baths]) {

@@ -66,6 +66,11 @@
                                 @error('kategori')
                                 <div class="text-sm text-danger mt-1 errorMessage">{{ $message }}</div>
                                 @enderror
+                                @if($isEdit && $property->kategori?->trashed())
+                                    <div class="text-sm text-warning mt-1">
+                                        Kategori sebelumnya ({{ $property->kategori->name }}) sudah dihapus admin. Pilih kategori lain.
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6">

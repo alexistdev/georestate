@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Agent;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -18,7 +19,7 @@ class RoleAccessTest extends TestCase
         $this->actingAs(User::factory()->admin()->create())
             ->get(route('adm.dashboard'))->assertOk();
 
-        $this->actingAs(User::factory()->agen()->create())
+        $this->actingAs(Agent::factory()->create()->hasUser)
             ->get(route('agn.dashboard'))->assertOk();
     }
 

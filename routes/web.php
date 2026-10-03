@@ -3,7 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Super\DashboardController as DashSuper;
-use App\Http\Controllers\Admin\{DashboardController as DashAdmin};
+use App\Http\Controllers\Admin\{DashboardController as DashAdmin,
+    ListingController as ListAdmin,
+    PesanController as PesanAdmin
+};
 use App\Http\Controllers\Admin\Master\{AgentController as AgentAdmin,
     DisctricController as WilayahAdmin
 };
@@ -48,8 +51,22 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/super/dashboard', [DashSuper::class, 'index'])->name('sup.dashboard');
     });
 
-    Route::group(['roles' => 'admin'], function () {
+    /** Area admin; super admin juga punya semua hak admin */
+    Route::group(['roles' => ['admin', 'super']], function () {
         Route::get('/staff/dashboard', [DashAdmin::class, 'index'])->name('adm.dashboard');
+
+        /** moderasi listing */
+        Route::get('/staff/listing', [ListAdmin::class, 'index'])->name('adm.listing');
+        Route::whereUuid('property')->group(function () {
+            Route::get('/staff/listing/{property}', [ListAdmin::class, 'show'])->name('adm.listing.show');
+            Route::patch('/staff/listing/{property}/approve', [ListAdmin::class, 'approve'])->name('adm.listing.approve');
+            Route::patch('/staff/listing/{property}/reject', [ListAdmin::class, 'reject'])->name('adm.listing.reject');
+        });
+
+        /** pesan dari form kontak */
+        Route::get('/staff/pesan', [PesanAdmin::class, 'index'])->name('adm.pesan');
+        Route::get('/staff/pesan/{pesan}', [PesanAdmin::class, 'show'])->whereNumber('pesan')->name('adm.pesan.show');
+        Route::delete('/staff/pesan/{pesan}', [PesanAdmin::class, 'destroy'])->whereNumber('pesan')->name('adm.pesan.delete');
         Route::get('/staff/agent', [AgentAdmin::class, 'index'])->name('adm.agent');
         Route::get('/staff/wilayah', [WilayahAdmin::class, 'index'])->name('adm.disctrict');
         Route::post('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_store'])->name('adm.disctrict.provinsi.save');

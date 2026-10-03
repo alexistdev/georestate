@@ -1,6 +1,6 @@
 # Analisis & Roadmap — GeoRestate
 
-_Terakhir diperbarui: 3 Oktober 2026 (Fase 0, 1, dan 2 selesai)._
+_Terakhir diperbarui: 3 Oktober 2026 (Fase 0, 1, 2, dan 3A selesai)._
 
 ## 1. Ringkasan
 
@@ -24,16 +24,18 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 |---|---|
 | Login + redirect per role, `/dashboard` → dashboard sesuai role | ✅ |
 | Registrasi user / agen | ✅ (agen melengkapi wilayah nanti di profil) |
-| Area super | ⚠️ Baru dashboard kosong; menu masih memakai navbar admin |
+| Area super | ⚠️ Punya semua hak admin (akses `/staff/*`); dashboard & kelola akun admin di Fase 3D |
 | Admin: master wilayah (provinsi/kabupaten/kecamatan) | ✅ CRUD + validasi |
 | Admin: daftar agen | ⚠️ List saja; tombol Detail/Hapus belum berfungsi |
-| Admin: dashboard, kategori, fasilitas, moderasi listing, user | ❌ (listing baru tertahan `pending` sampai ada halaman moderasi) |
+| Admin: dashboard statistik, moderasi listing (setujui / tolak / turunkan + alasan), pesan Kontak | ✅ Fase 3A |
+| Admin: kelola agen & user (3B), kategori & fasilitas (3C) | ❌ |
 | Agen: CRUD listing (milik sendiri), harga per periode, fasilitas, foto, status | ✅ |
-| Agen: dashboard, profil | ❌ |
+| Agen: dashboard (jumlah per status + notifikasi disetujui/ditolak) | ✅ |
+| Agen: profil | ❌ |
 | User: favorit, kirim pesan ke agen | ❌ (sementara pengunjung menghubungi agen via WhatsApp/telepon) |
 | Frontend publik (home, cari & filter properti, detail, agen, tentang, kontak) | ✅ Hanya listing `approved` dari agen yang tidak disuspend |
 | Peta lokasi | ⚠️ Kerangka saja (kolom koordinat + placeholder), dikerjakan di akhir project |
-| Pesan form Kontak | ✅ Tersimpan di `contact_messages`; halaman baca untuk admin di Fase 3 |
+| Pesan form Kontak | ✅ Tersimpan di `contact_messages`; dibaca admin di `/staff/pesan` |
 | Test | ✅ Fondasi siap (SQLite in-memory, factory, test role & wilayah) |
 
 ## 4. Roadmap
@@ -86,12 +88,20 @@ Penyesuaian terhadap plugin asli:
 Saran: terapkan poin 1–5 juga ke plugin di `geolicense/CLIENT/LARAVEL` agar project lain ikut mendapat perbaikan.
 
 ### Fase 3 — Admin & Super
-1. Dashboard statistik.
-2. Moderasi listing (approve/reject + alasan).
-3. Kelola agen: detail, suspend/aktifkan (`isSuspend` → blokir login), hapus.
-4. Master kategori & fasilitas.
-5. Kelola user.
-6. Area super: kelola akun admin, navbar sendiri.
+Keputusan: Super = semua hak Admin + kelola akun Admin; tolak listing wajib alasan; notifikasi moderasi cukup di dashboard agen (belum email); kategori/fasilitas boleh dihapus (soft delete, listing lama tetap menampilkan); hapus agen = soft delete.
+
+**3A ✅ SELESAI**
+- Moderasi listing `/staff/listing`: tab Menunggu/Disetujui/Ditolak + jumlah, cari nama, antrean pending terlama di atas. Halaman tinjau: foto, harga, fasilitas, agen; Setujui & Tayangkan, Tolak (alasan wajib), Turunkan listing yang sudah tayang. Service `Admin\ModerasiService`.
+- Dashboard admin: jumlah listing per status, agen aktif/suspend, pencari properti, pesan belum dibaca; antrean moderasi & pesan terbaru.
+- Pesan Kontak `/staff/pesan`: filter belum dibaca, baca (otomatis ditandai dibaca), balas via email (mailto), hapus.
+- Menu admin: Dashboard, Moderasi Listing (badge pending), Pesan Kontak (badge belum dibaca). Judul halaman admin tidak lagi "Velzon".
+- Route admin terbuka untuk role `super`.
+- Dashboard agen: jumlah per status, notifikasi listing ditolak (+alasan, tombol Perbaiki) dan disetujui 7 hari terakhir.
+- Test: `tests/Feature/Admin/ModerasiTest.php`, `tests/Feature/Agen/DashboardTest.php`.
+
+**3B** Kelola agen (detail, suspend/aktifkan → blokir login, hapus soft delete) & kelola user.
+**3C** Master kategori & fasilitas.
+**3D** Area super: dashboard & navbar sendiri, kelola akun admin.
 
 ### Fase 4 — User & inquiry
 1. Tabel `inquiries` (property_id, user_id/nama/email/telepon tamu, pesan, status).

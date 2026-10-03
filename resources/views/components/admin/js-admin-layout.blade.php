@@ -16,8 +16,6 @@
     <!--Swiper slider js-->
     <script src="{{asset('template/admin/assets/libs/swiper/swiper-bundle.min.js')}}"></script>
 
-    <!-- Dashboard init -->
-    <script src="{{asset('template/admin/assets/js/pages/dashboard-ecommerce.init.js')}}"></script>
 
     <!-- App js -->
     <script src="{{asset('template/admin/assets/js/app.js')}}"></script>

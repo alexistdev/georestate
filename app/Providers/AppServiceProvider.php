@@ -6,6 +6,8 @@ use App\Services\Admin\AgentService;
 use App\Services\Admin\AgentServiceImpl;
 use App\Services\Admin\DisctrictServiceImpl;
 use App\Services\Admin\DistrictService;
+use App\Services\Admin\ModerasiService;
+use App\Services\Admin\ModerasiServiceImpl;
 use App\Services\Agen\PropertyService;
 use App\Services\Agen\PropertyServiceImpl;
 use Illuminate\Pagination\Paginator;
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public $bindings = [
         AgentService::class =>AgentServiceImpl::class,
         DistrictService::class => DisctrictServiceImpl::class,
+        ModerasiService::class => ModerasiServiceImpl::class,
         PropertyService::class => PropertyServiceImpl::class,
     ];
 

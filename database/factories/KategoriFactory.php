@@ -12,7 +12,7 @@ class KategoriFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->randomElement(['rumah', 'apartement', 'ruko', 'kos', 'villa', 'gudang']),
+            'name' => fake()->randomElement(['rumah', 'apartement', 'ruko', 'kos', 'villa', 'gudang']).' '.fake()->unique()->numberBetween(1, 99999),
         ];
     }
 }

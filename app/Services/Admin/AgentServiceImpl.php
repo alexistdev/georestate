@@ -2,51 +2,42 @@
 
 namespace App\Services\Admin;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
+use App\Models\Agent;
+use Illuminate\Support\Facades\DB;
 
 class AgentServiceImpl implements AgentService
 {
-    public function index(Request $request)
+    public function suspend(Agent $agent, string $alasan): void
     {
-        $agent = User::with('hasAgent')->orderBy('isPremium', 'DESC')->where('role_id','3')->get();
-        return DataTables::of($agent)
-            ->addIndexColumn()
-            ->editColumn('created_at', function ($request) {
-                return $request->created_at->format('d-m-Y H:i:s') ?? "-";
-            })
-            ->editColumn('phone', function ($request) {
-                return $request->hasAgent->phone ?? "-";
-            })
-            ->editColumn('kecamatan', function ($request) {
-                $kecamatan = e($request->hasAgent->kecamatan->name ?? "-");
-                $kabupaten = e($request->hasAgent->kecamatan->kabupaten->name ?? "-");
-                $provinsi = e($request->hasAgent->kecamatan->kabupaten->provinsi->name ?? "-");
-                $btn = "<a href=\"#\" class=\"open-kecamatan\" data-bs-toggle=\"modal\" data-kecamatan=\"$kecamatan\" data-kabupaten=\"$kabupaten\" data-provinsi=\"$provinsi\" data-bs-target=\"#modalKecamatan\">$kecamatan</a>";
-                return $btn;
-            })
-            ->editColumn('agentID', function ($request) {
-                return $request->hasAgent->member_identifier ?? "-";
-            })
-            ->editColumn('alamat', function ($request) {
-                return $request->hasAgent->alamat ?? "-";
-            })
-            ->editColumn('isPremium', function ($request) {
-                $str = "<span class=\"badge rounded-pill text-bg-primary\">Premium</span>";
-                if($request->isPremium != 1){
-                    $str = "<span class=\"badge rounded-pill text-bg-success\">Free</span>";
-                }
-                return $str;
-            })
-            ->addColumn('action', function ($row) {
-//                $url = route('adm.dosen.edit', $row->id);
+        $agent->forceFill([
+            'isSuspend' => true,
+            'alasan_suspend' => $alasan,
+            'suspended_at' => now(),
+        ])->save();
+    }
 
-                $btn = "<a href=\"#\"><button type=\"button\" class=\"btn btn-sm btn-primary m-1\" > <span class=\"icon-off\"><i class=\"mdi mdi-account-eye-outline align-middle m-1\"></i>Detail</span></button></a>";
-                $btn = $btn . "<button class=\"btn btn-sm btn-danger m-1 open-hapus\" data-id=\"".e($row->id)."\" data-bs-toggle=\"modal\" data-bs-target=\"#modalHapus\"> <i class=\"bx bx-trash align-middle m-1\"></i>Hapus</span></button>";
-                return $btn;
-            })
-            ->rawColumns(['action','isPremium','kecamatan'])
-            ->make(true);
+    public function aktifkan(Agent $agent): void
+    {
+        $agent->forceFill([
+            'isSuspend' => false,
+            'alasan_suspend' => null,
+            'suspended_at' => null,
+        ])->save();
+    }
+
+    public function hapus(Agent $agent): void
+    {
+        DB::transaction(function () use ($agent) {
+            $agent->hasUser()->first()?->delete();
+            $agent->delete();
+        });
+    }
+
+    public function pulihkan(Agent $agent): void
+    {
+        DB::transaction(function () use ($agent) {
+            $agent->restore();
+            $agent->hasUser()->withTrashed()->first()?->restore();
+        });
     }
 }

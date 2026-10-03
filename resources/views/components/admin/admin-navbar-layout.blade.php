@@ -27,14 +27,26 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link @if(request()->routeIs('adm.agent*', 'adm.user*')) active @endif" href="#sidebarPengguna" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarPengguna">
+                        <i class="bx bx-user"></i> <span>Pengguna</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarPengguna">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('adm.agent') }}" class="nav-link"> Agen </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('adm.user') }}" class="nav-link"> Pencari Properti </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="bx bx-layer"></i> <span data-key="t-apps">Master Data</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarApps">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{route('adm.agent')}}" class="nav-link" data-key="t-calendar"> Agent </a>
-                            </li>
                             <li class="nav-item">
                                 <a href="{{route('adm.disctrict')}}" class="nav-link" data-key="t-chat"> Wilayah </a>
                             </li>

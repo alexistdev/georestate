@@ -8,7 +8,8 @@ use App\Http\Controllers\Admin\{DashboardController as DashAdmin,
     PesanController as PesanAdmin
 };
 use App\Http\Controllers\Admin\Master\{AgentController as AgentAdmin,
-    DisctricController as WilayahAdmin
+    DisctricController as WilayahAdmin,
+    UserController as UserAdmin
 };
 
 use App\Http\Controllers\Agen\{DashboardController as DashAgen,ListingController as ListAgen};
@@ -67,7 +68,20 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         Route::get('/staff/pesan', [PesanAdmin::class, 'index'])->name('adm.pesan');
         Route::get('/staff/pesan/{pesan}', [PesanAdmin::class, 'show'])->whereNumber('pesan')->name('adm.pesan.show');
         Route::delete('/staff/pesan/{pesan}', [PesanAdmin::class, 'destroy'])->whereNumber('pesan')->name('adm.pesan.delete');
+        /** kelola agen */
         Route::get('/staff/agent', [AgentAdmin::class, 'index'])->name('adm.agent');
+        Route::whereUuid('agent')->group(function () {
+            Route::get('/staff/agent/{agent}', [AgentAdmin::class, 'show'])->withTrashed()->name('adm.agent.show');
+            Route::patch('/staff/agent/{agent}/suspend', [AgentAdmin::class, 'suspend'])->name('adm.agent.suspend');
+            Route::patch('/staff/agent/{agent}/aktifkan', [AgentAdmin::class, 'aktifkan'])->name('adm.agent.aktifkan');
+            Route::delete('/staff/agent/{agent}', [AgentAdmin::class, 'destroy'])->name('adm.agent.delete');
+            Route::patch('/staff/agent/{agent}/pulihkan', [AgentAdmin::class, 'restore'])->withTrashed()->name('adm.agent.restore');
+        });
+
+        /** kelola pencari properti */
+        Route::get('/staff/user', [UserAdmin::class, 'index'])->name('adm.user');
+        Route::delete('/staff/user/{user}', [UserAdmin::class, 'destroy'])->whereNumber('user')->name('adm.user.delete');
+        Route::patch('/staff/user/{user}/pulihkan', [UserAdmin::class, 'restore'])->whereNumber('user')->withTrashed()->name('adm.user.restore');
         Route::get('/staff/wilayah', [WilayahAdmin::class, 'index'])->name('adm.disctrict');
         Route::post('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_store'])->name('adm.disctrict.provinsi.save');
         Route::patch('/staff/wilayah/provinsi', [WilayahAdmin::class, 'provinsi_update'])->name('adm.disctrict.provinsi.update');

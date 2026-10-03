@@ -20,11 +20,22 @@ class Agent extends Model
 
     protected $casts = [
         'isSuspend' => 'bool',
+        'suspended_at' => 'datetime',
     ];
 
     public function hasUser()
     {
         return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    /**
+     * Pesan untuk agen yang disuspend (ditampilkan saat login / dikeluarkan dari sesi).
+     */
+    public function pesanSuspend(): string
+    {
+        return 'Akun agen Anda disuspend'
+            .($this->alasan_suspend ? ': '.rtrim($this->alasan_suspend, '. ').'.' : '.')
+            .' Silakan hubungi administrator.';
     }
 
     public function properties()

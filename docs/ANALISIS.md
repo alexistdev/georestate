@@ -1,6 +1,6 @@
 # Analisis & Roadmap — GeoRestate
 
-_Terakhir diperbarui: 3 Oktober 2026 (Fase 0, 1, 2, dan 3A selesai)._
+_Terakhir diperbarui: 3 Oktober 2026 (Fase 0, 1, 2, 3A, dan 3B selesai)._
 
 ## 1. Ringkasan
 
@@ -26,9 +26,9 @@ Role: `super`, `admin`, `agen`, `user` (lihat `App\Enums\Role`).
 | Registrasi user / agen | ✅ (agen melengkapi wilayah nanti di profil) |
 | Area super | ⚠️ Punya semua hak admin (akses `/staff/*`); dashboard & kelola akun admin di Fase 3D |
 | Admin: master wilayah (provinsi/kabupaten/kecamatan) | ✅ CRUD + validasi |
-| Admin: daftar agen | ⚠️ List saja; tombol Detail/Hapus belum berfungsi |
 | Admin: dashboard statistik, moderasi listing (setujui / tolak / turunkan + alasan), pesan Kontak | ✅ Fase 3A |
-| Admin: kelola agen & user (3B), kategori & fasilitas (3C) | ❌ |
+| Admin: kelola agen (suspend/aktifkan, hapus/pulihkan) & pencari properti (hapus/pulihkan) | ✅ Fase 3B |
+| Admin: kategori & fasilitas (3C) | ❌ |
 | Agen: CRUD listing (milik sendiri), harga per periode, fasilitas, foto, status | ✅ |
 | Agen: dashboard (jumlah per status + notifikasi disetujui/ditolak) | ✅ |
 | Agen: profil | ❌ |
@@ -99,7 +99,14 @@ Keputusan: Super = semua hak Admin + kelola akun Admin; tolak listing wajib alas
 - Dashboard agen: jumlah per status, notifikasi listing ditolak (+alasan, tombol Perbaiki) dan disetujui 7 hari terakhir.
 - Test: `tests/Feature/Admin/ModerasiTest.php`, `tests/Feature/Agen/DashboardTest.php`.
 
-**3B** Kelola agen (detail, suspend/aktifkan → blokir login, hapus soft delete) & kelola user.
+**3B ✅ SELESAI** (keputusan: alasan suspend wajib & tampil ke agen saat login; kolom Premium/Free disembunyikan; pencari properti cukup hapus/pulihkan; admin tidak membuat akun agen)
+- Kelola agen `/staff/agent`: tab Aktif/Disuspend/Terhapus + jumlah, cari nama/email/telepon, jumlah listing per status. DataTables lama diganti tabel server-side.
+- Detail agen: profil, kontak, wilayah, daftar listing (link ke moderasi).
+- Suspend (alasan wajib; kolom `agents.alasan_suspend`, `suspended_at`) / Aktifkan. Agen disuspend tidak bisa login (pesan berisi alasan) dan langsung dikeluarkan dari sesi aktif (`CekRole`); listing-nya hilang dari website.
+- Hapus agen = soft delete agen + akun user-nya (tidak bisa login, listing hilang), bisa dipulihkan dari tab Terhapus.
+- Kelola pencari properti `/staff/user`: tab Aktif/Terhapus, cari, hapus & pulihkan (hanya akun role user).
+- Menu admin: Pengguna → Agen, Pencari Properti. Service `Admin\AgentService` berisi suspend/aktifkan/hapus/pulihkan.
+- Test: `tests/Feature/Admin/KelolaPenggunaTest.php`.
 **3C** Master kategori & fasilitas.
 **3D** Area super: dashboard & navbar sendiri, kelola akun admin.
 

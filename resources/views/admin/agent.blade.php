@@ -1,123 +1,102 @@
-<x-admin.admin-template>
-    @push('customCSS')
-        <x-admin.datatable-c-s-s />
-    @endpush
+<x-admin.admin-template :title="$judul">
     <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Data Agen Property</h5>
-                </div>
-                <div class="card-body">
-                    <table id="alternative-pagination"
-                           class="table nowrap dt-responsive align-middle table-hover table-bordered"
-                           style="width:100%">
-                        <thead>
-                        <tr>
-                            <th class="text-center">No.</th>
-                            <th class="text-center">Agen ID</th>
-                            <th class="text-center">Nama</th>
-                            <th class="text-center">Email</th>
-                            <th class="text-center">Jenis Akun</th>
-                            <th class="text-center">Phone</th>
-                            <th class="text-center">Alamat</th>
-                            <th class="text-center">Kecamatan</th>
-                            <th class="text-center">Tanggal Bergabung</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">Kelola Agen</h4>
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{{ route('adm.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Agen</li>
+                    </ol>
                 </div>
             </div>
         </div>
     </div>
-        <!-- START: Modal DETAIL KECAMATAN-->
-        <div class="modal fade" id="modalKecamatan" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
 
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">DETAIL KECAMATAN <span class="text-success" id="kecx"></span></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row mt-2">
-                                <div class="col-md-12">
-                                    <table class="table table-striped">
-                                        <tr>
-                                            <td>KABUPATEN</td>
-                                            <td> : </td>
-                                            <td><span id="kabx"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>PROVINSI</td>
-                                            <td> : </td>
-                                            <td><span id="provx"></span></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                </div>
+    @include('admin.partials.alert')
+
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <ul class="nav nav-tabs-custom card-header-tabs border-bottom-0 flex-grow-1">
+                    @foreach(\App\Http\Controllers\Admin\Master\AgentController::TAB as $key => $label)
+                        <li class="nav-item">
+                            <a class="nav-link @if($key === $tab) active fw-semibold @endif" href="{{ route('adm.agent', ['tab' => $key]) }}">
+                                {{ $label }}
+                                <span class="badge bg-{{ ['aktif' => 'success', 'suspend' => 'danger', 'terhapus' => 'secondary'][$key] }} align-middle ms-1">{{ $jumlahTab[$key] }}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+                <form method="GET" action="{{ route('adm.agent') }}" class="d-flex gap-2">
+                    <input type="hidden" name="tab" value="{{ $tab }}">
+                    <input type="text" name="q" value="{{ $kata }}" class="form-control form-control-sm" placeholder="Nama, email, atau telepon">
+                    <button type="submit" class="btn btn-sm btn-primary">Cari</button>
+                </form>
             </div>
         </div>
-        <!-- END: Modal DETAIL KECAMATAN-->
-    @push('customJS')
-        <x-admin.datatable-j-s />
-        <script>
-            let base_url = "{{route('adm.agent')}}";
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-middle table-nowrap mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Agen</th>
+                        <th>Telepon</th>
+                        <th>Wilayah</th>
+                        <th class="text-center">Listing</th>
+                        <th>Bergabung</th>
+                        <th class="text-end">Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($dataAgents as $agent)
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="{{ $agent->fotoUrl() }}" alt="" class="rounded-circle" style="width:36px;height:36px;object-fit:cover"
+                                         onerror="this.onerror=null;this.src='{{ asset(\App\Models\Agent::FOTO_DEFAULT) }}'">
+                                    <div>
+                                        <a href="{{ route('adm.agent.show', $agent) }}" class="fw-medium">{{ $agent->hasUser->name ?? '(akun tidak ditemukan)' }}</a>
+                                        <div class="text-muted small">{{ $agent->hasUser->email ?? '-' }}</div>
+                                    </div>
+                                </div>
+                                @if($agent->isSuspend && $agent->alasan_suspend)
+                                    <div class="text-danger small text-wrap mt-1" style="max-width: 300px;">Suspend: {{ \Illuminate\Support\Str::limit($agent->alasan_suspend, 70) }}</div>
+                                @endif
+                            </td>
+                            <td>{{ $agent->phone ?: '-' }}</td>
+                            <td class="text-wrap" style="min-width: 150px;">
+                                {{ $agent->kecamatan ? $agent->kecamatan->name.', '.($agent->kecamatan->kabupaten->name ?? '') : '-' }}
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-success" title="Tayang">{{ $agent->tayang_count }}</span>
+                                <span class="badge bg-warning" title="Menunggu">{{ $agent->pending_count }}</span>
+                                <span class="badge bg-danger" title="Ditolak">{{ $agent->ditolak_count }}</span>
+                            </td>
+                            <td>{{ $agent->created_at?->format('d-m-Y') }}</td>
+                            <td class="text-end">
+                                <a href="{{ route('adm.agent.show', $agent) }}" class="btn btn-sm btn-primary">Detail</a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                {{ $kata ? 'Tidak ada agen yang cocok dengan "'.$kata.'".' : 'Tidak ada agen di tab ini.' }}
+                            </td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-muted small mt-2 mb-0">
+                Kolom listing: <span class="badge bg-success">tayang</span> <span class="badge bg-warning">menunggu</span> <span class="badge bg-danger">ditolak</span>
+            </p>
 
-            /** saat tombol kecamatan di klik */
-            $(document).on("click", ".open-kecamatan", function (e) {
-                e.preventDefault();
-                let fkab = $(this).data('kabupaten');
-                let fprov = $(this).data('provinsi');
-                let fkec = $(this).data('kecamatan');
-                $('#kabx').text(fkab);
-                $('#provx').text(fprov);
-                $('#kecx').text(fkec);
-            })
-
-            document.addEventListener("DOMContentLoaded", function() {
-                new DataTable("#alternative-pagination", {
-                    pagingType: "full_numbers",
-                    ajax: {
-                        type: 'GET',
-                        url: base_url,
-                        async: true,
-                    },
-                    language: {
-                        processing: "Loading",
-                    },
-                    columns: [
-                        {
-                            data: 'index',
-                            class: 'text-center',
-                            defaultContent: '',
-                            orderable: false,
-                            searchable: false,
-                            width: '5%',
-                            render: function (data, type, row, meta) {
-                                return meta.row + meta.settings._iDisplayStart + 1; //auto increment
-                            }
-                        },
-                        {data: 'agentID', class: 'text-center'},
-                        {data: 'name', class: 'text-center'},
-                        {data: 'email', class: 'text-center'},
-                        {data: 'isPremium', class: 'text-center'},
-                        {data: 'phone', class: 'text-center'},
-                        {data: 'alamat', class: 'text-center'},
-                        {data: 'kecamatan', class: 'text-center'},
-                        {data: 'created_at', class: 'text-center'},
-                        {data: 'action', class: 'text-center', orderable: false},
-                    ],
-                    "bDestroy": true
-
-                })
-            });
-        </script>
-    @endpush
+            @if($dataAgents->hasPages())
+                <div class="d-flex justify-content-end mt-3">
+                    {{ $dataAgents->links() }}
+                </div>
+            @endif
+        </div>
+    </div>
 </x-admin.admin-template>

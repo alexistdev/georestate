@@ -28,7 +28,7 @@
                          :link="route('adm.agent')" :catatan="$agenSuspend ? $agenSuspend.' agen disuspend' : null" />
         </div>
         <div class="col-xxl-2 col-lg-4 col-sm-6">
-            <x-stat-card label="Pencari Properti" :nilai="$jumlahUser" ikon="ri-group-line" warna="info" />
+            <x-stat-card label="Pencari Properti" :nilai="$jumlahUser" ikon="ri-group-line" warna="info" :link="route('adm.user')" />
         </div>
         <div class="col-xxl-2 col-lg-4 col-sm-6">
             <x-stat-card label="Pesan Belum Dibaca" :nilai="$pesanBaru" ikon="ri-mail-unread-line" warna="secondary"

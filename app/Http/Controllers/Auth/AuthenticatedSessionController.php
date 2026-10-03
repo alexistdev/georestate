@@ -29,14 +29,19 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        if (Auth::user()->roleEnum() === null) {
+        $user = Auth::user();
+        $pesanTolak = match (true) {
+            $user->roleEnum() === null => 'Akun Anda tidak memiliki role yang valid. Hubungi administrator.',
+            (bool) $user->hasAgent?->isSuspend => $user->hasAgent->pesanSuspend(),
+            default => null,
+        };
+
+        if ($pesanTolak !== null) {
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            throw ValidationException::withMessages([
-                'email' => 'Akun Anda tidak memiliki role yang valid. Hubungi administrator.',
-            ]);
+            throw ValidationException::withMessages(['email' => $pesanTolak]);
         }
 
         $request->session()->regenerate();
